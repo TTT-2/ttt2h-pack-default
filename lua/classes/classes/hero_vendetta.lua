@@ -79,7 +79,7 @@ if SERVER then
 		if victim.vendetta and not victim.reviving then
 			victim.vendetta = nil
 
-			if victim:HasCrystal() then
+			if not GetGlobalBool("ttt2_heroes") or victim:HasCrystal() then
 				victim:ChatPrint("[TTTH][Vendetta] Fähigkeit aktiviert...")
 
 				-- revive after 5s
@@ -97,11 +97,11 @@ if SERVER then
 					end
 				end,
 				function(p) -- onCheck
-					return p:HasCrystal()
+					return not GetGlobalBool("ttt2_heroes") or p:HasCrystal()
 				end,
 				false, true, -- there need to be your corpse and you don't prevent win
 				function(p) -- onFail
-					if not p:HasCrystal() then
+					if GetGlobalBool("ttt2_heroes") and p:HasCrystal() then
 						p:ChatPrint("[TTTH][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
 					end
 				end)
