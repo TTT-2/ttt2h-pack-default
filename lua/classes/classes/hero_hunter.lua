@@ -26,7 +26,7 @@ CLASS.AddHero("HUNTER", {
 		}
 })
 
-hook.Add("OnPlayerHitGround", "TTTHHunterHitGround", function(ply)
+hook.Add("OnPlayerHitGround", "TTTCHunterHitGround", function(ply)
 	if ply.classHunting then
 		ply.classHunting = nil
 

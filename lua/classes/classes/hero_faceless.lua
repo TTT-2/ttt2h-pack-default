@@ -1,6 +1,6 @@
 --[[
 if SERVER then
-	util.AddNetworkString("TTTHFacelessCooldown")
+	util.AddNetworkString("TTTCFacelessCooldown")
 end
 
 local extraCooldown = 60
@@ -23,7 +23,7 @@ local function FacelessFunction(ply)
 			target:SetHeroCooldown(cd)
 			target:SetHeroCooldownTS(cdT)
 
-			net.Start("TTTHFacelessCooldown")
+			net.Start("TTTCFacelessCooldown")
 			net.Send(target)
 		end
 	else
@@ -53,7 +53,7 @@ CLASS.AddHero("FACELESS", {
 })
 
 if CLIENT then
-	net.Receive("TTTHFacelessCooldown", function(len)
+	net.Receive("TTTCFacelessCooldown", function(len)
 		local ply = LocalPlayer()
 		local cd = ply:GetHeroCooldown() + extraCooldown
 		local cdT = ply:GetHeroCooldownTS() or CurTime()

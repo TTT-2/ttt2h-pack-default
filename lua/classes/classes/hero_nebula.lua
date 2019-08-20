@@ -1,5 +1,5 @@
 if SERVER then
-	util.AddNetworkString("TTTHNebula")
+	util.AddNetworkString("TTTCNebula")
 end
 
 local function DeactivateNebula(ply)
@@ -10,13 +10,13 @@ local function DeactivateNebula(ply)
 			timer.Remove("tttc_nebula_" .. ply:EntIndex())
 		end
 
-		hook.Remove("TTTPlayerSpeedModifier", "TTTHNebulaSpeed".. ply:UniqueID())
+		hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed".. ply:UniqueID())
 
 		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
 			timer.Remove("tttc_neb_end_" .. ply:EntIndex())
 		end
 
-		net.Start("TTTHNebula")
+		net.Start("TTTCNebula")
 		net.WriteEntity(ply)
 		net.WriteBool(false)
 		net.Broadcast()
@@ -46,7 +46,7 @@ local function NebulaFunction(ply)
 			end
 		end)
 
-		hook.Add("TTTPlayerSpeedModifier", "TTTHNebulaSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
+		hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
 			if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
 
 			local pos = pl:GetPos()
@@ -57,7 +57,7 @@ local function NebulaFunction(ply)
 			end
 		end)
 
-		net.Start("TTTHNebula")
+		net.Start("TTTCNebula")
 		net.WriteEntity(ply)
 		net.WriteBool(true)
 		net.Broadcast()
@@ -81,7 +81,7 @@ CLASS.AddHero("NEBULA", {
 })
 
 if SERVER then
-	hook.Add("TTTPrepareRound", "TTTHDeactivateNebula", function()
+	hook.Add("TTTPrepareRound", "TTTCDeactivateNebula", function()
 		local plys = player.GetAll()
 
 		for _, v in ipairs(plys) do
@@ -91,7 +91,7 @@ if SERVER then
 		end
 	end)
 
-	hook.Add("TTTEndRound", "TTTHDeactivateNebula", function()
+	hook.Add("TTTEndRound", "TTTCDeactivateNebula", function()
 		local plys = player.GetAll()
 
 		for _, ply in ipairs(plys) do
@@ -106,7 +106,7 @@ else
 		Model("particle/particle_noisesphere")
 	}
 
-	net.Receive("TTTHNebula", function()
+	net.Receive("TTTCNebula", function()
 		local ply = net.ReadEntity()
 		local bool = net.ReadBool()
 

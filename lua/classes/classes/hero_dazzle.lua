@@ -16,7 +16,7 @@ local function CreateDazzleEffect(ply)
 		ply.speedrun_mul = boost * (ply.speedrun_mul or 1)
 		ply.tttc_class_speedmod = true
 
-		timer.Create("TTTHDazzleSpeedBoost_" .. ply:UniqueID(), 2, 1, function()
+		timer.Create("TTTCDazzleSpeedBoost_" .. ply:UniqueID(), 2, 1, function()
 			if IsValid(ply) and ply.tttc_class_speedmod then
 				ply:RemoveItem("item_ttt_speedrun")
 
@@ -74,10 +74,10 @@ local function CreateDazzleEffect(ply)
 end
 
 if SERVER then
-	hook.Add("TTTHUpdateHero", "TTTHDazzleReset", function(ply, old, new)
+	hook.Add("TTTCUpdateHero", "TTTCDazzleReset", function(ply, old, new)
 		if old ~= CLASS.CLASSES.DAZZLE.index then return end
 
-		local identifier = "TTTHDazzleSpeedBoost_" .. ply:UniqueID()
+		local identifier = "TTTCDazzleSpeedBoost_" .. ply:UniqueID()
 
 		if timer.Exists(identifier) then
 			if IsValid(ply) and ply.tttc_class_speedmod then

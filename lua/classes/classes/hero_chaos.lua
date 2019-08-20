@@ -1,5 +1,5 @@
 if SERVER then
-	util.AddNetworkString("TTTHChaosInvert")
+	util.AddNetworkString("TTTCChaosInvert")
 end
 
 local function ChaosActivate(ply)
@@ -12,7 +12,7 @@ local function ChaosActivate(ply)
 			end
 		end
 
-		net.Start("TTTHChaosInvert")
+		net.Start("TTTCChaosInvert")
 		net.WriteBool(true)
 		net.Send(plys)
 	end
@@ -28,7 +28,7 @@ local function ChaosDeactivate(ply)
 			end
 		end
 
-		net.Start("TTTHChaosInvert")
+		net.Start("TTTCChaosInvert")
 		net.WriteBool(false)
 		net.Send(plys)
 	end
@@ -83,7 +83,7 @@ if CLIENT then
 		end
 	end)
 
-	net.Receive("TTTHChaosInvert", function()
+	net.Receive("TTTCChaosInvert", function()
 		if net.ReadBool() then
 			LocalPlayer().classChaos_inverted = true
 		else

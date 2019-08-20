@@ -1,7 +1,7 @@
 if SERVER then
 	resource.AddFile("sound/classes/vendetta.wav")
 
-	util.AddNetworkString("TTTHVendettaTarget")
+	util.AddNetworkString("TTTCVendettaTarget")
 end
 
 util.PrecacheSound("classes/vendetta.wav")
@@ -25,7 +25,7 @@ CLASS.AddHero("VENDETTA", {
 		}
 })
 
-hook.Add("TTTHUpdateHero", "UpdateVendetta", function(ply, old, new)
+hook.Add("TTTCUpdateHero", "UpdateVendetta", function(ply, old, new)
 	local vendetta = CLASS.CLASSES.VENDETTA.index
 	if new == vendetta then
 		ply.vendetta = true
@@ -56,7 +56,7 @@ end)
 
 if SERVER then
 	local function SendVendettaTarget(victim, target)
-		net.Start("TTTHVendettaTarget")
+		net.Start("TTTCVendettaTarget")
 		net.WriteEntity(target)
 		net.Send(victim)
 	end
@@ -80,7 +80,7 @@ if SERVER then
 			victim.vendetta = nil
 
 			if not GetGlobalBool("ttt2_heroes") or victim:HasCrystal() then
-				victim:ChatPrint("[TTTH][Vendetta] Fähigkeit aktiviert...")
+				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
 
 				-- revive after 5s
 				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
@@ -102,18 +102,18 @@ if SERVER then
 				false, true, -- there need to be your corpse and you don't prevent win
 				function(p) -- onFail
 					if GetGlobalBool("ttt2_heroes") and p:HasCrystal() then
-						p:ChatPrint("[TTTH][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
+						p:ChatPrint("[TTTC][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
 					end
 				end)
 			else
-				victim:ChatPrint("[TTTH][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
+				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
 			end
 		elseif victim.vendetta and victim.reviving then
-			victim:ChatPrint("[TTTH][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
+			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
 		end
 	end)
 
-	hook.Add("PlayerCanPickupWeapon", "TTTHVendettaPickupWeapon", function(ply, wep)
+	hook.Add("PlayerCanPickupWeapon", "TTTCVendettaPickupWeapon", function(ply, wep)
 		if ply.vendettaRevived and WEPS.GetClass(wep) ~= "weapon_ttt_bloodyknife" then
 			return false
 		end
@@ -137,7 +137,7 @@ if SERVER then
 		end
 	end)
 else
-	net.Receive("TTTHVendettaTarget", function(len)
+	net.Receive("TTTCVendettaTarget", function(len)
 		LocalPlayer().vendettaTarget = net.ReadEntity()
 	end)
 

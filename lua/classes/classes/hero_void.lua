@@ -1,7 +1,7 @@
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/dark_overlay.vmt")
 
-	util.AddNetworkString("TTTHVoidOverlay")
+	util.AddNetworkString("TTTCVoidOverlay")
 end
 
 local function ActivateVoid(ply)
@@ -16,7 +16,7 @@ local function ActivateVoid(ply)
 			end
 		end
 
-		net.Start("TTTHVoidOverlay")
+		net.Start("TTTCVoidOverlay")
 		net.WriteBool(true)
 		net.Send(plys)
 	end
@@ -32,7 +32,7 @@ local function DeactivateVoid(ply)
 			end
 		end
 
-		net.Start("TTTHVoidOverlay")
+		net.Start("TTTCVoidOverlay")
 		net.WriteBool(false)
 		net.Send(plys)
 	end
@@ -52,7 +52,7 @@ CLASS.AddHero("VOID", {
 })
 
 if CLIENT then
-	net.Receive("TTTHVoidOverlay", function()
+	net.Receive("TTTCVoidOverlay", function()
 		if net.ReadBool() then
 			LocalPlayer().tttcoverlay = true
 		else
@@ -60,7 +60,7 @@ if CLIENT then
 		end
 	end)
 
-	hook.Add("RenderScreenspaceEffects", "TTTHVoidOverlay", function()
+	hook.Add("RenderScreenspaceEffects", "TTTCVoidOverlay", function()
 		if LocalPlayer().tttcoverlay then
 
 			-- idk why this alpha is buggy as ant

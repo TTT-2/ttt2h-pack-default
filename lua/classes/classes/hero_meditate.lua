@@ -1,10 +1,10 @@
 if SERVER then
-	util.AddNetworkString("TTTHGesture")
+	util.AddNetworkString("TTTCGesture")
 end
 
 local function ActivateMeditate(ply)
 	if SERVER then
-		net.Start("TTTHGesture")
+		net.Start("TTTCGesture")
 		net.WriteUInt(ACT_GMOD_TAUNT_CHEER, 32)
 		net.WriteEntity(ply)
 		net.Broadcast()
@@ -53,7 +53,7 @@ CLASS.AddHero("MEDITATE", {
 })
 
 if CLIENT then
-	net.Receive("TTTHGesture", function()
+	net.Receive("TTTCGesture", function()
 		local gesture = net.ReadUInt(32)
 		local target = net.ReadEntity()
 

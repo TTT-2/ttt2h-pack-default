@@ -42,7 +42,7 @@ CLASS.AddHero("ORIGIN", {
 })
 
 if SERVER then
-	hook.Add("TTTPrepareRound", "TTTHOriginFindSpawn", function()
+	hook.Add("TTTPrepareRound", "TTTCOriginFindSpawn", function()
 		table.Empty(backup_spawns)
 
 		local plys = player.GetAll()
