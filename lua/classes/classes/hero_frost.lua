@@ -1,5 +1,5 @@
 if SERVER then
-	resource.AddFile("materials/vgui/ttt/heroes/frost_overlay.vmt")
+	resource.AddFile("materials/vgui/ttt/classes/frost_overlay.vmt")
 
 	util.AddNetworkString("TTTHFrost")
 end
@@ -126,7 +126,7 @@ if CLIENT then
 					end
 
 					if selected then
-						DrawMaterialOverlay("vgui/ttt/heroes/frost_overlay", 0)
+						DrawMaterialOverlay("vgui/ttt/classes/frost_overlay", 0)
 					end
 				end
 			end)

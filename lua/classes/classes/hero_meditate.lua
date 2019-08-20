@@ -20,7 +20,7 @@ local function ActivateMeditate(ply)
 		ply:SetColor(col)
 		ply:SetRenderMode(RENDERMODE_TRANSALPHA)
 
-		timer.Create("hero_gesture_" .. ply:UniqueID(), 1, 0, function()
+		timer.Create("class_gesture_" .. ply:UniqueID(), 1, 0, function()
 			if IsValid(ply) then
 				local health = ply:Health()
 
@@ -37,7 +37,7 @@ local function DeactivateMeditate(ply)
 		ply:SetColor(ply.meditateCol)
 		ply:SetRenderMode(ply.meditateColMode)
 
-		timer.Remove("hero_gesture_" .. ply:UniqueID())
+		timer.Remove("class_gesture_" .. ply:UniqueID())
 	end
 end
 

@@ -15,13 +15,13 @@ local function PatronusActivate(ply)
 		undo.AddEntity(ent)
 		undo.Finish()
 
-		ply.heroPatronus_shield = ent
+		ply.classPatronus_shield = ent
 	end
 end
 
 local function PatronusDeactivate(ply)
-	if SERVER and IsValid(ply.heroPatronus_shield) then
-		ply.heroPatronus_shield:Remove("Shield")
+	if SERVER and IsValid(ply.classPatronus_shield) then
+		ply.classPatronus_shield:Remove("Shield")
 	end
 end
 

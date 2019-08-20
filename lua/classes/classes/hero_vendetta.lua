@@ -1,20 +1,20 @@
 if SERVER then
-	resource.AddFile("sound/heroes/vendetta.wav")
+	resource.AddFile("sound/classes/vendetta.wav")
 
 	util.AddNetworkString("TTTHVendettaTarget")
 end
 
-util.PrecacheSound("heroes/vendetta.wav")
+util.PrecacheSound("classes/vendetta.wav")
 
 -- REWORK
 -- maybe use this player model "models/player/charple.mdl"
 
 sound.Add({
-		name = "hero_vendetta",
+		name = "class_vendetta",
 		channel = CHAN_STATIC,
 		volume = 0.70,
 		level = 70,
-		sound = "heroes/vendetta.wav"
+		sound = "classes/vendetta.wav"
 })
 
 CLASS.AddHero("VENDETTA", {
@@ -84,7 +84,7 @@ if SERVER then
 
 				-- revive after 5s
 				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
-					p:EmitSound("hero_vendetta", 70)
+					p:EmitSound("class_vendetta", 70)
 					p:StripWeapons()
 					p:Give("weapon_ttt_bloodyknife")
 
