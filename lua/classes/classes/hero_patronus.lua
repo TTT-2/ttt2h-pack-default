@@ -25,7 +25,7 @@ local function PatronusDeactivate(ply)
 	end
 end
 
-HEROES.AddHero("PATRONUS", {
+CLASS.AddHero("PATRONUS", {
 		color = Color(191, 215, 252, 255),
 		onActivate = PatronusActivate,
 		onDeactivate = PatronusDeactivate,

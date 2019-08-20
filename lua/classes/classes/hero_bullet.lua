@@ -1,6 +1,6 @@
 local bulletActiveSpeedMul = 2
 
-HEROES.AddHero("BULLET", {
+CLASS.AddHero("BULLET", {
 		color = Color(204, 39, 136, 255),
 		onActivate = function(ply)
 			if SERVER then

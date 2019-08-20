@@ -21,7 +21,7 @@ local function CanGrab(ply)
 	end
 end
 
-HEROES.AddHero("SWIFT", {
+CLASS.AddHero("SWIFT", {
 		color = Color(0, 152, 216, 255),
 		passiveItems = {
 			"item_ttt_climb"
@@ -68,7 +68,7 @@ end)
 local speedup = 10
 
 hook.Add("TTTHUpdateHero", "TTTHSwiftSprintMod", function(ply, old, new)
-	local i = HEROES.HEROES.SWIFT.index
+	local i = CLASS.CLASSES.SWIFT.index
 
 	if new == i then
 		print("test")

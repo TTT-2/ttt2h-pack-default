@@ -75,7 +75,7 @@ end
 
 if SERVER then
 	hook.Add("TTTHUpdateHero", "TTTHDazzleReset", function(ply, old, new)
-		if old ~= HEROES.HEROES.DAZZLE.index then return end
+		if old ~= CLASS.CLASSES.DAZZLE.index then return end
 
 		local identifier = "TTTHDazzleSpeedBoost_" .. ply:UniqueID()
 
@@ -91,7 +91,7 @@ if SERVER then
 	end)
 end
 
-HEROES.AddHero("DAZZLE", {
+CLASS.AddHero("DAZZLE", {
 		color = Color(255, 242, 109, 255),
 		onDeactivate = CreateDazzleEffect,
 		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead

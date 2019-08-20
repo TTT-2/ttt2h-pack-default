@@ -17,7 +17,7 @@ sound.Add({
 		sound = "heroes/vendetta.wav"
 })
 
-HEROES.AddHero("VENDETTA", {
+CLASS.AddHero("VENDETTA", {
 		color = Color(99, 1, 3, 255),
 		deactivated = true,
 		langs = {
@@ -26,7 +26,7 @@ HEROES.AddHero("VENDETTA", {
 })
 
 hook.Add("TTTHUpdateHero", "UpdateVendetta", function(ply, old, new)
-	local vendetta = HEROES.HEROES.VENDETTA.index
+	local vendetta = CLASS.CLASSES.VENDETTA.index
 	if new == vendetta then
 		ply.vendetta = true
 	elseif old == vendetta then

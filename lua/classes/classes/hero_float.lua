@@ -14,7 +14,7 @@ local function FloatFunction(ply)
 	end
 end
 
-HEROES.AddHero("FLOAT", {
+CLASS.AddHero("FLOAT", {
 		color = Color(35, 44, 160, 255),
 		passiveItems = {
 			"item_ttt_glider"

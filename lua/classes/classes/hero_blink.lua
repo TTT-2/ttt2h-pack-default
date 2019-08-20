@@ -1,4 +1,4 @@
-HEROES.AddHero("BLINK", { -- should be called in InitializeHook to be able to use items
+CLASS.AddHero("BLINK", { -- should be called in InitializeHook to be able to use items
 		color = Color(24, 68, 57, 255),
 		passiveItems = {
 			"item_ttt_nofalldmg"

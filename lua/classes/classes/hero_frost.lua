@@ -59,7 +59,7 @@ local function DeactivateFrost(ply)
 	end
 end
 
-HEROES.AddHero("FROST", {
+CLASS.AddHero("FROST", {
 		color = Color(0, 156, 156, 255),
 		onPrepareActivation = PrepareFrostActivation,
 		onFinishPreparingActivation = FinishFrostPreparing,
@@ -113,7 +113,7 @@ if CLIENT then
 			end)
 
 			hook.Add("RenderScreenspaceEffects", "TTTHFrostOverlay", function()
-				if client.ttthfrostindicator and not client:IsHero(HEROES.HEROES.FROST.index) then
+				if client.ttthfrostindicator and not client:IsHero(CLASS.CLASSES.FROST.index) then
 					local entities = ents.FindInSphere(pos, frostRad)
 					local selected = false
 

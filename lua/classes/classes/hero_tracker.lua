@@ -1,4 +1,4 @@
-HEROES.AddHero("TRACKER", {
+CLASS.AddHero("TRACKER", {
 		color = Color(71, 167, 64, 255),
 		items = {
 			"item_ttt_tracker"

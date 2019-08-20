@@ -1,4 +1,4 @@
-HEROES.AddHero("MIRROR", {
+CLASS.AddHero("MIRROR", {
 		color = Color(71, 80, 51, 255),
 		items = {
 			"item_ttt_reflectdmg"
