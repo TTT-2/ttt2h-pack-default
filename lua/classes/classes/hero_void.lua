@@ -54,14 +54,14 @@ CLASS.AddHero("VOID", {
 if CLIENT then
 	net.Receive("TTTHVoidOverlay", function()
 		if net.ReadBool() then
-			LocalPlayer().ttthoverlay = true
+			LocalPlayer().tttcoverlay = true
 		else
-			LocalPlayer().ttthoverlay = nil
+			LocalPlayer().tttcoverlay = nil
 		end
 	end)
 
 	hook.Add("RenderScreenspaceEffects", "TTTHVoidOverlay", function()
-		if LocalPlayer().ttthoverlay then
+		if LocalPlayer().tttcoverlay then
 
 			-- idk why this alpha is buggy as ant
 			DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
@@ -71,7 +71,7 @@ if CLIENT then
 	end)
 
 	hook.Add("HUDShouldDraw", "TTT2HeroesVoidHideHUD", function(name)
-		if name == "TTTTargetID" and LocalPlayer().ttthoverlay then
+		if name == "TTTTargetID" and LocalPlayer().tttcoverlay then
 			return false
 		end
 	end)

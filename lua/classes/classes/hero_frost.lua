@@ -80,14 +80,14 @@ if CLIENT then
 		local client = LocalPlayer()
 
 		if net.ReadBit() == 1 then
-			client.ttthfrostindicator = true
+			client.tttcfrostindicator = true
 
 			local pos = net.ReadVector()
 
 			hook.Add("PostDrawTranslucentRenderables", "TTTHFrost", function(bDepth, bSkybox)
 				if bSkybox then return end
 
-				if client.ttthfrostindicator then
+				if client.tttcfrostindicator then
 					local entities = ents.FindInSphere(pos, frostRad)
 					local selected = false
 
@@ -113,7 +113,7 @@ if CLIENT then
 			end)
 
 			hook.Add("RenderScreenspaceEffects", "TTTHFrostOverlay", function()
-				if client.ttthfrostindicator and not client:IsHero(CLASS.CLASSES.FROST.index) then
+				if client.tttcfrostindicator and not client:IsHero(CLASS.CLASSES.FROST.index) then
 					local entities = ents.FindInSphere(pos, frostRad)
 					local selected = false
 
@@ -133,7 +133,7 @@ if CLIENT then
 
 			sound.Play("ambient/wind/windgust_strong.wav", pos)
 		else
-			client.ttthfrostindicator = nil
+			client.tttcfrostindicator = nil
 
 			hook.Remove("PostDrawTranslucentRenderables", "TTTHFrost")
 			hook.Remove("RenderScreenspaceEffects", "TTTHFrostOverlay")

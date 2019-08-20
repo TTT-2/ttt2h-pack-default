@@ -6,14 +6,14 @@ local function DeactivateNebula(ply)
 	if SERVER then
 		ply.classes_nebula = nil
 
-		if timer.Exists("ttth_nebula_" .. ply:EntIndex()) then
-			timer.Remove("ttth_nebula_" .. ply:EntIndex())
+		if timer.Exists("tttc_nebula_" .. ply:EntIndex()) then
+			timer.Remove("tttc_nebula_" .. ply:EntIndex())
 		end
 
 		hook.Remove("TTTPlayerSpeedModifier", "TTTHNebulaSpeed".. ply:UniqueID())
 
-		if timer.Exists("ttth_neb_end_" .. ply:EntIndex()) then
-			timer.Remove("ttth_neb_end_" .. ply:EntIndex())
+		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
+			timer.Remove("tttc_neb_end_" .. ply:EntIndex())
 		end
 
 		net.Start("TTTHNebula")
@@ -29,7 +29,7 @@ local function NebulaFunction(ply)
 		ply.classes_nebula_pos = ply:GetPos()
 		ply.classes_nebula_r = 320
 
-		timer.Create("ttth_nebula_" .. ply:EntIndex(), 1, 0, function()
+		timer.Create("tttc_nebula_" .. ply:EntIndex(), 1, 0, function()
 			local plys = player.GetAll()
 
 			for _, v in ipairs(plys) do
@@ -62,7 +62,7 @@ local function NebulaFunction(ply)
 		net.WriteBool(true)
 		net.Broadcast()
 
-		timer.Create("ttth_neb_end_" .. ply:EntIndex(), 15, 1, function()
+		timer.Create("tttc_neb_end_" .. ply:EntIndex(), 15, 1, function()
 			if IsValid(ply) then
 				DeactivateNebula(ply)
 			end
