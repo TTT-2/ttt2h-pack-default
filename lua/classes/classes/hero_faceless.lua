@@ -12,16 +12,16 @@ local function FacelessFunction(ply)
 
 	if not trace.HitWorld and IsValid(target) and target:IsPlayer() and target:Alive() then
 		if SERVER then
-			local phr = ply:GetHero()
-			local thr = target:GetHero()
-			local cd = target:GetHeroCooldown() + extraCooldown
-			local cdT = target:GetHeroCooldownTS() or CurTime()
+			local phr = ply:GetCustomClass()
+			local thr = target:GetCustomClass()
+			local cd = target:GetClassCooldown() + extraCooldown
+			local cdT = target:SetClassCooldownTS() or CurTime()
 
-			ply:UpdateHero(thr)
+			ply:UpdateClass(thr)
 
-			target:UpdateHero(phr)
-			target:SetHeroCooldown(cd)
-			target:SetHeroCooldownTS(cdT)
+			target:UpdateClass(phr)
+			target:SetClassCooldown(cd)
+			target:SetClassCooldownTS(cdT)
 
 			net.Start("TTTCFacelessCooldown")
 			net.Send(target)
@@ -55,11 +55,11 @@ CLASS.AddClass("FACELESS", {
 if CLIENT then
 	net.Receive("TTTCFacelessCooldown", function(len)
 		local ply = LocalPlayer()
-		local cd = ply:GetHeroCooldown() + extraCooldown
-		local cdT = ply:GetHeroCooldownTS() or CurTime()
+		local cd = ply:GetClassCooldown() + extraCooldown
+		local cdT = ply:SetClassCooldownTS() or CurTime()
 
-		ply:SetHeroCooldown(cd)
-		ply:SetHeroCooldownTS(cdT)
+		ply:SetClassCooldown(cd)
+		ply:SetClassCooldownTS(cdT)
 	end)
 end
 ]]--

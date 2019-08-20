@@ -113,7 +113,7 @@ if CLIENT then
 			end)
 
 			hook.Add("RenderScreenspaceEffects", "TTTCFrostOverlay", function()
-				if client.tttcfrostindicator and not client:IsHero(CLASS.CLASSES.FROST.index) then
+				if client.tttcfrostindicator and not client:HasClass(CLASS.CLASSES.FROST.index) then
 					local entities = ents.FindInSphere(pos, frostRad)
 					local selected = false
 

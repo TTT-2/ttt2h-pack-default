@@ -67,7 +67,7 @@ end)
 
 local speedup = 10
 
-hook.Add("TTTCUpdateHero", "TTTCSwiftSprintMod", function(ply, old, new)
+hook.Add("TTTCUpdateClass", "TTTCSwiftSprintMod", function(ply, old, new)
 	local i = CLASS.CLASSES.SWIFT.index
 
 	if new == i then

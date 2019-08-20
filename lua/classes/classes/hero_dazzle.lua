@@ -74,7 +74,7 @@ local function CreateDazzleEffect(ply)
 end
 
 if SERVER then
-	hook.Add("TTTCUpdateHero", "TTTCDazzleReset", function(ply, old, new)
+	hook.Add("TTTCUpdateClass", "TTTCDazzleReset", function(ply, old, new)
 		if old ~= CLASS.CLASSES.DAZZLE.index then return end
 
 		local identifier = "TTTCDazzleSpeedBoost_" .. ply:UniqueID()

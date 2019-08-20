@@ -34,7 +34,7 @@ CLASS.AddClass("PREDATOR", {
 })
 
 if CLIENT then
-	hook.Add("TTTCUpdateHero", "UpdatePredator", function(ply, old, new)
+	hook.Add("TTTCUpdateClass", "UpdatePredator", function(ply, old, new)
 		if old == CLASS.CLASSES.PREDATOR.index then
 			ply.predatorTarget = nil
 		end

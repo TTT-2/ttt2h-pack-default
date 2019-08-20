@@ -25,7 +25,7 @@ CLASS.AddClass("VENDETTA", {
 		}
 })
 
-hook.Add("TTTCUpdateHero", "UpdateVendetta", function(ply, old, new)
+hook.Add("TTTCUpdateClass", "UpdateVendetta", function(ply, old, new)
 	local vendetta = CLASS.CLASSES.VENDETTA.index
 	if new == vendetta then
 		ply.vendetta = true
