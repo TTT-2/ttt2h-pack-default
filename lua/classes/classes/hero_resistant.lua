@@ -1,4 +1,4 @@
-CLASS.AddHero("RESISTANT", {
+CLASS.AddClass("RESISTANT", {
 		color = Color(103, 73, 8, 255),
 		items = {
 			"item_ttt_blockdmg"

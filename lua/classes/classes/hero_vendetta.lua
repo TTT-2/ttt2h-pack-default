@@ -17,7 +17,7 @@ sound.Add({
 		sound = "classes/vendetta.wav"
 })
 
-CLASS.AddHero("VENDETTA", {
+CLASS.AddClass("VENDETTA", {
 		color = Color(99, 1, 3, 255),
 		deactivated = true,
 		langs = {

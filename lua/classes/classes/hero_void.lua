@@ -38,7 +38,7 @@ local function DeactivateVoid(ply)
 	end
 end
 
-CLASS.AddHero("VOID", {
+CLASS.AddClass("VOID", {
 		color = Color(61, 64, 75, 255),
 		onActivate = ActivateVoid,
 		onDeactivate = DeactivateVoid,

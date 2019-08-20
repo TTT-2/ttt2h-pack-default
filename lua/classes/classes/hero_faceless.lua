@@ -40,7 +40,7 @@ local function ChargeFaceless(ply)
 	end
 end
 
-CLASS.AddHero("FACELESS", {
+CLASS.AddClass("FACELESS", {
 		color = Color(0, 0, 0, 255),
 		onDeactivate = FacelessFunction,
 		onCharge = ChargeFaceless,

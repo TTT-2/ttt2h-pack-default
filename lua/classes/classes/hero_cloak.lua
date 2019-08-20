@@ -2,7 +2,7 @@ if SERVER then
 	AddCSLuaFile("gamemodes/terrortown/entities/effects/druncloak.lua")
 end
 
-CLASS.AddHero("CLOAK", {
+CLASS.AddClass("CLOAK", {
 		color = Color(109, 64, 138, 255),
 		onActivate = function(ply)
 			if SERVER then

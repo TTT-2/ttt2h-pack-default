@@ -59,7 +59,7 @@ local function DeactivateFrost(ply)
 	end
 end
 
-CLASS.AddHero("FROST", {
+CLASS.AddClass("FROST", {
 		color = Color(0, 156, 156, 255),
 		onPrepareActivation = PrepareFrostActivation,
 		onFinishPreparingActivation = FinishFrostPreparing,

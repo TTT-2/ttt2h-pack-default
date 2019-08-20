@@ -91,7 +91,7 @@ if SERVER then
 	end)
 end
 
-CLASS.AddHero("DAZZLE", {
+CLASS.AddClass("DAZZLE", {
 		color = Color(255, 242, 109, 255),
 		onDeactivate = CreateDazzleEffect,
 		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead

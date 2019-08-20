@@ -30,7 +30,7 @@ local function OriginFunction(ply)
 	end
 end
 
-CLASS.AddHero("ORIGIN", {
+CLASS.AddClass("ORIGIN", {
 		color = Color(255, 156, 0, 255),
 		onDeactivate = OriginFunction,
 		time = 0,

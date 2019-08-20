@@ -70,7 +70,7 @@ local function NebulaFunction(ply)
 	end
 end
 
-CLASS.AddHero("NEBULA", {
+CLASS.AddClass("NEBULA", {
 		color = Color(75, 139, 157, 255),
 		onDeactivate = NebulaFunction,
 		time = 0,

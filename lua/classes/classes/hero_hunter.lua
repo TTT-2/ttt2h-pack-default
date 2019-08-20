@@ -13,7 +13,7 @@ local function HunterFunction(ply)
 	end
 end
 
-CLASS.AddHero("HUNTER", {
+CLASS.AddClass("HUNTER", {
 		color = Color(137, 72, 6, 255),
 		passiveItems = {
 			"item_ttt_nofalldmg"

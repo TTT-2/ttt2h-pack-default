@@ -34,7 +34,7 @@ local function ChaosDeactivate(ply)
 	end
 end
 
-CLASS.AddHero("CHAOS", {
+CLASS.AddClass("CHAOS", {
 		color = Color(255, 76, 0, 255),
 		onActivate = ChaosActivate,
 		onDeactivate = ChaosDeactivate,

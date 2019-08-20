@@ -21,7 +21,7 @@ local function ChargePredator(ply)
 	end
 end
 
-CLASS.AddHero("PREDATOR", {
+CLASS.AddClass("PREDATOR", {
 		color = Color(56, 40, 63, 255),
 		onDeactivate = PredatorFunction,
 		--onCharge = ChargePredator,

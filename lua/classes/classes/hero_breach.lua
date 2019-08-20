@@ -1,4 +1,4 @@
-CLASS.AddHero("BREACH", {
+CLASS.AddClass("BREACH", {
 		color = Color(200, 70, 35, 255),
 		passiveItems = {
 			"item_ttt_armor"

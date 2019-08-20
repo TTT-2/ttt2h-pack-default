@@ -41,7 +41,7 @@ local function DeactivateMeditate(ply)
 	end
 end
 
-CLASS.AddHero("MEDITATE", {
+CLASS.AddClass("MEDITATE", {
 		color = Color(160, 204, 66, 255),
 		onActivate = ActivateMeditate,
 		onDeactivate = DeactivateMeditate,

@@ -21,7 +21,7 @@ local function CanGrab(ply)
 	end
 end
 
-CLASS.AddHero("SWIFT", {
+CLASS.AddClass("SWIFT", {
 		color = Color(0, 152, 216, 255),
 		passiveItems = {
 			"item_ttt_climb"
