@@ -15,7 +15,7 @@ local function FacelessFunction(ply)
 			local phr = ply:GetCustomClass()
 			local thr = target:GetCustomClass()
 			local cd = target:GetClassCooldown() + extraCooldown
-			local cdT = target:SetClassCooldownTS() or CurTime()
+			local cdT = target:GetClassCooldownTS() or CurTime()
 
 			ply:UpdateClass(thr)
 
@@ -56,7 +56,7 @@ if CLIENT then
 	net.Receive("TTTCFacelessCooldown", function(len)
 		local ply = LocalPlayer()
 		local cd = ply:GetClassCooldown() + extraCooldown
-		local cdT = ply:SetClassCooldownTS() or CurTime()
+		local cdT = ply:GetClassCooldownTS() or CurTime()
 
 		ply:SetClassCooldown(cd)
 		ply:SetClassCooldownTS(cdT)
