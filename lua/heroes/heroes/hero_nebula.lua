@@ -1,5 +1,5 @@
 if SERVER then
-	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_nebula.png")
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_heal.png")
 	
 	util.AddNetworkString("TTTHNebula")
 end
@@ -8,8 +8,8 @@ end
 if CLIENT then
 	hook.Add("Initialize", "ttt2h_status_nebula_init", function() 
 		STATUS:RegisterStatus("ttt2h_status_nebula", {
-			hud = Material("vgui/ttt/heroes/status/hud_icon_nebula.png"),
-			type = "bad"
+			hud = Material("vgui/ttt/heroes/status/hud_icon_heal.png"),
+			type = "good"
 		})
 	end)
 end
