@@ -1,5 +1,17 @@
 if SERVER then
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_nebula.png")
+	
 	util.AddNetworkString("TTTHNebula")
+end
+
+-- register status effect icon
+if CLIENT then
+	hook.Add("Initialize", "ttt2h_status_nebula_init", function() 
+		STATUS:RegisterStatus("ttt2h_status_nebula", {
+			hud = Material("vgui/ttt/heroes/status/hud_icon_nebula.png"),
+			type = "bad"
+		})
+	end)
 end
 
 local function DeactivateNebula(ply)
@@ -8,6 +20,10 @@ local function DeactivateNebula(ply)
 
 		if timer.Exists("ttth_nebula_" .. ply:EntIndex()) then
 			timer.Remove("ttth_nebula_" .. ply:EntIndex())
+		end
+
+		if timer.Exists("ttth_nebula_status_" .. ply:EntIndex()) then
+			timer.Remove("ttth_nebula_status_" .. ply:EntIndex())
 		end
 
 		hook.Remove("TTTPlayerSpeedModifier", "TTTHNebulaSpeed".. ply:UniqueID())
@@ -40,6 +56,28 @@ local function NebulaFunction(ply)
 
 						if d <= v.heroes_nebula_r then
 							pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
+						end
+					end
+				end
+			end
+		end)
+
+		timer.Create("ttth_nebula_status_" .. ply:EntIndex(), 0.1, 0, function()
+			local plys = player.GetAll()
+
+			for _, v in ipairs(plys) do
+				if v.heroes_nebula_pos then
+					for _, pl in ipairs(plys) do
+						local pos = pl:GetPos()
+
+						local last_selected = v.ttthnebulaselected
+
+						v.ttthnebulaselected = pos:Distance(v.heroes_nebula_pos) <= v.heroes_nebula_r
+
+						if not last_selected and client.ttthnebulaselected then
+							STATUS:AddStatus("ttt2h_status_nebula")
+						elseif last_selected and not client.ttthnebulaselected then
+							STATUS:RemoveStatus("ttt2h_status_nebula")
 						end
 					end
 				end
@@ -162,6 +200,8 @@ else
 					ply.heroes_nebula_pos = nil
 					ply.heroes_nebula_r = nil
 				end
+
+				STATUS:RemoveStatus("ttt2h_status_nebula")
 			end
 		end
 	end)

@@ -1,7 +1,18 @@
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/frost_overlay.vmt")
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_frost.png")
 
 	util.AddNetworkString("TTTHFrost")
+end
+
+-- register status effect icon
+if CLIENT then
+	hook.Add("Initialize", "ttt2h_status_frost_init", function() 
+		STATUS:RegisterStatus("ttt2h_status_frost", {
+			hud = Material("vgui/ttt/heroes/status/hud_icon_frost.png"),
+			type = "bad"
+		})
+	end)
 end
 
 local frostRad = 320
@@ -115,18 +126,24 @@ if CLIENT then
 			hook.Add("RenderScreenspaceEffects", "TTTHFrostOverlay", function()
 				if client.ttthfrostindicator and not client:IsHero(HEROES.HEROES.FROST.index) then
 					local entities = ents.FindInSphere(pos, frostRad)
-					local selected = false
+					local last_selected = client.ttthfrostselected or false
 
 					for _, v in ipairs(entities) do
 						if v == client then
-							selected = true
+							client.ttthfrostselected = true
 
 							break
 						end
 					end
 
-					if selected then
+					if client.ttthfrostselected then
 						DrawMaterialOverlay("vgui/ttt/heroes/frost_overlay", 0)
+					end
+
+					if not last_selected and client.ttthfrostselected then
+						STATUS:AddStatus("ttt2h_status_frost")
+					elseif last_selected and not client.ttthfrostselected then
+						STATUS:RemoveStatus("ttt2h_status_frost")
 					end
 				end
 			end)
@@ -137,6 +154,8 @@ if CLIENT then
 
 			hook.Remove("PostDrawTranslucentRenderables", "TTTHFrost")
 			hook.Remove("RenderScreenspaceEffects", "TTTHFrostOverlay")
+
+			STATUS:RemoveStatus("ttt2h_status_frost")
 		end
 	end)
 end

@@ -1,5 +1,17 @@
 if SERVER then
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_chaos.png")
+
 	util.AddNetworkString("TTTHChaosInvert")
+end
+
+-- register status effect icon
+if CLIENT then
+	hook.Add("Initialize", "ttt2h_status_chaos_init", function() 
+		STATUS:RegisterStatus("ttt2h_status_chaos", {
+			hud = Material("vgui/ttt/heroes/status/hud_icon_chaos.png"),
+			type = "bad"
+		})
+	end)
 end
 
 local function ChaosActivate(ply)
@@ -15,6 +27,9 @@ local function ChaosActivate(ply)
 		net.Start("TTTHChaosInvert")
 		net.WriteBool(true)
 		net.Send(plys)
+
+		-- add status effect
+		STATUS:AddStatus(plys, "ttt2h_status_chaos")
 	end
 end
 
@@ -31,6 +46,9 @@ local function ChaosDeactivate(ply)
 		net.Start("TTTHChaosInvert")
 		net.WriteBool(false)
 		net.Send(plys)
+
+		-- remove status effect
+		STATUS:RemoveStatus(plys, "ttt2h_status_chaos")
 	end
 end
 

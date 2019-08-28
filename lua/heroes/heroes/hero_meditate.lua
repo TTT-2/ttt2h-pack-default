@@ -1,5 +1,17 @@
 if SERVER then
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_meditate.png")
+
 	util.AddNetworkString("TTTHGesture")
+end
+
+-- register status effect icon
+if CLIENT then
+	hook.Add("Initialize", "ttt2h_status_meditate_init", function() 
+		STATUS:RegisterStatus("ttt2h_status_meditate", {
+			hud = Material("vgui/ttt/heroes/status/hud_icon_meditate.png"),
+			type = "good"
+		})
+	end)
 end
 
 local function ActivateMeditate(ply)
@@ -27,6 +39,9 @@ local function ActivateMeditate(ply)
 				ply:SetHealth(math.Clamp(health + 5, health, ply:GetMaxHealth()))
 			end
 		end)
+
+		-- add status effect
+		STATUS:AddStatus(ply, "ttt2h_status_meditate")
 	end
 end
 
@@ -38,6 +53,9 @@ local function DeactivateMeditate(ply)
 		ply:SetRenderMode(ply.meditateColMode)
 
 		timer.Remove("hero_gesture_" .. ply:UniqueID())
+
+		-- remove status effect
+		STATUS:RemoveStatus(ply, "ttt2h_status_meditate")
 	end
 end
 
