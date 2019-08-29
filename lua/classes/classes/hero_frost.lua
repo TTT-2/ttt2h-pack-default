@@ -132,6 +132,7 @@ if CLIENT then
 					for _, v in ipairs(entities) do
 						if v == client then
 							client.ttthfrostselected = true
+							break
 						end
 					end
 
