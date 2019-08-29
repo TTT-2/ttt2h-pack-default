@@ -74,10 +74,10 @@ local function NebulaFunction(ply)
 
 						v.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
 
-						if not last_selected and client.ttthnebulaselected then
-							STATUS:AddStatus("ttt2h_status_nebula")
-						elseif last_selected and not client.ttthnebulaselected then
-							STATUS:RemoveStatus("ttt2h_status_nebula")
+						if not last_selected and v.ttthnebulaselected then
+							STATUS:AddStatus(v, "ttt2h_status_nebula")
+						elseif last_selected and not v.ttthnebulaselected then
+							STATUS:RemoveStatus(v, "ttt2h_status_nebula")
 						end
 					end
 				end

@@ -65,13 +65,12 @@ hook.Add("Think", "ClimbGrabThink", function()
 	end
 end)
 
-local speedup = 10
+local speedup = 1.25
 
 hook.Add("TTTCUpdateClass", "TTTCSwiftSprintMod", function(ply, old, new)
 	local i = CLASS.CLASSES.SWIFT.index
 
 	if new == i then
-		print("test")
 		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) * speedup
 	elseif old == i then
 		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) / speedup

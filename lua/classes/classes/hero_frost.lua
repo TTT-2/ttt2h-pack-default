@@ -127,12 +127,11 @@ if CLIENT then
 				if client.tttcfrostindicator and not client:HasClass(CLASS.CLASSES.FROST.index) then
 					local entities = ents.FindInSphere(pos, frostRad)
 					local last_selected = client.ttthfrostselected or false
+					client.ttthfrostselected = false
 
 					for _, v in ipairs(entities) do
 						if v == client then
 							client.ttthfrostselected = true
-
-							break
 						end
 					end
 
