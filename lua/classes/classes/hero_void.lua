@@ -1,7 +1,18 @@
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/dark_overlay.vmt")
+	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_void.png")
 
 	util.AddNetworkString("TTTCVoidOverlay")
+end
+
+-- register status effect icon
+if CLIENT then
+	hook.Add("Initialize", "ttt2h_status_void_init", function() 
+		STATUS:RegisterStatus("ttt2h_status_void", {
+			hud = Material("vgui/ttt/heroes/status/hud_icon_void.png"),
+			type = "bad"
+		})
+	end)
 end
 
 local function ActivateVoid(ply)
@@ -19,6 +30,9 @@ local function ActivateVoid(ply)
 		net.Start("TTTCVoidOverlay")
 		net.WriteBool(true)
 		net.Send(plys)
+
+		-- add status effect
+		STATUS:AddStatus(plys, "ttt2h_status_void")
 	end
 end
 
@@ -35,6 +49,9 @@ local function DeactivateVoid(ply)
 		net.Start("TTTCVoidOverlay")
 		net.WriteBool(false)
 		net.Send(plys)
+
+		-- remove status effect
+		STATUS:RemoveStatus(plys, "ttt2h_status_void")
 	end
 end
 

@@ -1,10 +1,10 @@
 if SERVER then
-	resource.AddFile("sound/classes/vendetta.wav")
+	resource.AddFile("sound/heroes/vendetta.wav")
 
 	util.AddNetworkString("TTTCVendettaTarget")
 end
 
-util.PrecacheSound("classes/vendetta.wav")
+util.PrecacheSound("heroes/vendetta.wav")
 
 -- REWORK
 -- maybe use this player model "models/player/charple.mdl"
@@ -14,7 +14,7 @@ sound.Add({
 		channel = CHAN_STATIC,
 		volume = 0.70,
 		level = 70,
-		sound = "classes/vendetta.wav"
+		sound = "heroes/vendetta.wav"
 })
 
 CLASS.AddClass("VENDETTA", {
