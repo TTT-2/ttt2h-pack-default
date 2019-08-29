@@ -1,22 +1,22 @@
 if SERVER then
-	util.AddNetworkString("TTTHNebula")
+	util.AddNetworkString("TTTCNebula")
 end
 
 local function DeactivateNebula(ply)
 	if SERVER then
-		ply.heroes_nebula = nil
+		ply.classes_nebula = nil
 
-		if timer.Exists("ttth_nebula_" .. ply:EntIndex()) then
-			timer.Remove("ttth_nebula_" .. ply:EntIndex())
+		if timer.Exists("tttc_nebula_" .. ply:EntIndex()) then
+			timer.Remove("tttc_nebula_" .. ply:EntIndex())
 		end
 
-		hook.Remove("TTTPlayerSpeedModifier", "TTTHNebulaSpeed".. ply:UniqueID())
+		hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed".. ply:UniqueID())
 
-		if timer.Exists("ttth_neb_end_" .. ply:EntIndex()) then
-			timer.Remove("ttth_neb_end_" .. ply:EntIndex())
+		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
+			timer.Remove("tttc_neb_end_" .. ply:EntIndex())
 		end
 
-		net.Start("TTTHNebula")
+		net.Start("TTTCNebula")
 		net.WriteEntity(ply)
 		net.WriteBool(false)
 		net.Broadcast()
@@ -25,20 +25,20 @@ end
 
 local function NebulaFunction(ply)
 	if SERVER then
-		ply.heroes_nebula = true
-		ply.heroes_nebula_pos = ply:GetPos()
-		ply.heroes_nebula_r = 320
+		ply.classes_nebula = true
+		ply.classes_nebula_pos = ply:GetPos()
+		ply.classes_nebula_r = 320
 
-		timer.Create("ttth_nebula_" .. ply:EntIndex(), 1, 0, function()
+		timer.Create("tttc_nebula_" .. ply:EntIndex(), 1, 0, function()
 			local plys = player.GetAll()
 
 			for _, v in ipairs(plys) do
-				if v.heroes_nebula_pos then
+				if v.classes_nebula_pos then
 					for _, pl in ipairs(plys) do
 						local pos = pl:GetPos()
-						local d = pos:Distance(v.heroes_nebula_pos)
+						local d = pos:Distance(v.classes_nebula_pos)
 
-						if d <= v.heroes_nebula_r then
+						if d <= v.classes_nebula_r then
 							pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
 						end
 					end
@@ -46,23 +46,23 @@ local function NebulaFunction(ply)
 			end
 		end)
 
-		hook.Add("TTTPlayerSpeedModifier", "TTTHNebulaSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
-			if pl ~= ply or not ply.heroes_nebula_pos or not ply.heroes_nebula_r then return end
+		hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
+			if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
 
 			local pos = pl:GetPos()
-			local d = pos:Distance(ply.heroes_nebula_pos)
+			local d = pos:Distance(ply.classes_nebula_pos)
 
-			if d <= ply.heroes_nebula_r then
+			if d <= ply.classes_nebula_r then
 				noLag[1] = noLag[1] * 1.5
 			end
 		end)
 
-		net.Start("TTTHNebula")
+		net.Start("TTTCNebula")
 		net.WriteEntity(ply)
 		net.WriteBool(true)
 		net.Broadcast()
 
-		timer.Create("ttth_neb_end_" .. ply:EntIndex(), 15, 1, function()
+		timer.Create("tttc_neb_end_" .. ply:EntIndex(), 15, 1, function()
 			if IsValid(ply) then
 				DeactivateNebula(ply)
 			end
@@ -70,7 +70,7 @@ local function NebulaFunction(ply)
 	end
 end
 
-HEROES.AddHero("NEBULA", {
+CLASS.AddClass("NEBULA", {
 		color = Color(75, 139, 157, 255),
 		onDeactivate = NebulaFunction,
 		time = 0,
@@ -81,21 +81,21 @@ HEROES.AddHero("NEBULA", {
 })
 
 if SERVER then
-	hook.Add("TTTPrepareRound", "TTTHDeactivateNebula", function()
+	hook.Add("TTTPrepareRound", "TTTCDeactivateNebula", function()
 		local plys = player.GetAll()
 
 		for _, v in ipairs(plys) do
-			if v.heroes_nebula then
+			if v.classes_nebula then
 				DeactivateNebula(v)
 			end
 		end
 	end)
 
-	hook.Add("TTTEndRound", "TTTHDeactivateNebula", function()
+	hook.Add("TTTEndRound", "TTTCDeactivateNebula", function()
 		local plys = player.GetAll()
 
 		for _, ply in ipairs(plys) do
-			if ply.heroes_nebula then
+			if ply.classes_nebula then
 				DeactivateNebula(ply)
 			end
 		end
@@ -106,7 +106,7 @@ else
 		Model("particle/particle_noisesphere")
 	}
 
-	net.Receive("TTTHNebula", function()
+	net.Receive("TTTCNebula", function()
 		local ply = net.ReadEntity()
 		local bool = net.ReadBool()
 
@@ -116,8 +116,8 @@ else
 				local em = ParticleEmitter(center)
 				local r = 320 -- ca. 5m (64 * 5)
 
-				ply.heroes_nebula_pos = center
-				ply.heroes_nebula_r = r
+				ply.classes_nebula_pos = center
+				ply.classes_nebula_r = r
 
 				for i = 1, 200 do
 					local prpos = VectorRand() * r
@@ -147,20 +147,20 @@ else
 						p:SetLighting(false)
 					end
 
-					ply.heroes_nebula_p = ply.heroes_nebula_p or {}
-					ply.heroes_nebula_p[#ply.heroes_nebula_p + 1] = p
+					ply.classes_nebula_p = ply.classes_nebula_p or {}
+					ply.classes_nebula_p[#ply.classes_nebula_p + 1] = p
 				end
 
 				em:Finish()
 			else
-				if ply.heroes_nebula_p then
-					for _, v in ipairs(ply.heroes_nebula_p) do
+				if ply.classes_nebula_p then
+					for _, v in ipairs(ply.classes_nebula_p) do
 						v:SetDieTime(-1)
 					end
 
-					ply.heroes_nebula_p = nil
-					ply.heroes_nebula_pos = nil
-					ply.heroes_nebula_r = nil
+					ply.classes_nebula_p = nil
+					ply.classes_nebula_pos = nil
+					ply.classes_nebula_r = nil
 				end
 			end
 		end

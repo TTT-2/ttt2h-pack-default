@@ -1,10 +1,7 @@
-HEROES.AddHero("RESISTANT", {
-		color = Color(103, 73, 8, 255),
+CLASS.AddClass("MIRROR", {
+		color = Color(71, 80, 51, 255),
 		items = {
-			"item_ttt_blockdmg"
-		},
-		passiveItems = {
-			"item_ttt_noexplosiondmg"
+			"item_ttt_reflectdmg"
 		},
 		onActivate = function(ply)
 			if SERVER then
@@ -16,9 +13,10 @@ HEROES.AddHero("RESISTANT", {
 				ply:EmitSound("buttons/blip1.wav", 100, 100, 1, CHAN_AUTO)
 			end
 		end,
-		time = 2,
-		cooldown = 30,
+		avoidWeaponReset = true,
+		time = 3,
+		cooldown = 60,
 		langs = {
-			English = "Resistant"
+			English = "Mirror"
 		}
 })

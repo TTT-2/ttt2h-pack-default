@@ -21,7 +21,7 @@ local function CanGrab(ply)
 	end
 end
 
-HEROES.AddHero("SWIFT", {
+CLASS.AddClass("SWIFT", {
 		color = Color(0, 152, 216, 255),
 		passiveItems = {
 			"item_ttt_climb"
@@ -65,12 +65,13 @@ hook.Add("Think", "ClimbGrabThink", function()
 	end
 end)
 
-local speedup = 1.25
+local speedup = 10
 
-hook.Add("TTTHUpdateHero", "TTTHSwiftSprintMod", function(ply, old, new)
-	local i = HEROES.HEROES.SWIFT.index
+hook.Add("TTTCUpdateClass", "TTTCSwiftSprintMod", function(ply, old, new)
+	local i = CLASS.CLASSES.SWIFT.index
 
 	if new == i then
+		print("test")
 		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) * speedup
 	elseif old == i then
 		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) / speedup

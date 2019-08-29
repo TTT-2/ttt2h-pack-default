@@ -14,10 +14,10 @@ local function CreateDazzleEffect(ply)
 		local boost = 2
 
 		ply.speedrun_mul = boost * (ply.speedrun_mul or 1)
-		ply.ttth_hero_speedmod = true
+		ply.tttc_class_speedmod = true
 
-		timer.Create("TTTHDazzleSpeedBoost_" .. ply:UniqueID(), 2, 1, function()
-			if IsValid(ply) and ply.ttth_hero_speedmod then
+		timer.Create("TTTCDazzleSpeedBoost_" .. ply:UniqueID(), 2, 1, function()
+			if IsValid(ply) and ply.tttc_class_speedmod then
 				ply:RemoveItem("item_ttt_speedrun")
 
 				ply.speedrun_mul = (ply.speedrun_mul or 1) / boost
@@ -74,13 +74,13 @@ local function CreateDazzleEffect(ply)
 end
 
 if SERVER then
-	hook.Add("TTTHUpdateHero", "TTTHDazzleReset", function(ply, old, new)
-		if old ~= HEROES.HEROES.DAZZLE.index then return end
+	hook.Add("TTTCUpdateClass", "TTTCDazzleReset", function(ply, old, new)
+		if old ~= CLASS.CLASSES.DAZZLE.index then return end
 
-		local identifier = "TTTHDazzleSpeedBoost_" .. ply:UniqueID()
+		local identifier = "TTTCDazzleSpeedBoost_" .. ply:UniqueID()
 
 		if timer.Exists(identifier) then
-			if IsValid(ply) and ply.ttth_hero_speedmod then
+			if IsValid(ply) and ply.tttc_class_speedmod then
 				ply:RemoveItem("item_ttt_speedrun")
 
 				ply.speedrun_mul = (ply.speedrun_mul or 1) / boost
@@ -91,7 +91,7 @@ if SERVER then
 	end)
 end
 
-HEROES.AddHero("DAZZLE", {
+CLASS.AddClass("DAZZLE", {
 		color = Color(255, 242, 109, 255),
 		onDeactivate = CreateDazzleEffect,
 		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead

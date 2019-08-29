@@ -2,7 +2,7 @@ local timescale = 0.3
 local cooldown = 45
 local duration = 5
 
-HEROES.AddHero("CLOCKWORK", {
+CLASS.AddClass("CLOCKWORK", {
 		color = Color(149, 188, 195, 255),
 		onActivate = function(ply)
 			if SERVER then

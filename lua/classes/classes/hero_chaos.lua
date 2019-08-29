@@ -1,5 +1,5 @@
 if SERVER then
-	util.AddNetworkString("TTTHChaosInvert")
+	util.AddNetworkString("TTTCChaosInvert")
 end
 
 local function ChaosActivate(ply)
@@ -12,7 +12,7 @@ local function ChaosActivate(ply)
 			end
 		end
 
-		net.Start("TTTHChaosInvert")
+		net.Start("TTTCChaosInvert")
 		net.WriteBool(true)
 		net.Send(plys)
 	end
@@ -28,13 +28,13 @@ local function ChaosDeactivate(ply)
 			end
 		end
 
-		net.Start("TTTHChaosInvert")
+		net.Start("TTTCChaosInvert")
 		net.WriteBool(false)
 		net.Send(plys)
 	end
 end
 
-HEROES.AddHero("CHAOS", {
+CLASS.AddClass("CHAOS", {
 		color = Color(255, 76, 0, 255),
 		onActivate = ChaosActivate,
 		onDeactivate = ChaosDeactivate,
@@ -57,7 +57,7 @@ if CLIENT then
 	hook.Add("CreateMove", "ChaosInvertMove", function(cmd) -- Override player movement
 		local ply = LocalPlayer()
 
-		if ply.heroChaos_inverted then
+		if ply.classChaos_inverted then
 			local forward = 0
 			local right = 0
 			local maxspeed = LocalPlayer():GetMaxSpeed() * (flippedHorizontal:GetBool() and - 1 or 1)
@@ -83,11 +83,11 @@ if CLIENT then
 		end
 	end)
 
-	net.Receive("TTTHChaosInvert", function()
+	net.Receive("TTTCChaosInvert", function()
 		if net.ReadBool() then
-			LocalPlayer().heroChaos_inverted = true
+			LocalPlayer().classChaos_inverted = true
 		else
-			LocalPlayer().heroChaos_inverted = nil
+			LocalPlayer().classChaos_inverted = nil
 		end
 	end)
 
@@ -112,7 +112,7 @@ if CLIENT then
 	hook.Add("RenderScene", "Mirror.RenderScene", function(origin, angles)
 		local ply = LocalPlayer()
 
-		if ply.heroChaos_inverted then
+		if ply.classChaos_inverted then
 			view.x = 0
 			view.y = 0
 			view.w = ScrW()
@@ -153,7 +153,7 @@ if CLIENT then
 	hook.Add("InputMouseApply", "flipmouse", function(cmd, x, y, angle)
 		local ply = LocalPlayer()
 
-		if ply.heroChaos_inverted then
+		if ply.classChaos_inverted then
 			local pitchchange = y * GetConVar("m_pitch"):GetFloat()
 			local yawchange = x * -GetConVar("m_yaw"):GetFloat()
 

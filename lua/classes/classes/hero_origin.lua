@@ -30,7 +30,7 @@ local function OriginFunction(ply)
 	end
 end
 
-HEROES.AddHero("ORIGIN", {
+CLASS.AddClass("ORIGIN", {
 		color = Color(255, 156, 0, 255),
 		onDeactivate = OriginFunction,
 		time = 0,
@@ -42,7 +42,7 @@ HEROES.AddHero("ORIGIN", {
 })
 
 if SERVER then
-	hook.Add("TTTPrepareRound", "TTTHOriginFindSpawn", function()
+	hook.Add("TTTPrepareRound", "TTTCOriginFindSpawn", function()
 		table.Empty(backup_spawns)
 
 		local plys = player.GetAll()

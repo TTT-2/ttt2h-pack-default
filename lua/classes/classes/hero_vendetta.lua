@@ -1,23 +1,23 @@
 if SERVER then
-	resource.AddFile("sound/heroes/vendetta.wav")
+	resource.AddFile("sound/classes/vendetta.wav")
 
-	util.AddNetworkString("TTTHVendettaTarget")
+	util.AddNetworkString("TTTCVendettaTarget")
 end
 
-util.PrecacheSound("heroes/vendetta.wav")
+util.PrecacheSound("classes/vendetta.wav")
 
 -- REWORK
 -- maybe use this player model "models/player/charple.mdl"
 
 sound.Add({
-		name = "hero_vendetta",
+		name = "class_vendetta",
 		channel = CHAN_STATIC,
 		volume = 0.70,
 		level = 70,
-		sound = "heroes/vendetta.wav"
+		sound = "classes/vendetta.wav"
 })
 
-HEROES.AddHero("VENDETTA", {
+CLASS.AddClass("VENDETTA", {
 		color = Color(99, 1, 3, 255),
 		deactivated = true,
 		langs = {
@@ -25,8 +25,8 @@ HEROES.AddHero("VENDETTA", {
 		}
 })
 
-hook.Add("TTTHUpdateHero", "UpdateVendetta", function(ply, old, new)
-	local vendetta = HEROES.HEROES.VENDETTA.index
+hook.Add("TTTCUpdateClass", "UpdateVendetta", function(ply, old, new)
+	local vendetta = CLASS.CLASSES.VENDETTA.index
 	if new == vendetta then
 		ply.vendetta = true
 	elseif old == vendetta then
@@ -56,7 +56,7 @@ end)
 
 if SERVER then
 	local function SendVendettaTarget(victim, target)
-		net.Start("TTTHVendettaTarget")
+		net.Start("TTTCVendettaTarget")
 		net.WriteEntity(target)
 		net.Send(victim)
 	end
@@ -79,12 +79,12 @@ if SERVER then
 		if victim.vendetta and not victim.reviving then
 			victim.vendetta = nil
 
-			if victim:HasCrystal() then
-				victim:ChatPrint("[TTTH][Vendetta] Fähigkeit aktiviert...")
+			if not GetGlobalBool("ttt2_heroes") or victim:HasCrystal() then
+				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
 
 				-- revive after 5s
 				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
-					p:EmitSound("hero_vendetta", 70)
+					p:EmitSound("class_vendetta", 70)
 					p:StripWeapons()
 					p:Give("weapon_ttt_bloodyknife")
 
@@ -97,23 +97,23 @@ if SERVER then
 					end
 				end,
 				function(p) -- onCheck
-					return p:HasCrystal()
+					return not GetGlobalBool("ttt2_heroes") or p:HasCrystal()
 				end,
 				false, true, -- there need to be your corpse and you don't prevent win
 				function(p) -- onFail
-					if not p:HasCrystal() then
-						p:ChatPrint("[TTTH][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
+					if GetGlobalBool("ttt2_heroes") and p:HasCrystal() then
+						p:ChatPrint("[TTTC][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
 					end
 				end)
 			else
-				victim:ChatPrint("[TTTH][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
+				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
 			end
 		elseif victim.vendetta and victim.reviving then
-			victim:ChatPrint("[TTTH][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
+			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
 		end
 	end)
 
-	hook.Add("PlayerCanPickupWeapon", "TTTHVendettaPickupWeapon", function(ply, wep)
+	hook.Add("PlayerCanPickupWeapon", "TTTCVendettaPickupWeapon", function(ply, wep)
 		if ply.vendettaRevived and WEPS.GetClass(wep) ~= "weapon_ttt_bloodyknife" then
 			return false
 		end
@@ -137,7 +137,7 @@ if SERVER then
 		end
 	end)
 else
-	net.Receive("TTTHVendettaTarget", function(len)
+	net.Receive("TTTCVendettaTarget", function(len)
 		LocalPlayer().vendettaTarget = net.ReadEntity()
 	end)
 
