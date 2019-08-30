@@ -70,14 +70,14 @@ local function NebulaFunction(ply)
 					for _, pl in ipairs(plys) do
 						local pos = pl:GetPos()
 
-						local last_selected = v.ttthnebulaselected
+						local last_selected = pl.ttthnebulaselected
 
-						v.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
+						pl.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
 
-						if not last_selected and v.ttthnebulaselected then
-							STATUS:AddStatus(v, "ttt2h_status_nebula")
-						elseif last_selected and not v.ttthnebulaselected then
-							STATUS:RemoveStatus(v, "ttt2h_status_nebula")
+						if not last_selected and pl.ttthnebulaselected then
+							STATUS:AddStatus(pl, "ttt2h_status_nebula")
+						elseif last_selected and not pl.ttthnebulaselected then
+							STATUS:RemoveStatus(pl, "ttt2h_status_nebula")
 						end
 					end
 				end
