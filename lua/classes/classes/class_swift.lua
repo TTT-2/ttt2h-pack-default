@@ -69,5 +69,4 @@ hook.Add("TTT2PlayerSprintMultiplier", "TTTCSwiftSprintMod", function(ply, multi
 	if ply:GetCustomClass() ~= CLASS.CLASSES.SWIFT.index then return end
 
 	multiplier[1] = 1.25 * multiplier[1]
-	print("multipling speed")
 end)
