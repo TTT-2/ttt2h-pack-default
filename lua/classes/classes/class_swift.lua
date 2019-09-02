@@ -65,14 +65,9 @@ hook.Add("Think", "ClimbGrabThink", function()
 	end
 end)
 
-local speedup = 1.25
+hook.Add("TTT2PlayerSprintMultiplier", "TTTCSwiftSprintMod", function(ply, multiplier)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.SWIFT.index then return end
 
-hook.Add("TTTCUpdateClass", "TTTCSwiftSprintMod", function(ply, old, new)
-	local i = CLASS.CLASSES.SWIFT.index
-
-	if new == i then
-		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) * speedup
-	elseif old == i then
-		ply.sprintMultiplierModifier = (ply.sprintMultiplierModifier or 1) / speedup
-	end
+	multiplier[1] = 1.25 * multiplier[1]
+	print("multipling speed")
 end)
