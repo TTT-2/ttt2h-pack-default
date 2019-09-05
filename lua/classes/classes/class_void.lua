@@ -2,7 +2,7 @@ if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/dark_overlay.vmt")
 	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_void.png")
 
-	util.AddNetworkString("TTTHVoidOverlay")
+	util.AddNetworkString("TTTCVoidOverlay")
 end
 
 -- register status effect icon
@@ -27,7 +27,7 @@ local function ActivateVoid(ply)
 			end
 		end
 
-		net.Start("TTTHVoidOverlay")
+		net.Start("TTTCVoidOverlay")
 		net.WriteBool(true)
 		net.Send(plys)
 
@@ -46,7 +46,7 @@ local function DeactivateVoid(ply)
 			end
 		end
 
-		net.Start("TTTHVoidOverlay")
+		net.Start("TTTCVoidOverlay")
 		net.WriteBool(false)
 		net.Send(plys)
 
@@ -55,7 +55,7 @@ local function DeactivateVoid(ply)
 	end
 end
 
-HEROES.AddHero("VOID", {
+CLASS.AddClass("VOID", {
 		color = Color(61, 64, 75, 255),
 		onActivate = ActivateVoid,
 		onDeactivate = DeactivateVoid,
@@ -69,16 +69,16 @@ HEROES.AddHero("VOID", {
 })
 
 if CLIENT then
-	net.Receive("TTTHVoidOverlay", function()
+	net.Receive("TTTCVoidOverlay", function()
 		if net.ReadBool() then
-			LocalPlayer().ttthoverlay = true
+			LocalPlayer().tttcoverlay = true
 		else
-			LocalPlayer().ttthoverlay = nil
+			LocalPlayer().tttcoverlay = nil
 		end
 	end)
 
-	hook.Add("RenderScreenspaceEffects", "TTTHVoidOverlay", function()
-		if LocalPlayer().ttthoverlay then
+	hook.Add("RenderScreenspaceEffects", "TTTCVoidOverlay", function()
+		if LocalPlayer().tttcoverlay then
 
 			-- idk why this alpha is buggy as ant
 			DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
@@ -88,7 +88,7 @@ if CLIENT then
 	end)
 
 	hook.Add("HUDShouldDraw", "TTT2HeroesVoidHideHUD", function(name)
-		if name == "TTTTargetID" and LocalPlayer().ttthoverlay then
+		if name == "TTTTargetID" and LocalPlayer().tttcoverlay then
 			return false
 		end
 	end)

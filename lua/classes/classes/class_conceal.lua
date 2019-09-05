@@ -38,7 +38,7 @@ local function ConcealFunction(ply)
 	end
 end
 
-HEROES.AddHero("CONCEAL", {
+CLASS.AddClass("CONCEAL", {
 		color = Color(68, 208, 187, 255),
 		onDeactivate = ConcealFunction,
 		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead

@@ -3,7 +3,7 @@ local function HunterFunction(ply)
 		ply:ConCommand("+jump")
 		ply:SetVelocity(Vector(ply:GetAimVector().x * 900, ply:GetAimVector().y * 900, ply:GetAimVector().z * 900 + ply:GetUp().z * 100))
 
-		ply.heroHunting = true
+		ply.classHunting = true
 
 		timer.Simple(0.1, function()
 			if IsValid(ply) then
@@ -13,7 +13,7 @@ local function HunterFunction(ply)
 	end
 end
 
-HEROES.AddHero("HUNTER", {
+CLASS.AddClass("HUNTER", {
 		color = Color(137, 72, 6, 255),
 		passiveItems = {
 			"item_ttt_nofalldmg"
@@ -26,9 +26,9 @@ HEROES.AddHero("HUNTER", {
 		}
 })
 
-hook.Add("OnPlayerHitGround", "TTTHHunterHitGround", function(ply)
-	if ply.heroHunting then
-		ply.heroHunting = nil
+hook.Add("OnPlayerHitGround", "TTTCHunterHitGround", function(ply)
+	if ply.classHunting then
+		ply.classHunting = nil
 
 		return false
 	end

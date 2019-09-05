@@ -1,6 +1,6 @@
 --[[
 if SERVER then
-	util.AddNetworkString("TTTHFacelessCooldown")
+	util.AddNetworkString("TTTCFacelessCooldown")
 end
 
 local extraCooldown = 60
@@ -12,18 +12,18 @@ local function FacelessFunction(ply)
 
 	if not trace.HitWorld and IsValid(target) and target:IsPlayer() and target:Alive() then
 		if SERVER then
-			local phr = ply:GetHero()
-			local thr = target:GetHero()
-			local cd = target:GetHeroCooldown() + extraCooldown
-			local cdT = target:GetHeroCooldownTS() or CurTime()
+			local phr = ply:GetCustomClass()
+			local thr = target:GetCustomClass()
+			local cd = target:GetClassCooldown() + extraCooldown
+			local cdT = target:GetClassCooldownTS() or CurTime()
 
-			ply:UpdateHero(thr)
+			ply:UpdateClass(thr)
 
-			target:UpdateHero(phr)
-			target:SetHeroCooldown(cd)
-			target:SetHeroCooldownTS(cdT)
+			target:UpdateClass(phr)
+			target:SetClassCooldown(cd)
+			target:SetClassCooldownTS(cdT)
 
-			net.Start("TTTHFacelessCooldown")
+			net.Start("TTTCFacelessCooldown")
 			net.Send(target)
 		end
 	else
@@ -40,7 +40,7 @@ local function ChargeFaceless(ply)
 	end
 end
 
-HEROES.AddHero("FACELESS", {
+CLASS.AddClass("FACELESS", {
 		color = Color(0, 0, 0, 255),
 		onDeactivate = FacelessFunction,
 		onCharge = ChargeFaceless,
@@ -53,13 +53,13 @@ HEROES.AddHero("FACELESS", {
 })
 
 if CLIENT then
-	net.Receive("TTTHFacelessCooldown", function(len)
+	net.Receive("TTTCFacelessCooldown", function(len)
 		local ply = LocalPlayer()
-		local cd = ply:GetHeroCooldown() + extraCooldown
-		local cdT = ply:GetHeroCooldownTS() or CurTime()
+		local cd = ply:GetClassCooldown() + extraCooldown
+		local cdT = ply:GetClassCooldownTS() or CurTime()
 
-		ply:SetHeroCooldown(cd)
-		ply:SetHeroCooldownTS(cdT)
+		ply:SetClassCooldown(cd)
+		ply:SetClassCooldownTS(cdT)
 	end)
 end
 ]]--

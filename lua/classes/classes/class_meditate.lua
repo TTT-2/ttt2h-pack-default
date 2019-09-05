@@ -1,7 +1,7 @@
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_meditate.png")
 
-	util.AddNetworkString("TTTHGesture")
+	util.AddNetworkString("TTTCGesture")
 end
 
 -- register status effect icon
@@ -16,7 +16,7 @@ end
 
 local function ActivateMeditate(ply)
 	if SERVER then
-		net.Start("TTTHGesture")
+		net.Start("TTTCGesture")
 		net.WriteUInt(ACT_GMOD_TAUNT_CHEER, 32)
 		net.WriteEntity(ply)
 		net.Broadcast()
@@ -32,7 +32,7 @@ local function ActivateMeditate(ply)
 		ply:SetColor(col)
 		ply:SetRenderMode(RENDERMODE_TRANSALPHA)
 
-		timer.Create("hero_gesture_" .. ply:UniqueID(), 1, 0, function()
+		timer.Create("class_gesture_" .. ply:UniqueID(), 1, 0, function()
 			if IsValid(ply) then
 				local health = ply:Health()
 
@@ -52,14 +52,14 @@ local function DeactivateMeditate(ply)
 		ply:SetColor(ply.meditateCol)
 		ply:SetRenderMode(ply.meditateColMode)
 
-		timer.Remove("hero_gesture_" .. ply:UniqueID())
+		timer.Remove("class_gesture_" .. ply:UniqueID())
 
 		-- remove status effect
 		STATUS:RemoveStatus(ply, "ttt2h_status_meditate")
 	end
 end
 
-HEROES.AddHero("MEDITATE", {
+CLASS.AddClass("MEDITATE", {
 		color = Color(160, 204, 66, 255),
 		onActivate = ActivateMeditate,
 		onDeactivate = DeactivateMeditate,
@@ -71,7 +71,7 @@ HEROES.AddHero("MEDITATE", {
 })
 
 if CLIENT then
-	net.Receive("TTTHGesture", function()
+	net.Receive("TTTCGesture", function()
 		local gesture = net.ReadUInt(32)
 		local target = net.ReadEntity()
 

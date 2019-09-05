@@ -21,7 +21,7 @@ local function ChargePredator(ply)
 	end
 end
 
-HEROES.AddHero("PREDATOR", {
+CLASS.AddClass("PREDATOR", {
 		color = Color(56, 40, 63, 255),
 		onDeactivate = PredatorFunction,
 		--onCharge = ChargePredator,
@@ -34,8 +34,8 @@ HEROES.AddHero("PREDATOR", {
 })
 
 if CLIENT then
-	hook.Add("TTTHUpdateHero", "UpdatePredator", function(ply, old, new)
-		if old == HEROES.HEROES.PREDATOR.index then
+	hook.Add("TTTCUpdateClass", "UpdatePredator", function(ply, old, new)
+		if old == CLASS.CLASSES.PREDATOR.index then
 			ply.predatorTarget = nil
 		end
 	end)
