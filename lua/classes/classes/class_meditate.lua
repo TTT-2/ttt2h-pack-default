@@ -1,7 +1,9 @@
 if SERVER then
+	resource.AddFile("materials/vgui/ttt/heroes/meditate_overlay.vmt")
 	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_meditate.png")
 
 	util.AddNetworkString("TTTCGesture")
+	util.AddNetworkString("TTTCHMeditateToggle")
 end
 
 -- register status effect icon
@@ -32,7 +34,7 @@ local function ActivateMeditate(ply)
 		ply:SetColor(col)
 		ply:SetRenderMode(RENDERMODE_TRANSALPHA)
 
-		timer.Create("class_gesture_" .. ply:UniqueID(), 1, 0, function()
+		timer.Create("class_gesture_" .. ply:UniqueID(), 0.75, 0, function()
 			if IsValid(ply) then
 				local health = ply:Health()
 
@@ -42,6 +44,11 @@ local function ActivateMeditate(ply)
 
 		-- add status effect
 		STATUS:AddStatus(ply, "ttt2h_status_meditate")
+
+		-- add overlay
+		net.Start("TTTCHMeditateToggle")
+		net.WriteBool(true)
+		net.Send(ply)
 	end
 end
 
@@ -56,6 +63,11 @@ local function DeactivateMeditate(ply)
 
 		-- remove status effect
 		STATUS:RemoveStatus(ply, "ttt2h_status_meditate")
+
+		-- remove overlay
+		net.Start("TTTCHMeditateToggle")
+		net.WriteBool(false)
+		net.Send(ply)
 	end
 end
 
@@ -77,6 +89,20 @@ if CLIENT then
 
 		if IsValid(target) then
 			target:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, gesture, false)
+		end
+	end)
+
+	net.Receive("TTTCHMeditateToggle", function()
+		local client = LocalPlayer()
+
+		client.ttthmeditateoverlay = net.ReadBool()
+	end)
+
+	hook.Add("RenderScreenspaceEffects", "TTTCMeditateOverlay", function()
+		local client = LocalPlayer()
+
+		if client.ttthmeditateoverlay then
+			DrawMaterialOverlay("vgui/ttt/heroes/meditate_overlay", 0)
 		end
 	end)
 end
