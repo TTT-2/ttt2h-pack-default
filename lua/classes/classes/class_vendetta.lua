@@ -65,7 +65,7 @@ if SERVER then
 		victim.vendettaRevived = nil
 
 		if IsValid(attacker) and attacker:IsPlayer() and attacker.vendettaRevived
-		and IsValid(inflictor) and WEPS.GetClass(inflictor) == "weapon_ttt_bloodyknife"
+		and IsValid(inflictor) and WEPS.GetClass(inflictor) == "weapon_ttt_tigers"
 		then
 			attacker:TakeDamage(99999, game.GetWorld(), inflictor)
 		end
@@ -86,7 +86,7 @@ if SERVER then
 				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
 					p:EmitSound("class_vendetta", 70)
 					p:StripWeapons()
-					p:Give("weapon_ttt_bloodyknife")
+					p:Give("weapon_ttt_tigers")
 
 					p.vendettaRevived = CurTime()
 
@@ -114,7 +114,7 @@ if SERVER then
 	end)
 
 	hook.Add("PlayerCanPickupWeapon", "TTTCVendettaPickupWeapon", function(ply, wep)
-		if ply.vendettaRevived and WEPS.GetClass(wep) ~= "weapon_ttt_bloodyknife" then
+		if ply.vendettaRevived and WEPS.GetClass(wep) ~= "weapon_ttt_tigers" then
 			return false
 		end
 	end)
