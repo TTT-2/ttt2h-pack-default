@@ -12,8 +12,8 @@ util.PrecacheSound("heroes/vendetta.wav")
 sound.Add({
 		name = "class_vendetta",
 		channel = CHAN_STATIC,
-		volume = 0.70,
-		level = 70,
+		volume = 1.0,
+		level = 100,
 		sound = "heroes/vendetta.wav"
 })
 
