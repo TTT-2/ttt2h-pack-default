@@ -71,6 +71,12 @@ local function DeactivateMeditate(ply)
 	end
 end
 
+hook.Add("PlayerDeath", "TTTCMeditateDeath", function(ply)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.MEDITATE.index then return end
+
+	DeactivateMeditate(ply)
+end)
+
 CLASS.AddClass("MEDITATE", {
 		color = Color(160, 204, 66, 255),
 		onActivate = ActivateMeditate,
