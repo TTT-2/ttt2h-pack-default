@@ -64,10 +64,16 @@ if SERVER then
 	hook.Add("TTT2PostPlayerDeath", "OnVendettaDeath", function(victim, inflictor, attacker)
 		victim.vendettaRevived = nil
 
-		if IsValid(attacker) and attacker:IsPlayer() and attacker.vendettaRevived
-		and IsValid(inflictor) and WEPS.GetClass(inflictor) == "weapon_ttt_tigers"
-		then
-			attacker:TakeDamage(99999, game.GetWorld(), inflictor)
+		if IsValid(attacker) and attacker:IsPlayer() and attacker.vendettaRevived then
+			local dmg = DamageInfo()
+
+			dmg:SetDamage(2000)
+			dmg:SetAttacker(attacker)
+			dmg:SetDamageForce(attacker:GetAimVector())
+			dmg:SetDamagePosition(attacker:GetPos())
+			dmg:SetDamageType(DMG_SLASH)
+
+			attacker:TakeDamageInfo(dmg)
 		end
 
 		if victim.vendettaTarget then
