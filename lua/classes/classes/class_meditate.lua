@@ -35,11 +35,11 @@ local function ActivateMeditate(ply)
 		ply:SetRenderMode(RENDERMODE_TRANSALPHA)
 
 		timer.Create("class_gesture_" .. ply:UniqueID(), 0.75, 0, function()
-			if IsValid(ply) then
-				local health = ply:Health()
+			if not IsValid(ply) then return end
+			
+			local health = ply:Health()
 
-				ply:SetHealth(math.Clamp(health + 5, health, ply:GetMaxHealth()))
-			end
+			ply:SetHealth(math.Clamp(health + 5, health, ply:GetMaxHealth()))
 		end)
 
 		-- add status effect
@@ -56,8 +56,14 @@ local function DeactivateMeditate(ply)
 	if SERVER then
 		ply:RemoveGesture(ACT_GMOD_TAUNT_CHEER) -- TODO necessary ?
 		ply:Freeze(false)
-		ply:SetColor(ply.meditateCol)
-		ply:SetRenderMode(ply.meditateColMode)
+		
+		if ply.meditateCol then
+			ply:SetColor(ply.meditateCol)
+		end
+		
+		if ply.meditateColMode then
+			ply:SetRenderMode(ply.meditateColMode)
+		end
 
 		timer.Remove("class_gesture_" .. ply:UniqueID())
 
@@ -78,14 +84,14 @@ hook.Add("PlayerDeath", "TTTCMeditateDeath", function(ply)
 end)
 
 CLASS.AddClass("MEDITATE", {
-		color = Color(160, 204, 66, 255),
-		onActivate = ActivateMeditate,
-		onDeactivate = DeactivateMeditate,
-		endless = true,
-		cooldown = 30,
-		langs = {
-			English = "Meditate"
-		}
+	color = Color(160, 204, 66, 255),
+	onActivate = ActivateMeditate,
+	onDeactivate = DeactivateMeditate,
+	endless = true,
+	cooldown = 30,
+	langs = {
+		English = "Meditate"
+	}
 })
 
 if CLIENT then
@@ -93,9 +99,9 @@ if CLIENT then
 		local gesture = net.ReadUInt(32)
 		local target = net.ReadEntity()
 
-		if IsValid(target) then
-			target:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, gesture, false)
-		end
+		if not IsValid(target) then return end
+		
+		target:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, gesture, false)
 	end)
 
 	net.Receive("TTTCHMeditateToggle", function()
