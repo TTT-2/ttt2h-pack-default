@@ -26,7 +26,7 @@ local function DeactivateNebula(ply)
 			timer.Remove("ttth_nebula_status_" .. ply:EntIndex())
 		end
 
-		hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed".. ply:UniqueID())
+		hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed".. ply:SteamID64())
 
 		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
 			timer.Remove("tttc_neb_end_" .. ply:EntIndex())
@@ -84,17 +84,6 @@ local function NebulaFunction(ply)
 			end
 		end)
 
-		hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
-			if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
-
-			local pos = pl:GetPos()
-			local d = pos:Distance(ply.classes_nebula_pos)
-
-			if d <= ply.classes_nebula_r then
-				noLag[1] = noLag[1] * 1.5
-			end
-		end)
-
 		net.Start("TTTCNebula")
 		net.WriteEntity(ply)
 		net.WriteBool(true)
@@ -106,6 +95,18 @@ local function NebulaFunction(ply)
 			end
 		end)
 	end
+
+	-- shared because it is predicted
+	hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed" .. ply:SteamID64(), function(pl, _, _, refTbl)
+		if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
+
+		local pos = pl:GetPos()
+		local d = pos:Distance(ply.classes_nebula_pos)
+
+		if d <= ply.classes_nebula_r then
+			refTbl[1] = refTbl[1] * 1.5
+		end
+	end)
 end
 
 CLASS.AddClass("NEBULA", {

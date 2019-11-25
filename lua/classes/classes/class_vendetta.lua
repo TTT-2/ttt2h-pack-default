@@ -120,9 +120,13 @@ if SERVER then
 	end)
 
 	hook.Add("PlayerCanPickupWeapon", "TTTCVendettaPickupWeapon", function(ply, wep)
-		if ply.vendettaRevived and WEPS.GetClass(wep) ~= "weapon_ttt_tigers" then
-			return false
+		if not ply.vendettaRevived then return end
+		
+		if WEPS.GetClass(wep) == "weapon_ttt_tigers" and not ply:HasWeapon("weapon_ttt_tigers") then
+			return true
 		end
+		
+		return false
 	end)
 
 	hook.Add("Think", "VendettaDmgHealth", function()
@@ -136,17 +140,12 @@ if SERVER then
 			end
 		end
 	end)
-
-	hook.Add("TTTPlayerSpeedModifier", "HeroVendettaModifySpeed", function(ply, _, _, noLag)
-		if IsValid(ply) and ply.vendettaRevived then
-			noLag[1] = noLag[1] * 2
-		end
-	end)
 else
 	net.Receive("TTTCVendettaTarget", function(len)
 		LocalPlayer().vendettaTarget = net.ReadEntity()
 	end)
 
+	-- TODO use the marks or outline library instead
 	hook.Add("PostDrawOpaqueRenderables", "VendettaPlayerBorders", function()
 		local client = LocalPlayer()
 		local target = client.vendettaTarget
@@ -188,3 +187,10 @@ else
 		render.SetStencilEnable(false)
 	end)
 end
+
+-- shared because this is predicted
+hook.Add("TTTPlayerSpeedModifier", "HeroVendettaModifySpeed", function(ply, _, _, refTbl)
+	if not IsValid(ply) or not ply:Alive() or not ply:IsTerror() or not ply.vendettaTarget then return end
+	
+	refTbl[1] = refTbl[1] * 2
+end)

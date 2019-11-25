@@ -16,16 +16,17 @@ if CLIENT then
 end
 
 local frostRad = 320
+local col_wire = Color(0, 255, 255, 100)
 
 local function PrepareFrostActivation(ply)
 	if CLIENT then
 		hook.Add("PostDrawTranslucentRenderables", "TTTCFrostPreview", function()
-			if LocalPlayer() == ply then
-				local et = ply:GetEyeTrace()
+			if LocalPlayer() ~= ply then return end --  nedded?
+			
+			local et = ply:GetEyeTrace()
 
-				render.SetColorMaterial()
-				render.DrawWireframeSphere(et.HitPos, frostRad, 30, 30, Color(0, 255, 255, 100), true)
-			end
+			render.SetColorMaterial()
+			render.DrawWireframeSphere(et.HitPos, frostRad, 30, 30, col_wire, true)
 		end)
 	end
 end
@@ -38,36 +39,42 @@ end
 
 local function ActivateFrost(ply)
 	if SERVER then
-		local pos = ply:GetEyeTrace().HitPos
-
-		hook.Add("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. ply:UniqueID(), function(pl, _, _, noLag)
-			if pl == ply then return end
-
-			local entities = ents.FindInSphere(pos, frostRad)
-
-			for _, v in ipairs(entities) do
-				if v == pl then
-					noLag[1] = noLag[1] * 0.5
-				end
-			end
-		end)
+		ply.frostPos = ply:GetEyeTrace().HitPos
 
 		net.Start("TTTCFrost")
+		net.WriteString(ply:SteamID64())
 		net.WriteBit(true)
-		net.WriteVector(pos)
+		net.WriteVector(ply.frostPos)
 		net.WriteUInt(frostRad, 32)
 		net.Broadcast()
 	end
+
+	hook.Add("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. ply:SteamID64(), function(pl, _, _, refTbl)
+		if not ply.frostPos or pl == ply then return end
+
+		local entities = ents.FindInSphere(ply.frostPos, frostRad)
+
+		for i = 1, #entities do
+			if entities[i] == pl then
+				refTbl[1] = refTbl[1] * 0.5
+				
+				return
+			end
+		end
+	end)
 end
 
 local function DeactivateFrost(ply)
+	local sid = ply:SteamID64()
+	
 	if SERVER then
-		hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. ply:UniqueID())
-
 		net.Start("TTTCFrost")
+		net.WriteString(sid)
 		net.WriteBit(false)
 		net.Broadcast()
 	end
+	
+	hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. sid)
 end
 
 CLASS.AddClass("FROST", {
@@ -84,78 +91,88 @@ CLASS.AddClass("FROST", {
 		}
 })
 
+local col_outside = Color(255, 255, 255, 210)
+local col_inside = Color(255, 255, 255, 20)
+
 if CLIENT then
 	local frostMaterial = Material("models/props_c17/frostedglass_01a")
 
 	net.Receive("TTTCFrost", function()
 		local client = LocalPlayer()
+		local sid = net.ReadString()
 
 		if net.ReadBit() == 1 then
-			client.tttcfrostindicator = true
+			local ply = player.GetBySteamID64(sid)
+			if not IsValid(ply) then return end
+		
+			ply.tttcfrostindicator = true
+			ply.frostPos = net.ReadVector()
 
-			local pos = net.ReadVector()
+			hook.Add("PostDrawTranslucentRenderables", "TTTCFrost_" .. sid, function(bDepth, bSkybox)
+				if bSkybox or not ply.tttcfrostindicator then return end
 
-			hook.Add("PostDrawTranslucentRenderables", "TTTCFrost", function(bDepth, bSkybox)
-				if bSkybox then return end
+				local entities = ents.FindInSphere(ply.frostPos, frostRad)
+				local inSphere = false
 
-				if client.tttcfrostindicator then
-					local entities = ents.FindInSphere(pos, frostRad)
-					local selected = false
+				for i = 1, #entities do
+					if entities[i] == client then
+						inSphere = true
 
-					for _, v in ipairs(entities) do
-						if v == client then
-							selected = true
-
-							break
-						end
+						break
 					end
+				end
 
-					if not selected then
-						render.SetMaterial(frostMaterial)
-						render.CullMode(MATERIAL_CULLMODE_CCW)
-						render.DrawSphere(pos, frostRad, 30, 30, Color(255, 255, 255, 210))
-					else
-						render.SetColorMaterial()
-						render.CullMode(MATERIAL_CULLMODE_CW)
-						render.DrawSphere(pos, frostRad, 30, 30, Color(255, 255, 255, 20))
-						render.CullMode(MATERIAL_CULLMODE_CCW)
-					end
+				if inSphere then
+					render.SetColorMaterial()
+					render.CullMode(MATERIAL_CULLMODE_CW)
+					render.DrawSphere(ply.frostPos, frostRad, 30, 30, col_inside)
+					render.CullMode(MATERIAL_CULLMODE_CCW)
+				else
+					render.SetMaterial(frostMaterial)
+					render.CullMode(MATERIAL_CULLMODE_CCW)
+					render.DrawSphere(ply.frostPos, frostRad, 30, 30, col_outside)
 				end
 			end)
 
-			hook.Add("RenderScreenspaceEffects", "TTTCFrostOverlay", function()
-				if client.tttcfrostindicator and not client:HasClass(CLASS.CLASSES.FROST.index) then
-					local entities = ents.FindInSphere(pos, frostRad)
-					local last_selected = client.ttthfrostselected or false
-					client.ttthfrostselected = false
+			hook.Add("RenderScreenspaceEffects", "TTTCFrostOverlay_" .. sid, function()
+				if not ply.tttcfrostindicator or client:HasClass(CLASS.CLASSES.FROST.index) then return end
+				
+				local entities = ents.FindInSphere(ply.frostPos, frostRad)
+				local last_selected = client.ttthfrostselected or false
+				
+				client.ttthfrostselected = false
 
-					for _, v in ipairs(entities) do
-						if v == client then
-							client.ttthfrostselected = true
-							break
-						end
+				for i = 1, #entities do
+					if entities[i] == client then
+						client.ttthfrostselected = true
+						
+						break
 					end
+				end
 
-					if client.ttthfrostselected then
-						DrawMaterialOverlay("vgui/ttt/heroes/frost_overlay", 0)
-					end
+				if client.ttthfrostselected then
+					DrawMaterialOverlay("vgui/ttt/heroes/frost_overlay", 0)
+				end
 
-					if not last_selected and client.ttthfrostselected then
-						STATUS:AddStatus("ttt2h_status_frost")
-					elseif last_selected and not client.ttthfrostselected then
-						STATUS:RemoveStatus("ttt2h_status_frost")
-					end
+				if not last_selected and client.ttthfrostselected then
+					STATUS:AddStatus("ttt2h_status_frost")
+				elseif last_selected and not client.ttthfrostselected then
+					STATUS:RemoveStatus("ttt2h_status_frost")
 				end
 			end)
 
-			sound.Play("ambient/wind/windgust_strong.wav", pos)
+			sound.Play("ambient/wind/windgust_strong.wav", ply.frostPos)
 		else
-			client.tttcfrostindicator = nil
-
-			hook.Remove("PostDrawTranslucentRenderables", "TTTCFrost")
-			hook.Remove("RenderScreenspaceEffects", "TTTCFrostOverlay")
+			hook.Remove("PostDrawTranslucentRenderables", "TTTCFrost_" .. sid)
+			hook.Remove("RenderScreenspaceEffects", "TTTCFrostOverlay" .. sid)
 
 			STATUS:RemoveStatus("ttt2h_status_frost")
+
+			local ply = player.GetBySteamID64(sid)
+			if not IsValid(ply) then return end
+			
+			ply.tttcfrostindicator = nil
+			ply.frostPos = nil
 		end
 	end)
 end

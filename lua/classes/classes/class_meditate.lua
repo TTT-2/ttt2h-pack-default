@@ -34,7 +34,7 @@ local function ActivateMeditate(ply)
 		ply:SetColor(col)
 		ply:SetRenderMode(RENDERMODE_TRANSALPHA)
 
-		timer.Create("class_gesture_" .. ply:UniqueID(), 0.75, 0, function()
+		timer.Create("class_gesture_" .. ply:SteamID64(), 0.75, 0, function()
 			if not IsValid(ply) then return end
 			
 			local health = ply:Health()
@@ -65,7 +65,7 @@ local function DeactivateMeditate(ply)
 			ply:SetRenderMode(ply.meditateColMode)
 		end
 
-		timer.Remove("class_gesture_" .. ply:UniqueID())
+		timer.Remove("class_gesture_" .. ply:SteamID64())
 
 		-- remove status effect
 		STATUS:RemoveStatus(ply, "ttt2h_status_meditate")
