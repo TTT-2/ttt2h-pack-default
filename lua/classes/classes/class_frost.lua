@@ -49,7 +49,7 @@ local function ActivateFrost(ply)
 		net.Broadcast()
 	end
 
-	hook.Add("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. ply:SteamID64(), function(pl, _, _, refTbl)
+	hook.Add("TTTPlayerSpeedModifier", "TTTCFrostSpeed_" .. ply:SteamID64(), function(pl, _, _, refTbl)
 		if not ply.frostPos or pl == ply then return end
 
 		local entities = ents.FindInSphere(ply.frostPos, frostRad)
@@ -74,7 +74,7 @@ local function DeactivateFrost(ply)
 		net.Broadcast()
 	end
 	
-	hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed" .. sid)
+	hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed_" .. sid)
 end
 
 CLASS.AddClass("FROST", {
@@ -164,7 +164,7 @@ if CLIENT then
 			sound.Play("ambient/wind/windgust_strong.wav", ply.frostPos)
 		else
 			hook.Remove("PostDrawTranslucentRenderables", "TTTCFrost_" .. sid)
-			hook.Remove("RenderScreenspaceEffects", "TTTCFrostOverlay" .. sid)
+			hook.Remove("RenderScreenspaceEffects", "TTTCFrostOverlay_" .. sid)
 
 			STATUS:RemoveStatus("ttt2h_status_frost")
 
