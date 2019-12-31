@@ -7,7 +7,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_void_init", function() 
+	hook.Add("Initialize", "ttt2h_status_void_init", function()
 		STATUS:RegisterStatus("ttt2h_status_void", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_void.png"),
 			type = "bad"
@@ -37,35 +37,35 @@ local function ActivateVoid(ply)
 end
 
 local function DeactivateVoid(ply)
-	if SERVER then
-		local plys = {}
+	if not SERVER then return end
 
-		for _, v in ipairs(player.GetAll()) do
-			if v ~= ply then
-				plys[#plys + 1] = v
-			end
+	local plys = {}
+
+	for _, v in ipairs(player.GetAll()) do
+		if v ~= ply then
+			plys[#plys + 1] = v
 		end
-
-		net.Start("TTTCVoidOverlay")
-		net.WriteBool(false)
-		net.Send(plys)
-
-		-- remove status effect
-		STATUS:RemoveStatus(plys, "ttt2h_status_void")
 	end
+
+	net.Start("TTTCVoidOverlay")
+	net.WriteBool(false)
+	net.Send(plys)
+
+	-- remove status effect
+	STATUS:RemoveStatus(plys, "ttt2h_status_void")
 end
 
 CLASS.AddClass("VOID", {
-		color = Color(61, 64, 75, 255),
-		onActivate = ActivateVoid,
-		onDeactivate = DeactivateVoid,
-		charging = 2,
-		time = 3,
-		cooldown = 50,
-		avoidWeaponReset = true,
-		langs = {
-			English = "Void"
-		}
+	color = Color(61, 64, 75, 255),
+	onActivate = ActivateVoid,
+	onDeactivate = DeactivateVoid,
+	charging = 2,
+	time = 3,
+	cooldown = 50,
+	avoidWeaponReset = true,
+	langs = {
+		English = "Void"
+	}
 })
 
 if CLIENT then
@@ -78,13 +78,12 @@ if CLIENT then
 	end)
 
 	hook.Add("RenderScreenspaceEffects", "TTTCVoidOverlay", function()
-		if LocalPlayer().tttcoverlay then
+		if not LocalPlayer().tttcoverlay then return end
 
-			-- idk why this alpha is buggy as ant
-			DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
-			DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
-			DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
-		end
+		-- idk why this alpha is buggy as ant
+		DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
+		DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
+		DrawMaterialOverlay("vgui/ttt/heroes/dark_overlay", 0)
 	end)
 
 	hook.Add("HUDShouldDraw", "TTT2HeroesVoidHideHUD", function(name)

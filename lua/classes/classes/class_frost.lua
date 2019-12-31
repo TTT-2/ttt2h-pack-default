@@ -7,7 +7,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_frost_init", function() 
+	hook.Add("Initialize", "ttt2h_status_frost_init", function()
 		STATUS:RegisterStatus("ttt2h_status_frost", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_frost.png"),
 			type = "bad"
@@ -22,7 +22,7 @@ local function PrepareFrostActivation(ply)
 	if CLIENT then
 		hook.Add("PostDrawTranslucentRenderables", "TTTCFrostPreview", function()
 			if LocalPlayer() ~= ply then return end --  nedded?
-			
+
 			local et = ply:GetEyeTrace()
 
 			render.SetColorMaterial()
@@ -57,7 +57,7 @@ local function ActivateFrost(ply)
 		for i = 1, #entities do
 			if entities[i] == pl then
 				refTbl[1] = refTbl[1] * 0.5
-				
+
 				return
 			end
 		end
@@ -66,29 +66,29 @@ end
 
 local function DeactivateFrost(ply)
 	local sid = ply:SteamID64()
-	
+
 	if SERVER then
 		net.Start("TTTCFrost")
 		net.WriteString(sid)
 		net.WriteBit(false)
 		net.Broadcast()
 	end
-	
+
 	hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed_" .. sid)
 end
 
 CLASS.AddClass("FROST", {
-		color = Color(0, 156, 156, 255),
-		onPrepareActivation = PrepareFrostActivation,
-		onFinishPreparingActivation = FinishFrostPreparing,
-		onActivate = ActivateFrost,
-		onDeactivate = DeactivateFrost,
-		avoidWeaponReset = true,
-		time = 10,
-		cooldown = 60,
-		langs = {
-			English = "Frost"
-		}
+	color = Color(0, 156, 156, 255),
+	onPrepareActivation = PrepareFrostActivation,
+	onFinishPreparingActivation = FinishFrostPreparing,
+	onActivate = ActivateFrost,
+	onDeactivate = DeactivateFrost,
+	avoidWeaponReset = true,
+	time = 10,
+	cooldown = 60,
+	langs = {
+		English = "Frost"
+	}
 })
 
 local col_outside = Color(255, 255, 255, 210)
@@ -104,7 +104,7 @@ if CLIENT then
 		if net.ReadBit() == 1 then
 			local ply = player.GetBySteamID64(sid)
 			if not IsValid(ply) then return end
-		
+
 			ply.tttcfrostindicator = true
 			ply.frostPos = net.ReadVector()
 
@@ -136,16 +136,16 @@ if CLIENT then
 
 			hook.Add("RenderScreenspaceEffects", "TTTCFrostOverlay_" .. sid, function()
 				if not ply.tttcfrostindicator or client:HasClass(CLASS.CLASSES.FROST.index) then return end
-				
+
 				local entities = ents.FindInSphere(ply.frostPos, frostRad)
 				local last_selected = client.ttthfrostselected or false
-				
+
 				client.ttthfrostselected = false
 
 				for i = 1, #entities do
 					if entities[i] == client then
 						client.ttthfrostselected = true
-						
+
 						break
 					end
 				end
@@ -170,7 +170,7 @@ if CLIENT then
 
 			local ply = player.GetBySteamID64(sid)
 			if not IsValid(ply) then return end
-			
+
 			ply.tttcfrostindicator = nil
 			ply.frostPos = nil
 		end

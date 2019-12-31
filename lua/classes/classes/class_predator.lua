@@ -12,25 +12,14 @@ local function PredatorFunction(ply)
 	end
 end
 
-local function ChargePredator(ply)
-	if CLIENT then
-		local trace = ply:GetEyeTrace()
-		local target = trace.Entity
-
-		return not trace.HitWorld and IsValid(target) and target:IsPlayer() and target:Alive()
-	end
-end
-
 CLASS.AddClass("PREDATOR", {
-		color = Color(56, 40, 63, 255),
-		onDeactivate = PredatorFunction,
-		--onCharge = ChargePredator,
-		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
-		cooldown = 120,
-		--charging = 2,
-		langs = {
-			English = "Predator"
-		}
+	color = Color(56, 40, 63, 255),
+	onDeactivate = PredatorFunction,
+	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
+	cooldown = 120,
+	langs = {
+		English = "Predator"
+	}
 })
 
 if CLIENT then

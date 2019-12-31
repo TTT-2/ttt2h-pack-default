@@ -8,7 +8,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_meditate_init", function() 
+	hook.Add("Initialize", "ttt2h_status_meditate_init", function()
 		STATUS:RegisterStatus("ttt2h_status_meditate", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_meditate.png"),
 			type = "good"
@@ -36,7 +36,7 @@ local function ActivateMeditate(ply)
 
 		timer.Create("class_gesture_" .. ply:SteamID64(), 0.75, 0, function()
 			if not IsValid(ply) then return end
-			
+
 			local health = ply:Health()
 
 			ply:SetHealth(math.Clamp(health + 5, health, ply:GetMaxHealth()))
@@ -56,11 +56,11 @@ local function DeactivateMeditate(ply)
 	if SERVER then
 		ply:RemoveGesture(ACT_GMOD_TAUNT_CHEER) -- TODO necessary ?
 		ply:Freeze(false)
-		
+
 		if ply.meditateCol then
 			ply:SetColor(ply.meditateCol)
 		end
-		
+
 		if ply.meditateColMode then
 			ply:SetRenderMode(ply.meditateColMode)
 		end
@@ -100,7 +100,7 @@ if CLIENT then
 		local target = net.ReadEntity()
 
 		if not IsValid(target) then return end
-		
+
 		target:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, gesture, false)
 	end)
 

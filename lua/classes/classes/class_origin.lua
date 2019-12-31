@@ -31,14 +31,14 @@ local function OriginFunction(ply)
 end
 
 CLASS.AddClass("ORIGIN", {
-		color = Color(255, 156, 0, 255),
-		onDeactivate = OriginFunction,
-		time = 0,
-		cooldown = 60,
-		charging = 2,
-		langs = {
-			English = "Origin"
-		}
+	color = Color(255, 156, 0, 255),
+	onDeactivate = OriginFunction,
+	time = 0,
+	cooldown = 60,
+	charging = 2,
+	langs = {
+		English = "Origin"
+	}
 })
 
 if SERVER then

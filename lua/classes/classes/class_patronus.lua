@@ -26,13 +26,13 @@ local function PatronusDeactivate(ply)
 end
 
 CLASS.AddClass("PATRONUS", {
-		color = Color(191, 215, 252, 255),
-		onActivate = PatronusActivate,
-		onDeactivate = PatronusDeactivate,
-		time = 5,
-		cooldown = 60,
-		avoidWeaponReset = true,
-		langs = {
-			English = "Patronus"
-		}
+	color = Color(191, 215, 252, 255),
+	onActivate = PatronusActivate,
+	onDeactivate = PatronusDeactivate,
+	time = 5,
+	cooldown = 60,
+	avoidWeaponReset = true,
+	langs = {
+		English = "Patronus"
+	}
 })

@@ -1,6 +1,6 @@
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_heal.png")
-	
+
 	util.AddNetworkString("TTTCNebula")
 end
 
@@ -36,7 +36,7 @@ local function DeactivateNebula(ply)
 		net.Broadcast()
 	end
 
-	hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_".. ply:SteamID64())
+	hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_" .. ply:SteamID64())
 end
 
 local function NebulaFunction(ply)
@@ -110,13 +110,13 @@ local function NebulaFunction(ply)
 end
 
 CLASS.AddClass("NEBULA", {
-		color = Color(75, 139, 157, 255),
-		onDeactivate = NebulaFunction,
-		time = 0,
-		cooldown = 50,
-		langs = {
-			English = "Nebula"
-		}
+	color = Color(75, 139, 157, 255),
+	onDeactivate = NebulaFunction,
+	time = 0,
+	cooldown = 50,
+	langs = {
+		English = "Nebula"
+	}
 })
 
 if SERVER then

@@ -22,38 +22,38 @@ local function CanGrab(ply)
 end
 
 CLASS.AddClass("SWIFT", {
-		color = Color(0, 152, 216, 255),
-		passiveItems = {
-			"item_ttt_climb"
-		},
-		onActivate = function(ply)
-			ply.Grab = true
-			ply.ClimbJumps = 0
-			ply.ClimbPos = ply:GetPos()
+	color = Color(0, 152, 216, 255),
+	passiveItems = {
+		"item_ttt_climb"
+	},
+	onActivate = function(ply)
+		ply.Grab = true
+		ply.ClimbJumps = 0
+		ply.ClimbPos = ply:GetPos()
 
-			local VelZ = ply:GetVelocity().z
+		local VelZ = ply:GetVelocity().z
 
-			ply:ViewPunch(Angle(math.max(15, math.min(30, VelZ)) * (VelZ > 0 and 1 or - 1), 0, 0))
-			ply:SetLocalVelocity(Vector(0, 0, 0))
-			ply:SetMoveType(MOVETYPE_NONE)
-			ply:EmitSound(Sound("physics/flesh/flesh_impact_hard" .. math.random(1, 3) .. ".wav"), 75)
-		end,
-		onDeactivate = function(ply)
-			if ply:GetMoveType() == MOVETYPE_NONE then
-				ply:SetMoveType(MOVETYPE_WALK)
-			end
+		ply:ViewPunch(Angle(math.max(15, math.min(30, VelZ)) * (VelZ > 0 and 1 or - 1), 0, 0))
+		ply:SetLocalVelocity(Vector(0, 0, 0))
+		ply:SetMoveType(MOVETYPE_NONE)
+		ply:EmitSound(Sound("physics/flesh/flesh_impact_hard" .. math.random(1, 3) .. ".wav"), 75)
+	end,
+	onDeactivate = function(ply)
+		if ply:GetMoveType() == MOVETYPE_NONE then
+			ply:SetMoveType(MOVETYPE_WALK)
+		end
 
-			ply.Grab = false
-		end,
-		checkActivation = function(ply)
-			return ({CanGrab(ply)})[1]
-		end,
-		time = 10,
-		cooldown = 60,
-		avoidWeaponReset = true,
-		langs = {
-			English = "Swift"
-		}
+		ply.Grab = false
+	end,
+	checkActivation = function(ply)
+		return ({CanGrab(ply)})[1]
+	end,
+	time = 10,
+	cooldown = 60,
+	avoidWeaponReset = true,
+	langs = {
+		English = "Swift"
+	}
 })
 
 hook.Add("Think", "ClimbGrabThink", function()

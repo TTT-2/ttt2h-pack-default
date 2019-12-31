@@ -6,7 +6,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_chaos_init", function() 
+	hook.Add("Initialize", "ttt2h_status_chaos_init", function()
 		STATUS:RegisterStatus("ttt2h_status_chaos", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_chaos.png"),
 			type = "bad"
@@ -108,80 +108,4 @@ if CLIENT then
 			LocalPlayer().classChaos_inverted = nil
 		end
 	end)
-
-	--[[
-	local mirrorRT = GetRenderTarget("MirrorTexture", ScrW(), ScrH(), false)
-
-	local function GetBaseTransform()
-		return string.format("center .5 .5 scale %i %i rotate 0 translate 0 0", flippedVertical:GetBool() and - 1 or 1, flippedHorizontal:GetBool() and - 1 or 1)
-	end
-
-	local MirroredMaterial = CreateMaterial(
-		"MirroredMaterial",
-		"UnlitGeneric",
-		{
-			["$basetexture"] = mirrorRT,
-			["$basetexturetransform"] = GetBaseTransform(),
-		}
-	)
-
-	local view = {}
-
-	hook.Add("RenderScene", "Mirror.RenderScene", function(origin, angles)
-		local ply = LocalPlayer()
-
-		if ply.classChaos_inverted then
-			view.x = 0
-			view.y = 0
-			view.w = ScrW()
-			view.h = ScrH()
-			view.origin = origin
-			view.angles = angles
-			view.drawhud = true
-
-			-- get the old rendertarget
-			local oldrt = render.GetRenderTarget()
-
-			-- set the rendertarget
-			render.SetRenderTarget(mirrorRT)
-
-			-- clear
-			render.Clear(0, 0, 0, 255, true)
-			render.ClearDepth()
-			render.ClearStencil()
-			render.RenderView(view)
-
-			-- restore
-			render.SetRenderTarget(oldrt)
-
-			MirroredMaterial:SetTexture("$basetexture", mirrorRT)
-
-			render.SetMaterial(MirroredMaterial)
-			render.DrawScreenQuad()
-
-			render.RenderHUD(0, 0, view.w, view.h)
-
-			return true
-		end
-	end)
-	]]--
-
-	-- Invert mouse input
-	--[[
-	hook.Add("InputMouseApply", "flipmouse", function(cmd, x, y, angle)
-		local ply = LocalPlayer()
-
-		if ply.classChaos_inverted then
-			local pitchchange = y * GetConVar("m_pitch"):GetFloat()
-			local yawchange = x * -GetConVar("m_yaw"):GetFloat()
-
-			angle.p = angle.p + pitchchange * (flippedHorizontal:GetBool() and - 1 or 1)
-			angle.y = angle.y + yawchange * (flippedVertical:GetBool() and - 1 or 1)
-
-			cmd:SetViewangles(angle)
-
-			return true
-		end
-	end)
-	]]--
 end

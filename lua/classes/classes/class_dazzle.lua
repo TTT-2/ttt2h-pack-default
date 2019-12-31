@@ -92,14 +92,14 @@ if SERVER then
 end
 
 CLASS.AddClass("DAZZLE", {
-		color = Color(255, 242, 109, 255),
-		onDeactivate = CreateDazzleEffect,
-		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
-		cooldown = 75,
-		charging = 2, -- TODO why 1 s doesn't work
-		langs = {
-			English = "Dazzle"
-		}
+	color = Color(255, 242, 109, 255),
+	onDeactivate = CreateDazzleEffect,
+	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
+	cooldown = 75,
+	charging = 2, -- TODO why 1 s doesn't work
+	langs = {
+		English = "Dazzle"
+	}
 })
 
 if CLIENT then

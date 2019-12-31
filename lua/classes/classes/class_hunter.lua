@@ -14,22 +14,22 @@ local function HunterFunction(ply)
 end
 
 CLASS.AddClass("HUNTER", {
-		color = Color(137, 72, 6, 255),
-		passiveItems = {
-			"item_ttt_nofalldmg"
-		},
-		onDeactivate = HunterFunction,
-		time = 0,
-		cooldown = 10,
-		langs = {
-			English = "Hunter"
-		}
+	color = Color(137, 72, 6, 255),
+	passiveItems = {
+		"item_ttt_nofalldmg"
+	},
+	onDeactivate = HunterFunction,
+	time = 0,
+	cooldown = 10,
+	langs = {
+		English = "Hunter"
+	}
 })
 
 hook.Add("OnPlayerHitGround", "TTTCHunterHitGround", function(ply)
-	if ply.classHunting then
-		ply.classHunting = nil
+	if not ply.classHunting then return end
 
-		return false
-	end
+	ply.classHunting = nil
+
+	return false
 end)

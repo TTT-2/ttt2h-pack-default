@@ -16,7 +16,7 @@ local function ConcealFunction(ply)
 		if SERVER then
 			local role = target.was_role
 			local team = target.was_team
-			
+
 			if role ~= ROLE_ZOMBIE then
 				if team ~= TEAM_INNOCENT and ply:HasTeam(TEAM_INNOCENT) then
 					ply:Give("weapon_ttt_traitor_case")
@@ -39,11 +39,11 @@ local function ConcealFunction(ply)
 end
 
 CLASS.AddClass("CONCEAL", {
-		color = Color(68, 208, 187, 255),
-		onDeactivate = ConcealFunction,
-		time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
-		cooldown = 60,
-		langs = {
-			English = "Conceal"
-		}
+	color = Color(68, 208, 187, 255),
+	onDeactivate = ConcealFunction,
+	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
+	cooldown = 60,
+	langs = {
+		English = "Conceal"
+	}
 })

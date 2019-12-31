@@ -10,19 +10,19 @@ util.PrecacheSound("heroes/vendetta.wav")
 -- maybe use this player model "models/player/charple.mdl"
 
 sound.Add({
-		name = "class_vendetta",
-		channel = CHAN_STATIC,
-		volume = 1.0,
-		level = 100,
-		sound = "heroes/vendetta.wav"
+	name = "class_vendetta",
+	channel = CHAN_STATIC,
+	volume = 1.0,
+	level = 100,
+	sound = "heroes/vendetta.wav"
 })
 
 CLASS.AddClass("VENDETTA", {
-		color = Color(99, 1, 3, 255),
-		deactivated = true,
-		langs = {
-			English = "Vendetta"
-		}
+	color = Color(99, 1, 3, 255),
+	deactivated = true,
+	langs = {
+		English = "Vendetta"
+	}
 })
 
 hook.Add("TTTCUpdateClass", "UpdateVendetta", function(ply, old, new)
@@ -121,11 +121,11 @@ if SERVER then
 
 	hook.Add("PlayerCanPickupWeapon", "TTTCVendettaPickupWeapon", function(ply, wep)
 		if not ply.vendettaRevived then return end
-		
+
 		if WEPS.GetClass(wep) == "weapon_ttt_tigers" and not ply:HasWeapon("weapon_ttt_tigers") then
 			return true
 		end
-		
+
 		return false
 	end)
 
@@ -191,6 +191,6 @@ end
 -- shared because this is predicted
 hook.Add("TTTPlayerSpeedModifier", "HeroVendettaModifySpeed", function(ply, _, _, refTbl)
 	if not IsValid(ply) or not ply:Alive() or not ply:IsTerror() or not ply.vendettaTarget then return end
-	
+
 	refTbl[1] = refTbl[1] * 2
 end)

@@ -15,14 +15,14 @@ local function FloatFunction(ply)
 end
 
 CLASS.AddClass("FLOAT", {
-		color = Color(35, 44, 160, 255),
-		passiveItems = {
-			"item_ttt_glider"
-		},
-		onDeactivate = FloatFunction,
-		time = 0,
-		cooldown = 30,
-		langs = {
-			English = "Float"
-		}
+	color = Color(35, 44, 160, 255),
+	passiveItems = {
+		"item_ttt_glider"
+	},
+	onDeactivate = FloatFunction,
+	time = 0,
+	cooldown = 30,
+	langs = {
+		English = "Float"
+	}
 })
