@@ -20,23 +20,19 @@ sound.Add({
 CLASS.AddClass("VENDETTA", {
 	color = Color(99, 1, 3, 255),
 	deactivated = true,
+	onClassSet = function(ply)
+		ply.vendetta = true
+	end,
+	onClassUnset = function(ply)
+		if ply:HasClass() then
+			ply.vendetta = nil
+		end
+		ply.vendettaTarget = nil
+	end,
 	langs = {
 		English = "Vendetta"
 	}
 })
-
-hook.Add("TTTCUpdateClass", "UpdateVendetta", function(ply, old, new)
-	local vendetta = CLASS.CLASSES.VENDETTA.index
-	if new == vendetta then
-		ply.vendetta = true
-	elseif old == vendetta then
-		if new then
-			ply.vendetta = nil
-		end
-
-		ply.vendettaTarget = nil
-	end
-end)
 
 hook.Add("TTTEndRound", "ResetVendetta", function()
 	for _, ply in ipairs(player.GetAll()) do
