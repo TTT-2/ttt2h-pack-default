@@ -142,45 +142,13 @@ else
 	end)
 
 	-- TODO use the marks or outline library instead
-	hook.Add("PostDrawOpaqueRenderables", "VendettaPlayerBorders", function()
+	hook.Add("PreDrawOutlines", "VendettaPlayerBorders", function()
 		local client = LocalPlayer()
 		local target = client.vendettaTarget
 
 		if not IsValid(target) or not target:IsActive() then return end
 
-		--stencil work is done in postdrawopaquerenderables, where surface doesn't work correctly
-		--workaround via 3D2D
-		local ang = client:EyeAngles()
-		local pos = client:EyePos() + ang:Forward() * 10
-
-		ang = Angle(ang.p + 90, ang.y, 0)
-
-		render.ClearStencil()
-		render.SetStencilEnable(true)
-		render.SetStencilWriteMask(255)
-		render.SetStencilTestMask(255)
-		render.SetStencilReferenceValue(15)
-		render.SetStencilFailOperation(STENCILOPERATION_KEEP)
-		render.SetStencilZFailOperation(STENCILOPERATION_REPLACE)
-		render.SetStencilPassOperation(STENCILOPERATION_KEEP)
-		render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
-		render.SetBlend(0)
-
-		target:DrawModel()
-
-		render.SetBlend(1)
-		render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
-
-		cam.Start3D2D(pos, ang, 1)
-
-		surface.SetDrawColor(255, 50, 50)
-		surface.DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
-
-		cam.End3D2D()
-
-		target:DrawModel()
-
-		render.SetStencilEnable(false)
+		outline.Add(target, Color(255, 50, 50))
 	end)
 end
 
