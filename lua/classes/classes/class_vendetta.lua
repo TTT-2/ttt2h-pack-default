@@ -20,13 +20,13 @@ sound.Add({
 CLASS.AddClass("VENDETTA", {
 	color = Color(99, 1, 3, 255),
 	deactivated = true,
+	activeDuringDeath = true,
+	surpressKeepOnRespawn = true,
 	onClassSet = function(ply)
 		ply.vendetta = true
 	end,
 	onClassUnset = function(ply)
-		if ply:HasClass() then
-			ply.vendetta = nil
-		end
+		ply.vendetta = nil
 		ply.vendettaTarget = nil
 	end,
 	langs = {
@@ -81,35 +81,25 @@ if SERVER then
 		if victim.vendetta and not victim.reviving then
 			victim.vendetta = nil
 
-			if not GetGlobalBool("ttt2_heroes") or victim:HasCrystal() then
-				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
+			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
 
-				-- revive after 5s
-				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
-					p:EmitSound("class_vendetta", 70)
-					p:StripWeapons()
-					p:Give("weapon_ttt_tigers")
+			-- revive after 5s
+			victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
+				p:EmitSound("class_vendetta", 70)
+				p:StripWeapons()
+				p:Give("weapon_ttt_tigers")
 
-					p.vendettaRevived = CurTime()
+				p.vendettaRevived = CurTime()
 
-					if IsValid(attacker) then
-						p.vendettaTarget = attacker
+				if IsValid(attacker) then
+					p.vendettaTarget = attacker
 
-						SendVendettaTarget(p, attacker)
-					end
-				end,
-				function(p) -- onCheck
-					return not GetGlobalBool("ttt2_heroes") or p:HasCrystal()
-				end,
-				false, true, -- there need to be your corpse and you don't prevent win
-				function(p) -- onFail
-					if GetGlobalBool("ttt2_heroes") and p:HasCrystal() then
-						p:ChatPrint("[TTTC][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
-					end
-				end)
-			else
-				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
-			end
+					SendVendettaTarget(p, attacker)
+				end
+			end,
+			nil,
+			false, true, -- there need to be your corpse and you don't prevent win
+			nil)
 		elseif victim.vendetta and victim.reviving then
 			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
 		end
@@ -129,7 +119,7 @@ if SERVER then
 		for _, v in ipairs(player.GetAll()) do
 			local time = CurTime()
 
-			if v.vendettaRevived and v.vendettaRevived + 1 <= time then
+			if v.vendettaRevived and v.vendettaRevived + 1 <= time and GetRoundState() == ROUND_ACTIVE then
 				v.vendettaRevived = time + 1
 
 				v:TakeDamage(5, game.GetWorld())
