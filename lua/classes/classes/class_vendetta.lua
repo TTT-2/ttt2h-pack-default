@@ -131,7 +131,6 @@ else
 		LocalPlayer().vendettaTarget = net.ReadEntity()
 	end)
 
-	-- TODO use the marks or outline library instead
 	hook.Add("PreDrawOutlines", "VendettaPlayerBorders", function()
 		local client = LocalPlayer()
 		local target = client.vendettaTarget
