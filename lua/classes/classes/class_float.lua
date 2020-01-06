@@ -22,7 +22,12 @@ CLASS.AddClass("FLOAT", {
 	onDeactivate = FloatFunction,
 	time = 0,
 	cooldown = 30,
-	langs = {
-		English = "Float"
+	lang = {
+		name = {
+			English = "Float"
+		},
+		desc = {
+			English = "The Float slowly glides to the ground and therefore never receives any falldamage. Activating his ability propulses him into the sky only to slowly glide back to the ground."
+		}
 	}
 })

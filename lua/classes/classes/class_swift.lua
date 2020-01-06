@@ -51,8 +51,13 @@ CLASS.AddClass("SWIFT", {
 	time = 10,
 	cooldown = 60,
 	avoidWeaponReset = true,
-	langs = {
-		English = "Swift"
+	lang = {
+		name = {
+			English = "Swift"
+		},
+		desc = {
+			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally he can climb on walls while looking at them. On activation of his ability, he can hold himself to the wall for 10 seconds."
+		}
 	}
 })
 

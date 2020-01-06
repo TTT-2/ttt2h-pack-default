@@ -16,7 +16,12 @@ CLASS.AddClass("MIRROR", {
 	avoidWeaponReset = true,
 	time = 3,
 	cooldown = 60,
-	langs = {
-		English = "Mirror"
+	lang = {
+		name = {
+			English = "Mirror"
+		},
+		desc = {
+			English = "The Mirror is able to block and reflect all incoming damage for three seconds once every minute. He has no passive ability."
+		}
 	}
 })

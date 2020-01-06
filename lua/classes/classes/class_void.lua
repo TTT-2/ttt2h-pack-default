@@ -63,8 +63,13 @@ CLASS.AddClass("VOID", {
 	time = 3,
 	cooldown = 50,
 	avoidWeaponReset = true,
-	langs = {
-		English = "Void"
+	lang = {
+		name = {
+			English = "Void"
+		},
+		desc = {
+			English = "The Void is able to darken the screen of all non-void players for three seconds once every 50 seconds. He has no passive ability."
+		}
 	}
 })
 

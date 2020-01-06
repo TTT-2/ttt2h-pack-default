@@ -114,8 +114,13 @@ CLASS.AddClass("NEBULA", {
 	onDeactivate = NebulaFunction,
 	time = 0,
 	cooldown = 50,
-	langs = {
-		English = "Nebula"
+	lang = {
+		name = {
+			English = "Nebula"
+		},
+		desc = {
+			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players stuck inside. He also receives a small sprint boost inside his mist. He has no passive ability."
+		}
 	}
 })
 

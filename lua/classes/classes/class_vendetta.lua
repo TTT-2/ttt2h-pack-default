@@ -20,8 +20,13 @@ sound.Add({
 CLASS.AddClass("VENDETTA", {
 	color = Color(99, 1, 3, 255),
 	deactivated = true,
-	langs = {
-		English = "Vendetta"
+	lang = {
+		name = {
+			English = "Vendetta"
+		},
+		desc = {
+			English = "The Vendetta plays with his life. After beeing killed, he will respawn with a knife to revenge himself! He has no active ability."
+		}
 	}
 })
 

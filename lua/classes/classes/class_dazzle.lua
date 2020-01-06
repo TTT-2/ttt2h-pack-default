@@ -97,8 +97,13 @@ CLASS.AddClass("DAZZLE", {
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 75,
 	charging = 2, -- TODO why 1 s doesn't work
-	langs = {
-		English = "Dazzle"
+	lang = {
+		name = {
+			English = "Dazzle"
+		},
+		desc = {
+			English = "The Dazzle can blind his opponents by firing a flashbang. This flashbang affects everyone on the map looking into his broad direction. After firing the flashbang, he receives a short speedboost. He has no passive ability."
+		}
 	}
 })
 

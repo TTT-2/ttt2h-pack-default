@@ -45,7 +45,12 @@ CLASS.AddClass("BREACH", {
 	end,
 	time = 30,
 	amount = 1,
-	langs = {
-		English = "Breach"
+	lang = {
+		name = {
+			English = "Breach"
+		},
+		desc = {
+			English = "The Breach always wears some body armor. Once and only once he can activate his ability, receives 50 extra health and a heavy shotgun to blast himself through the world!"
+		}
 	}
 })
