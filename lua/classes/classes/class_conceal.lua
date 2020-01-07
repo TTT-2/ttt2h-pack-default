@@ -45,7 +45,7 @@ CLASS.AddClass("CONCEAL", {
 	cooldown = 60,
 	lang = {
 		name = {
-			English = "Frost"
+			English = "Conceal"
 		},
 		desc = {
 			English = "The Conceal is able to remove corpses from the map. As an Innocent he receives a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yield him 10 HP instead. He has no passive ability."
