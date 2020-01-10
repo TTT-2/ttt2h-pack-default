@@ -96,10 +96,12 @@ if SERVER then
 
 				p.vendettaRevived = CurTime()
 
-				if IsValid(attacker) then
-					p.vendettaTarget = attacker
+				local target = IsValid(attacker) and attacker or victim
 
-					SendVendettaTarget(p, attacker)
+				if IsValid(target) then
+					p.vendettaTarget = target
+
+					SendVendettaTarget(p, target)
 				end
 			end,
 			nil,
