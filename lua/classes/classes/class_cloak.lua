@@ -41,7 +41,12 @@ CLASS.AddClass("CLOAK", {
 	end,
 	time = 5,
 	cooldown = 45,
-	langs = {
-		English = "Cloak"
+	lang = {
+		name = {
+			English = "Cloak"
+		},
+		desc = {
+			English = "The Cloak is able to turn fully invisible for five seconds by activating his ability. He has no passive ability."
+		}
 	}
 })

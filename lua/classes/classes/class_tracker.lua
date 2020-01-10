@@ -6,7 +6,12 @@ CLASS.AddClass("TRACKER", {
 	avoidWeaponReset = true,
 	time = 10,
 	cooldown = 75,
-	langs = {
-		English = "Tracker"
+	lang = {
+		name = {
+			English = "Tracker"
+		},
+		desc = {
+			English = "The Tracker is able to use a wallhack for 10 seconds once every 75 seconds. He has no passive ability."
+		}
 	}
 })

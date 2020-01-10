@@ -43,7 +43,12 @@ CLASS.AddClass("CONCEAL", {
 	onDeactivate = ConcealFunction,
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 60,
-	langs = {
-		English = "Conceal"
+	lang = {
+		name = {
+			English = "Conceal"
+		},
+		desc = {
+			English = "The Conceal is able to remove corpses from the map. As an Innocent he receives a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yield him 10 HP instead. He has no passive ability."
+		}
 	}
 })

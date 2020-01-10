@@ -24,8 +24,13 @@ CLASS.AddClass("PREDATOR", {
 	onDeactivate = PredatorFunction,
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 120,
-	langs = {
-		English = "Predator"
+	lang = {
+		name = {
+			English = "Predator"
+		},
+		desc = {
+			English = "The Predator is able to track one player thrugh the wall every two minutes by using his ability while focuing the player. He has no passive ability."
+		}
 	}
 })
 

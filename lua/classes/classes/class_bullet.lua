@@ -18,7 +18,12 @@ CLASS.AddClass("BULLET", {
 	avoidWeaponReset = true,
 	time = 2,
 	cooldown = 20,
-	langs = {
-		English = "Bullet"
+	lang = {
+		name = {
+			English = "Bullet"
+		},
+		desc = {
+			English = "The Bullet already walks quite a bit faster than the other players. But on activation of his ability, he receives a mear speedboost."
+		}
 	}
 })

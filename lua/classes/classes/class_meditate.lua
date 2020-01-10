@@ -89,8 +89,13 @@ CLASS.AddClass("MEDITATE", {
 	onDeactivate = DeactivateMeditate,
 	endless = true,
 	cooldown = 30,
-	langs = {
-		English = "Meditate"
+	lang = {
+		name = {
+			English = "Meditate"
+		},
+		desc = {
+			English = "The Meditate can use his ability to heal himself. While he's in the healing process, he can't move. He has no passive ability."
+		}
 	}
 })
 

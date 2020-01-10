@@ -36,8 +36,13 @@ CLASS.AddClass("ORIGIN", {
 	time = 0,
 	cooldown = 60,
 	charging = 2,
-	langs = {
-		English = "Origin"
+	lang = {
+		name = {
+			English = "Origin"
+		},
+		desc = {
+			English = "The Origin is able to teleport himself back to the mapspawn once every minute. He has no passive ability."
+		}
 	}
 })
 

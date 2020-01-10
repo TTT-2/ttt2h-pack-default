@@ -53,16 +53,21 @@ local function ChaosDeactivate(ply)
 end
 
 CLASS.AddClass("CHAOS", {
-		color = Color(255, 76, 0, 255),
-		onActivate = ChaosActivate,
-		onDeactivate = ChaosDeactivate,
-		time = 5,
-		cooldown = 120,
-		charging = 3,
-		avoidWeaponReset = true,
-		langs = {
+	color = Color(255, 76, 0, 255),
+	onActivate = ChaosActivate,
+	onDeactivate = ChaosDeactivate,
+	time = 5,
+	cooldown = 120,
+	charging = 3,
+	avoidWeaponReset = true,
+	lang = {
+		name = {
 			English = "Chaos"
+		},
+		desc = {
+			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of his ability. He has no passive ability."
 		}
+	}
 })
 
 if CLIENT then

@@ -18,7 +18,12 @@ CLASS.AddClass("RESISTANT", {
 	end,
 	time = 2,
 	cooldown = 30,
-	langs = {
-		English = "Resistant"
+	lang = {
+		name = {
+			English = "Resistant"
+		},
+		desc = {
+			English = "The Resistant receives no explosion damage. Once every 30 seconds he can block all incoming damage for two seconds. However he is unable to shoot back while deflecting damage."
+		}
 	}
 })

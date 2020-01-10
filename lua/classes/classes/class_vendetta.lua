@@ -29,8 +29,13 @@ CLASS.AddClass("VENDETTA", {
 		ply.vendetta = nil
 		ply.vendettaTarget = nil
 	end,
-	langs = {
-		English = "Vendetta"
+	lang = {
+		name = {
+			English = "Vendetta"
+		},
+		desc = {
+			English = "The Vendetta plays with his life. After beeing killed, he will respawn with a knife to revenge himself! He has no active ability."
+		}
 	}
 })
 

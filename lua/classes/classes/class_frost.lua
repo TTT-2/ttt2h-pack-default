@@ -86,8 +86,13 @@ CLASS.AddClass("FROST", {
 	avoidWeaponReset = true,
 	time = 10,
 	cooldown = 60,
-	langs = {
-		English = "Frost"
+	lang = {
+		name = {
+			English = "Frost"
+		},
+		desc = {
+			English = "The Frost can spawn a frozen sphere of ice. Every player inside this sphere has limited sight and walks really slow. He has no passive ability."
+		}
 	}
 })
 

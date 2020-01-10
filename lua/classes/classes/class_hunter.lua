@@ -21,8 +21,13 @@ CLASS.AddClass("HUNTER", {
 	onDeactivate = HunterFunction,
 	time = 0,
 	cooldown = 10,
-	langs = {
-		English = "Hunter"
+	lang = {
+		name = {
+			English = "Hunter"
+		},
+		desc = {
+			English = "The Hunter doesn't receive any falldamage. By using his ability, he performs a huge jump in his viewing direction."
+		}
 	}
 })
 

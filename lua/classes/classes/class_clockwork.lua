@@ -19,7 +19,12 @@ CLASS.AddClass("CLOCKWORK", {
 		"item_ttt_shootingspeed"
 	},
 	avoidWeaponReset = true,
-	langs = {
-		English = "Clockwork"
+	lang = {
+		name = {
+			English = "Clockwork"
+		},
+		desc = {
+			English = "The weapons of the clockwork have a faster shooting speed than they would normally have. Additionally he is able to slow down the time for three seconds once every 45 seconds."
+		}
 	}
 })
