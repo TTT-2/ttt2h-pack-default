@@ -4,6 +4,7 @@ CLASS.AddClass("BREACH", {
 		"item_ttt_armor"
 	},
 	avoidWeaponReset = true,
+	surpressKeepOnRespawn = true,
 	onActivate = function(ply)
 		if not SERVER then return end
 
