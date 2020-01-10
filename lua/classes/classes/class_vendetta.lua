@@ -20,23 +20,19 @@ sound.Add({
 CLASS.AddClass("VENDETTA", {
 	color = Color(99, 1, 3, 255),
 	deactivated = true,
+	activeDuringDeath = true,
+	surpressKeepOnRespawn = true,
+	onClassSet = function(ply)
+		ply.vendetta = true
+	end,
+	onClassUnset = function(ply)
+		ply.vendetta = nil
+		ply.vendettaTarget = nil
+	end,
 	langs = {
 		English = "Vendetta"
 	}
 })
-
-hook.Add("TTTCUpdateClass", "UpdateVendetta", function(ply, old, new)
-	local vendetta = CLASS.CLASSES.VENDETTA.index
-	if new == vendetta then
-		ply.vendetta = true
-	elseif old == vendetta then
-		if new then
-			ply.vendetta = nil
-		end
-
-		ply.vendettaTarget = nil
-	end
-end)
 
 hook.Add("TTTEndRound", "ResetVendetta", function()
 	for _, ply in ipairs(player.GetAll()) do
@@ -85,35 +81,25 @@ if SERVER then
 		if victim.vendetta and not victim.reviving then
 			victim.vendetta = nil
 
-			if not GetGlobalBool("ttt2_heroes") or victim:HasCrystal() then
-				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
+			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
 
-				-- revive after 5s
-				victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
-					p:EmitSound("class_vendetta", 70)
-					p:StripWeapons()
-					p:Give("weapon_ttt_tigers")
+			-- revive after 5s
+			victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
+				p:EmitSound("class_vendetta", 70)
+				p:StripWeapons()
+				p:Give("weapon_ttt_tigers")
 
-					p.vendettaRevived = CurTime()
+				p.vendettaRevived = CurTime()
 
-					if IsValid(attacker) then
-						p.vendettaTarget = attacker
+				if IsValid(attacker) then
+					p.vendettaTarget = attacker
 
-						SendVendettaTarget(p, attacker)
-					end
-				end,
-				function(p) -- onCheck
-					return not GetGlobalBool("ttt2_heroes") or p:HasCrystal()
-				end,
-				false, true, -- there need to be your corpse and you don't prevent win
-				function(p) -- onFail
-					if GetGlobalBool("ttt2_heroes") and p:HasCrystal() then
-						p:ChatPrint("[TTTC][Vendetta] Du wurdest nicht wiederbelebt, da dein Kristall zerstört wurde...")
-					end
-				end)
-			else
-				victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da dein Kristall bereits zerstört wurde...")
-			end
+					SendVendettaTarget(p, attacker)
+				end
+			end,
+			nil,
+			false, true, -- there need to be your corpse and you don't prevent win
+			nil)
 		elseif victim.vendetta and victim.reviving then
 			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
 		end
@@ -133,7 +119,7 @@ if SERVER then
 		for _, v in ipairs(player.GetAll()) do
 			local time = CurTime()
 
-			if v.vendettaRevived and v.vendettaRevived + 1 <= time then
+			if v.vendettaRevived and v.vendettaRevived + 1 <= time and GetRoundState() == ROUND_ACTIVE then
 				v.vendettaRevived = time + 1
 
 				v:TakeDamage(5, game.GetWorld())
@@ -145,46 +131,13 @@ else
 		LocalPlayer().vendettaTarget = net.ReadEntity()
 	end)
 
-	-- TODO use the marks or outline library instead
-	hook.Add("PostDrawOpaqueRenderables", "VendettaPlayerBorders", function()
+	hook.Add("PreDrawOutlines", "VendettaPlayerBorders", function()
 		local client = LocalPlayer()
 		local target = client.vendettaTarget
 
 		if not IsValid(target) or not target:IsActive() then return end
 
-		--stencil work is done in postdrawopaquerenderables, where surface doesn't work correctly
-		--workaround via 3D2D
-		local ang = client:EyeAngles()
-		local pos = client:EyePos() + ang:Forward() * 10
-
-		ang = Angle(ang.p + 90, ang.y, 0)
-
-		render.ClearStencil()
-		render.SetStencilEnable(true)
-		render.SetStencilWriteMask(255)
-		render.SetStencilTestMask(255)
-		render.SetStencilReferenceValue(15)
-		render.SetStencilFailOperation(STENCILOPERATION_KEEP)
-		render.SetStencilZFailOperation(STENCILOPERATION_REPLACE)
-		render.SetStencilPassOperation(STENCILOPERATION_KEEP)
-		render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
-		render.SetBlend(0)
-
-		target:DrawModel()
-
-		render.SetBlend(1)
-		render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
-
-		cam.Start3D2D(pos, ang, 1)
-
-		surface.SetDrawColor(255, 50, 50)
-		surface.DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
-
-		cam.End3D2D()
-
-		target:DrawModel()
-
-		render.SetStencilEnable(false)
+		outline.Add(target, Color(255, 50, 50))
 	end)
 end
 

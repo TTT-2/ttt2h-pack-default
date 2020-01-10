@@ -3,6 +3,8 @@ local EFFECT_DELAY = 0.5 -- time, in seconds when the effects still are going on
 
 local FLASH_INTENSITY = 2250 --the higher the number, the longer the flash will be whitening your screen
 
+local BOOST = 2 --the initial speed boost after the flash
+
 local function CreateDazzleEffect(ply)
 	local pos = ply:GetPos()
 	local time = CurTime()
@@ -11,16 +13,14 @@ local function CreateDazzleEffect(ply)
 		ply:EmitSound(Sound("weapons/flashbang/flashbang_explode" .. math.random(1, 2) .. ".wav"))
 		ply:GiveItem("item_ttt_speedrun")
 
-		local boost = 2
-
-		ply.speedrun_mul = boost * (ply.speedrun_mul or 1)
+		ply.speedrun_mul = BOOST * (ply.speedrun_mul or 1)
 		ply.tttc_class_speedmod = true
 
 		timer.Create("TTTCDazzleSpeedBoost_" .. ply:SteamID64(), 2, 1, function()
 			if IsValid(ply) and ply.tttc_class_speedmod then
 				ply:RemoveItem("item_ttt_speedrun")
 
-				ply.speedrun_mul = (ply.speedrun_mul or 1) / boost
+				ply.speedrun_mul = (ply.speedrun_mul or 1) / BOOST
 			end
 		end)
 
@@ -73,26 +73,25 @@ local function CreateDazzleEffect(ply)
 	end
 end
 
-if SERVER then
-	hook.Add("TTTCUpdateClass", "TTTCDazzleReset", function(ply, old, new)
-		if old ~= CLASS.CLASSES.DAZZLE.index then return end
+local function DazzleUnset(ply)
+	if not SERVER then return end
+	
+	local identifier = "TTTCDazzleSpeedBoost_" .. ply:SteamID64()
 
-		local identifier = "TTTCDazzleSpeedBoost_" .. ply:SteamID64()
+	if timer.Exists(identifier) then
+		if IsValid(ply) and ply.tttc_class_speedmod then
+			ply:RemoveItem("item_ttt_speedrun")
 
-		if timer.Exists(identifier) then
-			if IsValid(ply) and ply.tttc_class_speedmod then
-				ply:RemoveItem("item_ttt_speedrun")
-
-				ply.speedrun_mul = (ply.speedrun_mul or 1) / boost
-			end
-
-			timer.Remove(identifier)
+			ply.speedrun_mul = (ply.speedrun_mul or 1) / BOOST
 		end
-	end)
+
+		timer.Remove(identifier)
+	end
 end
 
 CLASS.AddClass("DAZZLE", {
 	color = Color(255, 242, 109, 255),
+	onClassUnset = DazzleUnset,
 	onDeactivate = CreateDazzleEffect,
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 75,
