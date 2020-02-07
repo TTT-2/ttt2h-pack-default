@@ -4,10 +4,14 @@ if SERVER then
 	util.AddNetworkString("TTTCVendettaTarget")
 end
 
-util.PrecacheSound("heroes/vendetta.wav")
+if CLIENT then
+	hook.Add("Initialize", "tttc_init_vendetta_lang", function()
+		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated", "Vendetta ability enabled! You will be soon revived.")
+		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated_error", "Enabling Vendetta ability failed since you are reviving right now.")
+	end)
+end
 
--- REWORK
--- maybe use this player model "models/player/charple.mdl"
+util.PrecacheSound("heroes/vendetta.wav")
 
 sound.Add({
 	name = "class_vendetta",
@@ -86,7 +90,7 @@ if SERVER then
 		if victim.vendetta and not victim.reviving then
 			victim.vendetta = nil
 
-			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit aktiviert...")
+			LANG.Msg(victim, "tttc_vendetta_ability_activated", nil, MSG_MSTACK_PLAIN)
 
 			-- revive after 5s
 			victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
@@ -108,7 +112,7 @@ if SERVER then
 			false, true, -- there need to be your corpse and you don't prevent win
 			nil)
 		elseif victim.vendetta and victim.reviving then
-			victim:ChatPrint("[TTTC][Vendetta] Fähigkeit nicht aktiviert, da du gerade wiederbelebt wirst...")
+			LANG.Msg(victim, "tttc_vendetta_ability_activated_error", nil, MSG_MSTACK_WARN)
 		end
 	end)
 
