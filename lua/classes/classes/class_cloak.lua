@@ -4,7 +4,7 @@ end
 
 CLASS.AddClass("CLOAK", {
 	color = Color(109, 64, 138, 255),
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if SERVER then
 			ply:DrawWorldModel(false)
 			ply:SetBloodColor(DONT_BLEED)
@@ -23,7 +23,7 @@ CLASS.AddClass("CLOAK", {
 			ply:SetNWBool("disguised", true)
 		end
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if SERVER then
 			ply:DrawWorldModel(true)
 			ply:SetBloodColor(BLOOD_COLOR_RED)

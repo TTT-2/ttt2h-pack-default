@@ -3,12 +3,12 @@ CLASS.AddClass("MIRROR", {
 	items = {
 		"item_ttt_reflectdmg"
 	},
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if SERVER then
 			ply:EmitSound("buttons/blip1.wav", 100, 100, 1, CHAN_AUTO)
 		end
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if SERVER then
 			ply:EmitSound("buttons/blip1.wav", 100, 100, 1, CHAN_AUTO)
 		end

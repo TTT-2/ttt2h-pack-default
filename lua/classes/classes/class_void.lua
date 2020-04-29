@@ -57,8 +57,8 @@ end
 
 CLASS.AddClass("VOID", {
 	color = Color(61, 64, 75, 255),
-	onActivate = ActivateVoid,
-	onDeactivate = DeactivateVoid,
+	OnAbilityActivate = ActivateVoid,
+	OnAbilityDeactivate = DeactivateVoid,
 	charging = 2,
 	time = 3,
 	cooldown = 50,

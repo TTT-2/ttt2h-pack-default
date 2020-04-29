@@ -6,12 +6,12 @@ CLASS.AddClass("RESISTANT", {
 	passiveItems = {
 		"item_ttt_noexplosiondmg"
 	},
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if SERVER then
 			ply:EmitSound("buttons/blip1.wav", 100, 100, 1, CHAN_AUTO)
 		end
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if SERVER then
 			ply:EmitSound("buttons/blip1.wav", 100, 100, 1, CHAN_AUTO)
 		end

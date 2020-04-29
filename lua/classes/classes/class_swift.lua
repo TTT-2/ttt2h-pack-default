@@ -26,13 +26,13 @@ CLASS.AddClass("SWIFT", {
 	passiveItems = {
 		"item_ttt_climb"
 	},
-	onClassSet = function(ply)
+	OnSet = function(ply)
 		ply.swift = true
 	end,
-	onClassUnset = function(ply)
+	OnUnset = function(ply)
 		ply.swift = false
 	end,
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		ply.Grab = true
 		ply.ClimbJumps = 0
 		ply.ClimbPos = ply:GetPos()
@@ -44,14 +44,14 @@ CLASS.AddClass("SWIFT", {
 		ply:SetMoveType(MOVETYPE_NONE)
 		ply:EmitSound(Sound("physics/flesh/flesh_impact_hard" .. math.random(1, 3) .. ".wav"), 75)
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if ply:GetMoveType() == MOVETYPE_NONE then
 			ply:SetMoveType(MOVETYPE_WALK)
 		end
 
 		ply.Grab = false
 	end,
-	checkActivation = function(ply)
+	CheckActivation = function(ply)
 		return ({CanGrab(ply)})[1]
 	end,
 	time = 10,

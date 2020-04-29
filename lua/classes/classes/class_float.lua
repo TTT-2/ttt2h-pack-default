@@ -19,7 +19,7 @@ CLASS.AddClass("FLOAT", {
 	passiveItems = {
 		"item_ttt_glider"
 	},
-	onDeactivate = FloatFunction,
+	OnAbilityDeactivate = FloatFunction,
 	time = 0,
 	cooldown = 30,
 	lang = {

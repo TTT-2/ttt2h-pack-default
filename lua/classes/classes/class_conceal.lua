@@ -40,7 +40,7 @@ end
 
 CLASS.AddClass("CONCEAL", {
 	color = Color(68, 208, 187, 255),
-	onDeactivate = ConcealFunction,
+	OnAbilityDeactivate = ConcealFunction,
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 60,
 	lang = {

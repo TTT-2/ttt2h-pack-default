@@ -54,8 +54,8 @@ end
 
 CLASS.AddClass("CHAOS", {
 	color = Color(255, 76, 0, 255),
-	onActivate = ChaosActivate,
-	onDeactivate = ChaosDeactivate,
+	OnAbilityActivate = ChaosActivate,
+	OnAbilityDeactivate = ChaosDeactivate,
 	time = 5,
 	cooldown = 120,
 	charging = 3,

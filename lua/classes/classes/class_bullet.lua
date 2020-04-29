@@ -2,12 +2,12 @@ local bulletActiveSpeedMul = 2
 
 CLASS.AddClass("BULLET", {
 	color = Color(204, 39, 136, 255),
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if SERVER then
 			ply.speedrun_mul = bulletActiveSpeedMul * (ply.speedrun_mul or 1)
 		end
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if SERVER then
 			ply.speedrun_mul = (ply.speedrun_mul or bulletActiveSpeedMul) / bulletActiveSpeedMul
 		end

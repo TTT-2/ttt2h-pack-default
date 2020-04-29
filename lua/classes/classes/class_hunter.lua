@@ -18,7 +18,7 @@ CLASS.AddClass("HUNTER", {
 	passiveItems = {
 		"item_ttt_nofalldmg"
 	},
-	onDeactivate = HunterFunction,
+	OnAbilityDeactivate = HunterFunction,
 	time = 0,
 	cooldown = 10,
 	lang = {

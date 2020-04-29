@@ -27,8 +27,8 @@ end
 
 CLASS.AddClass("PATRONUS", {
 	color = Color(191, 215, 252, 255),
-	onActivate = PatronusActivate,
-	onDeactivate = PatronusDeactivate,
+	OnAbilityActivate = PatronusActivate,
+	OnAbilityDeactivate = PatronusDeactivate,
 	time = 5,
 	cooldown = 60,
 	avoidWeaponReset = true,

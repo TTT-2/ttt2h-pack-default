@@ -26,10 +26,10 @@ CLASS.AddClass("VENDETTA", {
 	deactivated = true,
 	activeDuringDeath = true,
 	surpressKeepOnRespawn = true,
-	onClassSet = function(ply)
+	OnSet = function(ply)
 		ply.vendetta = true
 	end,
-	onClassUnset = function(ply)
+	OnUnset = function(ply)
 		ply.vendetta = nil
 		ply.vendettaTarget = nil
 	end,

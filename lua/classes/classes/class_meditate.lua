@@ -85,8 +85,8 @@ end)
 
 CLASS.AddClass("MEDITATE", {
 	color = Color(160, 204, 66, 255),
-	onActivate = ActivateMeditate,
-	onDeactivate = DeactivateMeditate,
+	OnAbilityActivate = ActivateMeditate,
+	OnAbilityDeactivate = DeactivateMeditate,
 	endless = true,
 	cooldown = 30,
 	lang = {

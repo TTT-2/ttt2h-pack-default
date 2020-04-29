@@ -20,8 +20,8 @@ end
 
 CLASS.AddClass("PREDATOR", {
 	color = Color(56, 40, 63, 255),
-	onClassUnset = PredatorUnset,
-	onDeactivate = PredatorFunction,
+	OnUnset = PredatorUnset,
+	OnAbilityDeactivate = PredatorFunction,
 	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
 	cooldown = 120,
 	lang = {

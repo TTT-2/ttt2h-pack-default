@@ -4,7 +4,7 @@ local duration = 5
 
 CLASS.AddClass("CLOCKWORK", {
 	color = Color(149, 188, 195, 255),
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if SERVER then
 			ply:EnableSlowMotion2()
 		end

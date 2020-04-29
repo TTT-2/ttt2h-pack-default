@@ -79,10 +79,10 @@ end
 
 CLASS.AddClass("FROST", {
 	color = Color(0, 156, 156, 255),
-	onPrepareActivation = PrepareFrostActivation,
-	onFinishPreparingActivation = FinishFrostPreparing,
-	onActivate = ActivateFrost,
-	onDeactivate = DeactivateFrost,
+	OnStartPrepareAbilityActivation = PrepareFrostActivation,
+	OnFinishPrepareAbilityActivation = FinishFrostPreparing,
+	OnAbilityActivate = ActivateFrost,
+	OnAbilityDeactivate = DeactivateFrost,
 	avoidWeaponReset = true,
 	time = 10,
 	cooldown = 60,

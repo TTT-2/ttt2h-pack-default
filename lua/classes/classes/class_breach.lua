@@ -5,7 +5,7 @@ CLASS.AddClass("BREACH", {
 	},
 	avoidWeaponReset = true,
 	surpressKeepOnRespawn = true,
-	onActivate = function(ply)
+	OnAbilityActivate = function(ply)
 		if not SERVER then return end
 
 		local weps = ply:GetWeapons()
@@ -24,7 +24,7 @@ CLASS.AddClass("BREACH", {
 
 		ply:GiveEquipmentWeapon("weapon_ttt_bulldozer") -- GiveEquipmentWeapon handles giving a weapon like buying it
 	end,
-	onDeactivate = function(ply)
+	OnAbilityDeactivate = function(ply)
 		if not SERVER then return end
 
 		ply:StripWeapon("weapon_ttt_bulldozer")

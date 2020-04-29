@@ -6,7 +6,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_nebula_init", function() 
+	hook.Add("Initialize", "ttt2h_status_nebula_init", function()
 		STATUS:RegisterStatus("ttt2h_status_nebula", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_heal.png"),
 			type = "good"
@@ -40,62 +40,6 @@ local function DeactivateNebula(ply)
 end
 
 local function NebulaFunction(ply)
-	if SERVER then
-		ply.classes_nebula = true
-		ply.classes_nebula_pos = ply:GetPos()
-		ply.classes_nebula_r = 320
-
-		timer.Create("tttc_nebula_" .. ply:EntIndex(), 1, 0, function()
-			local plys = player.GetAll()
-
-			for _, v in ipairs(plys) do
-				if v.classes_nebula_pos then
-					for _, pl in ipairs(plys) do
-						local pos = pl:GetPos()
-						local d = pos:Distance(v.classes_nebula_pos)
-
-						if d <= v.classes_nebula_r then
-							pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
-						end
-					end
-				end
-			end
-		end)
-
-		timer.Create("ttth_nebula_status_" .. ply:EntIndex(), 0.1, 0, function()
-			local plys = player.GetAll()
-
-			for _, v in ipairs(plys) do
-				if v.classes_nebula_pos then
-					for _, pl in ipairs(plys) do
-						local pos = pl:GetPos()
-
-						local last_selected = pl.ttthnebulaselected
-
-						pl.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
-
-						if not last_selected and pl.ttthnebulaselected then
-							STATUS:AddStatus(pl, "ttt2h_status_nebula")
-						elseif last_selected and not pl.ttthnebulaselected then
-							STATUS:RemoveStatus(pl, "ttt2h_status_nebula")
-						end
-					end
-				end
-			end
-		end)
-
-		net.Start("TTTCNebula")
-		net.WriteEntity(ply)
-		net.WriteBool(true)
-		net.Broadcast()
-
-		timer.Create("tttc_neb_end_" .. ply:EntIndex(), 15, 1, function()
-			if IsValid(ply) then
-				DeactivateNebula(ply)
-			end
-		end)
-	end
-
 	-- shared because it is predicted
 	hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_" .. ply:SteamID64(), function(pl, _, _, refTbl)
 		if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
@@ -107,11 +51,67 @@ local function NebulaFunction(ply)
 			refTbl[1] = refTbl[1] * 1.5
 		end
 	end)
+
+	if not SERVER then return end
+
+	ply.classes_nebula = true
+	ply.classes_nebula_pos = ply:GetPos()
+	ply.classes_nebula_r = 320
+
+	timer.Create("tttc_nebula_" .. ply:EntIndex(), 1, 0, function()
+		local plys = player.GetAll()
+
+		for _, v in ipairs(plys) do
+			if v.classes_nebula_pos then
+				for _, pl in ipairs(plys) do
+					local pos = pl:GetPos()
+					local d = pos:Distance(v.classes_nebula_pos)
+
+					if d > v.classes_nebula_r then continue end
+
+					pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
+				end
+			end
+		end
+	end)
+
+	timer.Create("ttth_nebula_status_" .. ply:EntIndex(), 0.1, 0, function()
+		local plys = player.GetAll()
+
+		for _, v in ipairs(plys) do
+			if v.classes_nebula_pos then
+				for _, pl in ipairs(plys) do
+					local pos = pl:GetPos()
+
+					local last_selected = pl.ttthnebulaselected
+
+					pl.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
+
+					if not last_selected and pl.ttthnebulaselected then
+						STATUS:AddStatus(pl, "ttt2h_status_nebula")
+					elseif last_selected and not pl.ttthnebulaselected then
+						STATUS:RemoveStatus(pl, "ttt2h_status_nebula")
+					end
+				end
+			end
+		end
+	end)
+
+	net.Start("TTTCNebula")
+	net.WriteEntity(ply)
+	net.WriteBool(true)
+	net.Broadcast()
+
+	timer.Create("tttc_neb_end_" .. ply:EntIndex(), 15, 1, function()
+		if IsValid(ply) then
+			DeactivateNebula(ply)
+		end
+	end)
 end
 
 CLASS.AddClass("NEBULA", {
 	color = Color(75, 139, 157, 255),
-	onDeactivate = NebulaFunction,
+	OnAbilityDeactivate = NebulaFunction,
 	time = 0,
 	cooldown = 50,
 	lang = {
