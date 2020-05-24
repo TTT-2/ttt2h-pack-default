@@ -21,7 +21,7 @@ local col_wire = Color(0, 255, 255, 100)
 local function PrepareFrostActivation(ply)
 	if CLIENT then
 		hook.Add("PostDrawTranslucentRenderables", "TTTCFrostPreview", function()
-			if LocalPlayer() ~= ply then return end --  nedded?
+			if LocalPlayer() ~= ply then return end
 
 			local et = ply:GetEyeTrace()
 
@@ -38,16 +38,7 @@ local function FinishFrostPreparing(ply)
 end
 
 local function ActivateFrost(ply)
-	if SERVER then
-		ply.frostPos = ply:GetEyeTrace().HitPos
-
-		net.Start("TTTCFrost")
-		net.WriteString(ply:SteamID64())
-		net.WriteBit(true)
-		net.WriteVector(ply.frostPos)
-		net.WriteUInt(frostRad, 32)
-		net.Broadcast()
-	end
+	ply.frostPos = ply:GetEyeTrace().HitPos
 
 	hook.Add("TTTPlayerSpeedModifier", "TTTCFrostSpeed_" .. ply:SteamID64(), function(pl, _, _, refTbl)
 		if not ply.frostPos or pl == ply then return end
@@ -62,19 +53,28 @@ local function ActivateFrost(ply)
 			end
 		end
 	end)
+
+	if not SERVER then return end
+
+	net.Start("TTTCFrost")
+	net.WriteString(ply:SteamID64())
+	net.WriteBit(true)
+	net.WriteVector(ply.frostPos)
+	net.WriteUInt(frostRad, 32)
+	net.Broadcast()
 end
 
 local function DeactivateFrost(ply)
 	local sid = ply:SteamID64()
 
-	if SERVER then
-		net.Start("TTTCFrost")
-		net.WriteString(sid)
-		net.WriteBit(false)
-		net.Broadcast()
-	end
-
 	hook.Remove("TTTPlayerSpeedModifier", "TTTCFrostSpeed_" .. sid)
+
+	if not SERVER then return end
+
+	net.Start("TTTCFrost")
+	net.WriteString(sid)
+	net.WriteBit(false)
+	net.Broadcast()
 end
 
 CLASS.AddClass("FROST", {

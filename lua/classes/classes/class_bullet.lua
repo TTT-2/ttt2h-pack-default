@@ -1,23 +1,17 @@
-local bulletActiveSpeedMul = 2
-
 CLASS.AddClass("BULLET", {
 	color = Color(204, 39, 136, 255),
-	OnAbilityActivate = function(ply)
-		if SERVER then
-			ply.speedrun_mul = bulletActiveSpeedMul * (ply.speedrun_mul or 1)
-		end
-	end,
-	OnAbilityDeactivate = function(ply)
-		if SERVER then
-			ply.speedrun_mul = (ply.speedrun_mul or bulletActiveSpeedMul) / bulletActiveSpeedMul
-		end
-	end,
 	passiveItems = {
 		"item_ttt_speedrun"
 	},
 	avoidWeaponReset = true,
 	time = 2,
 	cooldown = 20,
+	OnAbilityActivate = function(ply)
+		ply.bulletIsAvtive = true
+	end,
+	OnAbilityDeactivate = function(ply)
+		ply.bulletIsAvtive = false
+	end,
 	lang = {
 		name = {
 			English = "Bullet"
@@ -27,3 +21,9 @@ CLASS.AddClass("BULLET", {
 		}
 	}
 })
+
+hook.Add("TTTPlayerSpeedModifier", "TTTCBulletSpeedMod", function(ply, _, _, speedMultiplierModifier)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.BULLET.index or not ply.bulletIsAvtive then return end
+
+	speedMultiplierModifier[1] = speedMultiplierModifier[1] * 2.0
+end)

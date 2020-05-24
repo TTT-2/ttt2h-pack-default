@@ -26,12 +26,6 @@ CLASS.AddClass("SWIFT", {
 	passiveItems = {
 		"item_ttt_climb"
 	},
-	OnSet = function(ply)
-		ply.swift = true
-	end,
-	OnUnset = function(ply)
-		ply.swift = false
-	end,
 	OnAbilityActivate = function(ply)
 		ply.Grab = true
 		ply.ClimbJumps = 0
@@ -76,7 +70,8 @@ hook.Add("Think", "ClimbGrabThink", function()
 	end
 end)
 
-hook.Add("TTT2PlayerSprintMultiplier", "TTTCSwiftSprintMod", function(ply, multiplier)
-	if not ply.swift then return end
-	multiplier[1] = 1.25 * multiplier[1]
+hook.Add("TTTPlayerSpeedModifier", "TTTCSwiftSpeedMod", function(ply, _, _, speedMultiplierModifier)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.SWIFT.index then return end
+
+	speedMultiplierModifier[1] = speedMultiplierModifier[1] * 1.25
 end)

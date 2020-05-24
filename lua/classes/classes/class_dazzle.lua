@@ -3,30 +3,20 @@ local EFFECT_DELAY = 0.5 -- time, in seconds when the effects still are going on
 
 local FLASH_INTENSITY = 2250 --the higher the number, the longer the flash will be whitening your screen
 
-local BOOST = 2 --the initial speed boost after the flash
-
 local function CreateDazzleEffect(ply)
 	local pos = ply:GetPos()
 	local time = CurTime()
 
+	ply.dazzleSpeedRunEndTime = CurTime() + DIETIMER
+
 	if SERVER then
 		ply:EmitSound(Sound("weapons/flashbang/flashbang_explode" .. math.random(1, 2) .. ".wav"))
-		ply:GiveItem("item_ttt_speedrun")
-
-		ply.speedrun_mul = BOOST * (ply.speedrun_mul or 1)
-		ply.tttc_class_speedmod = true
-
-		timer.Create("TTTCDazzleSpeedBoost_" .. ply:SteamID64(), 2, 1, function()
-			if IsValid(ply) and ply.tttc_class_speedmod then
-				ply:RemoveItem("item_ttt_speedrun")
-
-				ply.speedrun_mul = (ply.speedrun_mul or 1) / BOOST
-			end
-		end)
 
 		local plys = player.GetAll()
 
-		for _, target in ipairs(plys) do
+		for i = 1, #plys do
+			local target = plys[i]
+
 			if target ~= ply then
 				local eyeToTarget = (pos - target:EyePos()):GetNormalized() -- Normalized direction to the target
 				local degreeLimit = target:GetFOV() -- FOV
@@ -60,6 +50,7 @@ local function CreateDazzleEffect(ply)
 		end
 	else
 		local beeplight = DynamicLight(ply:EntIndex())
+
 		if beeplight then
 			beeplight.Pos = pos
 			beeplight.r = 255
@@ -73,29 +64,12 @@ local function CreateDazzleEffect(ply)
 	end
 end
 
-local function DazzleUnset(ply)
-	if not SERVER then return end
-
-	local identifier = "TTTCDazzleSpeedBoost_" .. ply:SteamID64()
-
-	if timer.Exists(identifier) then
-		if IsValid(ply) and ply.tttc_class_speedmod then
-			ply:RemoveItem("item_ttt_speedrun")
-
-			ply.speedrun_mul = (ply.speedrun_mul or 1) / BOOST
-		end
-
-		timer.Remove(identifier)
-	end
-end
-
 CLASS.AddClass("DAZZLE", {
 	color = Color(255, 242, 109, 255),
-	OnUnset = DazzleUnset,
 	OnAbilityDeactivate = CreateDazzleEffect,
-	time = 0, -- skip timer, this will skip onActivate too! Use onDeactivate instead
+	time = 0, -- skip timer, this will skip OnAbilityActivate too! Use OnAbilityDeactivate instead
 	cooldown = 75,
-	charging = 2, -- TODO why 1 s doesn't work
+	charging = 2,
 	lang = {
 		name = {
 			English = "Dazzle"
@@ -137,7 +111,6 @@ if CLIENT then
 		local pl = LocalPlayer()
 		local time = CurTime()
 		local e = pl:GetNWFloat("RCS_ftime") + EFFECT_DELAY -- when it dies away
-		--local s = pl:GetNWFloat("RCS_ftime_start") -- when it started
 
 		if e > time and e - EFFECT_DELAY - time <= DIETIMER then
 			local pf = 1 - (time - (e - DIETIMER)) / DIETIMER
@@ -151,3 +124,11 @@ if CLIENT then
 	end
 	hook.Add("RenderScreenspaceEffects", "SimulateBlur_CS", SimulateBlur_CS)
 end
+
+hook.Add("TTTPlayerSpeedModifier", "TTTCDazzleSpeedMod", function(ply, _, _, speedMultiplierModifier)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.DAZZLE.index
+		or not ply.dazzleSpeedRunEndTime or CurTime() > ply.dazzleSpeedRunEndTime
+	then return end
+
+	speedMultiplierModifier[1] = speedMultiplierModifier[1] * 3.0
+end)

@@ -152,9 +152,8 @@ else
 	end)
 end
 
--- shared because this is predicted
-hook.Add("TTTPlayerSpeedModifier", "HeroVendettaModifySpeed", function(ply, _, _, refTbl)
-	if not IsValid(ply) or not ply:Alive() or not ply:IsTerror() or not ply.vendettaTarget then return end
+hook.Add("TTTPlayerSpeedModifier", "TTTCVendettaSpeedMod", function(ply, _, _, speedMultiplierModifier)
+	if ply:GetCustomClass() ~= CLASS.CLASSES.VENDETTA.index or not IsValid(ply.vendettaTarget) then return end
 
-	refTbl[1] = refTbl[1] * 2
+	speedMultiplierModifier[1] = speedMultiplierModifier[1] * 2.0
 end)
