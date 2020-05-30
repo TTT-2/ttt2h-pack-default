@@ -8,6 +8,8 @@ if CLIENT then
 	hook.Add("Initialize", "tttc_init_vendetta_lang", function()
 		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated", "Vendetta ability enabled! You will be soon revived.")
 		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated_error", "Enabling Vendetta ability failed since you are reviving right now.")
+		LANG.AddToLanguage("English", "tttc_vendetta_revival_nick", "You were killed by {name}. Use your knife to revenge yourself!")
+		LANG.AddToLanguage("English", "tttc_vendetta_revival", "You died. Use your knife to take someone with you!")
 	end)
 end
 
@@ -93,24 +95,32 @@ if SERVER then
 			LANG.Msg(victim, "tttc_vendetta_ability_activated", nil, MSG_MSTACK_PLAIN)
 
 			-- revive after 5s
-			victim:Revive(5, function(p) -- this is a TTT2 function that will handle everything else
-				p:EmitSound("class_vendetta", 70)
-				p:StripWeapons()
-				p:Give("weapon_ttt_tigers")
+			victim:Revive(5,
+				function(p)
+					p:EmitSound("class_vendetta", 70)
+					p:StripWeapons()
+					p:Give("weapon_ttt_tigers")
 
-				p.vendettaRevived = CurTime()
+					p.vendettaRevived = CurTime()
 
-				local target = IsValid(attacker) and attacker or victim
+					local target = IsValid(attacker) and attacker or victim
 
-				if IsValid(target) then
+					if not IsValid(target) then return end
+
 					p.vendettaTarget = target
 
 					SendVendettaTarget(p, target)
-				end
-			end,
-			nil,
-			false, true, -- there need to be your corpse and you don't prevent win
-			nil)
+				end,
+				nil,
+				false, -- doesn't need a corpse
+				true -- does block the round
+			)
+
+			if IsValid(attacker) and attacker ~= victim then
+				victim:SendRevivalReason("tttc_vendetta_revival_nick", {name = attacker:Nick()})
+			else
+				victim:SendRevivalReason("tttc_vendetta_revival")
+			end
 		elseif victim.vendetta and victim.reviving then
 			LANG.Msg(victim, "tttc_vendetta_ability_activated_error", nil, MSG_MSTACK_WARN)
 		end
