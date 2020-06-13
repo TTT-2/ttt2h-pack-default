@@ -33,7 +33,6 @@ CLASS.AddClass("VENDETTA", {
 	end,
 	OnUnset = function(ply)
 		ply.vendetta = nil
-		ply.vendettaTarget = nil
 	end,
 	lang = {
 		name = {
@@ -163,7 +162,7 @@ else
 end
 
 hook.Add("TTTPlayerSpeedModifier", "TTTCVendettaSpeedMod", function(ply, _, _, speedMultiplierModifier)
-	if ply:GetCustomClass() ~= CLASS.CLASSES.VENDETTA.index or not IsValid(ply.vendettaTarget) then return end
+	if not IsValid(ply.vendettaTarget) then return end
 
 	speedMultiplierModifier[1] = speedMultiplierModifier[1] * 2.0
 end)
