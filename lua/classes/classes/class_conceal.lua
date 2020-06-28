@@ -1,4 +1,6 @@
 local function ConcealFunction(ply)
+	if not SERVER then return end
+
 	-- Traces a line from the players shoot position to 100 units
 	local pos = ply:GetShootPos()
 	local ang = ply:GetAimVector()
