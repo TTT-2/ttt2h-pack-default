@@ -3,7 +3,7 @@ if SERVER then
 end
 
 local function PredatorFunction(ply)
-	if not SERVER then return end
+	if CLIENT then return end
 
 	-- Traces a line from the players shoot position to 100 units
 	local trace = ply:GetEyeTrace()
