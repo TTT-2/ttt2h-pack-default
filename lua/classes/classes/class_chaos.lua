@@ -65,7 +65,7 @@ CLASS.AddClass("CHAOS", {
 			English = "Chaos"
 		},
 		desc = {
-			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of his ability. He has no passive ability."
+			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of their ability. They have no passive ability."
 		}
 	}
 })

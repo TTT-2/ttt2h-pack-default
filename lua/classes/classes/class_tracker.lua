@@ -11,7 +11,7 @@ CLASS.AddClass("TRACKER", {
 			English = "Tracker"
 		},
 		desc = {
-			English = "The Tracker is able to use a wallhack for 10 seconds once every 75 seconds. He has no passive ability."
+			English = "The Tracker is able to use a wallhack for 10 seconds once every 75 seconds. They have no passive ability."
 		}
 	}
 })

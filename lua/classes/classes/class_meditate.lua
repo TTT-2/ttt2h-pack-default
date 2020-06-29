@@ -94,7 +94,7 @@ CLASS.AddClass("MEDITATE", {
 			English = "Meditate"
 		},
 		desc = {
-			English = "The Meditate can use his ability to heal himself. While he's in the healing process, he can't move. He has no passive ability."
+			English = "The Meditate can use their ability to heal himself. While they are in the healing process, they can't move. They have no passive ability."
 		}
 	}
 })

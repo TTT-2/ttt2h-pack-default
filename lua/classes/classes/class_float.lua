@@ -27,7 +27,7 @@ CLASS.AddClass("FLOAT", {
 			English = "Float"
 		},
 		desc = {
-			English = "The Float slowly glides to the ground and therefore never receives any falldamage. Activating his ability propulses him into the sky only to slowly glide back to the ground."
+			English = "The Float slowly glides to the ground and therefore never receives any falldamage. Activating their ability propulses them into the sky only to slowly glide back to the ground."
 		}
 	}
 })

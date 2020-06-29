@@ -26,7 +26,7 @@ CLASS.AddClass("HUNTER", {
 			English = "Hunter"
 		},
 		desc = {
-			English = "The Hunter doesn't receive any falldamage. By using his ability, he performs a huge jump in his viewing direction."
+			English = "The Hunter does not receive any falldamage. By using their ability, they performs a huge jump in their viewing direction."
 		}
 	}
 })

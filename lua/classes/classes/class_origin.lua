@@ -41,7 +41,7 @@ CLASS.AddClass("ORIGIN", {
 			English = "Origin"
 		},
 		desc = {
-			English = "The Origin is able to teleport himself back to the mapspawn once every minute. He has no passive ability."
+			English = "The Origin is able to teleport themselves back to the mapspawn once every minute. They have no passive ability."
 		}
 	}
 })

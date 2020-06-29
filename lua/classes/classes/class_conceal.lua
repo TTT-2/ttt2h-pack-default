@@ -50,7 +50,7 @@ CLASS.AddClass("CONCEAL", {
 			English = "Conceal"
 		},
 		desc = {
-			English = "The Conceal is able to remove corpses from the map. As an Innocent he receives a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yield him 10 HP instead. He has no passive ability."
+			English = "The Conceal is able to remove corpses from the map. As an Innocent they receive a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yields them 10 HP instead. They have no passive ability."
 		}
 	}
 })

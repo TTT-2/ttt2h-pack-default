@@ -75,7 +75,7 @@ CLASS.AddClass("DAZZLE", {
 			English = "Dazzle"
 		},
 		desc = {
-			English = "The Dazzle can blind his opponents by firing a flashbang. This flashbang affects everyone on the map looking into his broad direction. After firing the flashbang, he receives a short speedboost. He has no passive ability."
+			English = "The Dazzle can blind their opponents by firing a flashbang. This flashbang affects everyone on the map looking into their broad direction. After firing the flashbang, they receive a short speedboost. They have no passive ability."
 		}
 	}
 })

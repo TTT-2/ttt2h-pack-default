@@ -21,7 +21,7 @@ CLASS.AddClass("MIRROR", {
 			English = "Mirror"
 		},
 		desc = {
-			English = "The Mirror is able to block and reflect all incoming damage for three seconds once every minute. He has no passive ability."
+			English = "The Mirror is able to block and reflect all incoming damage for 3 seconds once every minute. They have no passive ability."
 		}
 	}
 })
