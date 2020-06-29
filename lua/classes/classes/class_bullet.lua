@@ -17,7 +17,7 @@ CLASS.AddClass("BULLET", {
 			English = "Bullet"
 		},
 		desc = {
-			English = "The Bullet already walks quite a bit faster than the other players. But on activation of his ability, he receives a mear speedboost."
+			English = "The Bullet already walks quite a bit faster than other players. But on activation of his ability, he receives a short, but even greater, speedbost."
 		}
 	}
 })

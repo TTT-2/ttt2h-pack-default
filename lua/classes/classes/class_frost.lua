@@ -91,7 +91,7 @@ CLASS.AddClass("FROST", {
 			English = "Frost"
 		},
 		desc = {
-			English = "The Frost can spawn a frozen sphere of ice. Every player inside this sphere has limited sight and walks really slow. He has no passive ability."
+			English = "The Frost can spawn a sphere made out of ice. Every player inside this sphere has limited sight and walks really slow. He has no passive ability."
 		}
 	}
 })
