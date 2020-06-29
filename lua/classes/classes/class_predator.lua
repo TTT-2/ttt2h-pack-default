@@ -53,7 +53,7 @@ if CLIENT then
 	net.Receive("tttc_predator_sync_target", function()
 		local client = LocalPlayer()
 		local target = net.ReadEntity()
-		if not IsValid(target) or not client:GetCustomClass() ~= CLASS.CLASSES.PREDATOR.index then return end
+		if not IsValid(target) or client:GetCustomClass() ~= CLASS.CLASSES.PREDATOR.index then return end
 
 		client.predatorTarget = target
 	end)
