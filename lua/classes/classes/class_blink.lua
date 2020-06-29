@@ -13,7 +13,7 @@ CLASS.AddClass("BLINK", { -- should be called in InitializeHook to be able to us
 			English = "Blink"
 		},
 		desc = {
-			English = "The Blink does not receive any falldamage. Additionally, they can use his blink item for 30 seconds every 45 seconds."
+			English = "The Blink does not receive any falldamage. Additionally, they can use their blink item for 30 seconds every 45 seconds."
 		}
 	}
 })
