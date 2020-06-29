@@ -119,7 +119,7 @@ CLASS.AddClass("NEBULA", {
 			English = "Nebula"
 		},
 		desc = {
-			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players staying inside. He also receives a small speed boost inside his mist. He has no passive ability."
+			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players staying inside. They also receive a small speed boost inside their mist. They have no passive ability."
 		}
 	}
 })

@@ -46,7 +46,7 @@ CLASS.AddClass("CLOAK", {
 			English = "Cloak"
 		},
 		desc = {
-			English = "The Cloak is able to turn fully invisible for five seconds by activating his ability. He has no passive ability."
+			English = "The Cloak is able to turn fully invisible for five seconds by activating their ability. They have no passive ability."
 		}
 	}
 })

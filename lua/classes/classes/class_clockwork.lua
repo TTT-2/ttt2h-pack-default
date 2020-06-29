@@ -24,7 +24,7 @@ CLASS.AddClass("CLOCKWORK", {
 			English = "Clockwork"
 		},
 		desc = {
-			English = "The weapons of the clockwork have a faster shooting speed than they would normally have. Additionally, he is able to slow down the time for 3 seconds once every 45 seconds."
+			English = "The weapons of the clockwork have a faster shooting speed than they would normally have. Additionally, they are able to slow down the time for 3 seconds once every 45 seconds."
 		}
 	}
 })

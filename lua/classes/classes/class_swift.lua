@@ -56,7 +56,7 @@ CLASS.AddClass("SWIFT", {
 			English = "Swift"
 		},
 		desc = {
-			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally, he can climb on walls while looking at them. On activation of his ability, he can hold himself to the wall for 10 seconds."
+			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally, they can climb on walls while looking at them. On activation of their ability, they can hold themselves to the wall for 10 seconds."
 		}
 	}
 })

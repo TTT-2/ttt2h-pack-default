@@ -39,7 +39,7 @@ CLASS.AddClass("VENDETTA", {
 			English = "Vendetta"
 		},
 		desc = {
-			English = "The Vendetta plays with his life. After being killed, he will respawn with a knife to revenge himself! He has no active ability."
+			English = "The Vendetta plays with their life. After being killed, they will respawn with a knife to revenge themselves! They have no active ability."
 		}
 	}
 })

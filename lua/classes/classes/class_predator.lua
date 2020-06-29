@@ -35,7 +35,7 @@ CLASS.AddClass("PREDATOR", {
 			English = "Predator"
 		},
 		desc = {
-			English = "The Predator is able to track one player thrugh the wall every 2 minutes by using his ability while focusing the player. He has no passive ability."
+			English = "The Predator is able to track one player thrugh the wall every 2 minutes by using their ability while focusing the player. They have no passive ability."
 		}
 	}
 })
