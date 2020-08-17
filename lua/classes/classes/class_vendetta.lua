@@ -115,7 +115,7 @@ if SERVER then
 				true -- does block the round
 			)
 
-			if IsValid(attacker) and attacker ~= victim then
+			if IsValid(attacker) and attacker ~= victim and isfunction(attacker.Nick) then
 				victim:SendRevivalReason("tttc_vendetta_revival_nick", {name = attacker:Nick()})
 			else
 				victim:SendRevivalReason("tttc_vendetta_revival")
