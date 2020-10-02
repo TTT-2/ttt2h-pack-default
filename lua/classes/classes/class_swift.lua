@@ -53,10 +53,12 @@ CLASS.AddClass("SWIFT", {
 	avoidWeaponReset = true,
 	lang = {
 		name = {
-			English = "Swift"
+			English = "Swift",
+			Русский = "Свифт"
 		},
 		desc = {
-			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally, they can climb on walls while looking at them. On activation of their ability, they can hold themselves to the wall for 10 seconds."
+			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally, they can climb on walls while looking at them. On activation of their ability, they can hold themselves to the wall for 10 seconds.",
+			Русский = "Свифт не получает урона от падения и бегает немного быстрее, чем обычные игроки. Кроме того, он может лазить по стенам, глядя на них. При активации способности он может удерживаться у стены в течение 10 секунд."
 		}
 	}
 })

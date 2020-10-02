@@ -88,10 +88,12 @@ CLASS.AddClass("FROST", {
 	cooldown = 60,
 	lang = {
 		name = {
-			English = "Frost"
+			English = "Frost",
+			Русский = "Заморозок"
 		},
 		desc = {
-			English = "The Frost can spawn a sphere made out of ice. Every player inside this sphere has limited sight and walks really slow. They have no passive ability."
+			English = "The Frost can spawn a sphere made out of ice. Every player inside this sphere has limited sight and walks really slow. They have no passive ability.",
+			Русский = "Заморозок может создать сферу, сделанную изо льда. Каждый игрок внутри этой сферы имеет ограниченное поле зрения и ходит очень медленно. У него нет пассивных способностей."
 		}
 	}
 })

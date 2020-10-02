@@ -21,10 +21,12 @@ CLASS.AddClass("CLOCKWORK", {
 	avoidWeaponReset = true,
 	lang = {
 		name = {
-			English = "Clockwork"
+			English = "Clockwork",
+			Русский = "Часовой"
 		},
 		desc = {
-			English = "The weapons of the clockwork have a faster shooting speed than they would normally have. Additionally, they are able to slow down the time for 3 seconds once every 45 seconds."
+			English = "The weapons of the clockwork have a faster shooting speed than they would normally have. Additionally, they are able to slow down the time for 3 seconds once every 45 seconds.",
+			Русский = "Оружие часового имеет более высокую скорость стрельбы, чем обычно. Кроме того, он может замедлять время на 3 секунды каждые 45 секунд."
 		}
 	}
 })

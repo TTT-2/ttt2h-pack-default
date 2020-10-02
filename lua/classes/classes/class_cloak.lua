@@ -43,10 +43,12 @@ CLASS.AddClass("CLOAK", {
 	cooldown = 45,
 	lang = {
 		name = {
-			English = "Cloak"
+			English = "Cloak",
+			Русский = "Невидимка"
 		},
 		desc = {
-			English = "The Cloak is able to turn fully invisible for five seconds by activating their ability. They have no passive ability."
+			English = "The Cloak is able to turn fully invisible for five seconds by activating their ability. They have no passive ability.",
+			Русский = "Невидимка может стать полностью невидимым на пять секунд, активировав свою способность. У него нет пассивных способностей."
 		}
 	}
 })
