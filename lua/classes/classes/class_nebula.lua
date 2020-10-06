@@ -116,10 +116,12 @@ CLASS.AddClass("NEBULA", {
 	cooldown = 50,
 	lang = {
 		name = {
-			English = "Nebula"
+			English = "Nebula",
+			Русский = "Туманность"
 		},
 		desc = {
-			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players staying inside. They also receive a small speed boost inside their mist. They have no passive ability."
+			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players staying inside. They also receive a small speed boost inside their mist. They have no passive ability.",
+			Русский = "Туманность способна создавать огромные облака. Эти облака имеют дополнительное преимущество, создавая эффект медленного восстановления здоровья для всех игроков, находящихся внутри. Она также получает небольшой прирост скорости в своем тумане. У неё нет пассивных способностей."
 		}
 	}
 })

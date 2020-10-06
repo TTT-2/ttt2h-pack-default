@@ -14,10 +14,12 @@ CLASS.AddClass("BULLET", {
 	end,
 	lang = {
 		name = {
-			English = "Bullet"
+			English = "Bullet",
+			Русский = "Пуля"
 		},
 		desc = {
-			English = "The Bullet already walks quite a bit faster than other players. But on activation of their ability, they receives a short, but even greater, speedbost."
+			English = "The Bullet already walks quite a bit faster than other players. But on activation of their ability, they receives a short, but even greater, speedboost.",
+			Русский = "Пуля уже ходит немного быстрее, чем другие игроки. Но при активации способности она получает короткое, но ещё более сильное усиление скорости."
 		}
 	}
 })

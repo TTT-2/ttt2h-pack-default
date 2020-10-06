@@ -62,10 +62,12 @@ CLASS.AddClass("CHAOS", {
 	avoidWeaponReset = true,
 	lang = {
 		name = {
-			English = "Chaos"
+			English = "Chaos",
+			Русский = "Хаос"
 		},
 		desc = {
-			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of their ability. They have no passive ability."
+			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of their ability. They have no passive ability.",
+			Русский = "Хаос может переключать элементы управления других игроков на пять секунд после активации его способности. У него нет пассивных способностей."
 		}
 	}
 })

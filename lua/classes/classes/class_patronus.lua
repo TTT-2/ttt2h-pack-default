@@ -34,10 +34,12 @@ CLASS.AddClass("PATRONUS", {
 	avoidWeaponReset = true,
 	lang = {
 		name = {
-			English = "Patronus"
+			English = "Patronus",
+			Русский = "Патронус"
 		},
 		desc = {
-			English = "The Patronus can spawn a shield for 5 seconds once every minute. They have no passive ability."
+			English = "The Patronus can spawn a shield for 5 seconds once every minute. They have no passive ability.",
+			Русский = "Патронус может создавать щит на 5 секунд каждую минуту. У него нет пассивных способностей."
 		}
 	}
 })

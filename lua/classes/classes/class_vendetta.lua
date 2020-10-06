@@ -10,6 +10,11 @@ if CLIENT then
 		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated_error", "Enabling Vendetta ability failed since you are reviving right now.")
 		LANG.AddToLanguage("English", "tttc_vendetta_revival_nick", "You were killed by {name}. Use your knife to revenge yourself!")
 		LANG.AddToLanguage("English", "tttc_vendetta_revival", "You died. Use your knife to take someone with you!")
+
+		LANG.AddToLanguage("Русский", "tttc_vendetta_ability_activated", "Способность вендетты активирована! Вы скоро воскреснете.")
+		LANG.AddToLanguage("Русский", "tttc_vendetta_ability_activated_error", "Не удалось активировать способность вендетты, так как вы сейчас возрождаетесь.")
+		LANG.AddToLanguage("Русский", "tttc_vendetta_revival_nick", "Вы были убиты игроком {name}. Используйте свой нож, чтобы отомстить!")
+		LANG.AddToLanguage("Русский", "tttc_vendetta_revival", "Вы умерли. Используйте свой нож, чтобы взять кого-нибудь с собой!")
 	end)
 end
 
@@ -36,10 +41,12 @@ CLASS.AddClass("VENDETTA", {
 	end,
 	lang = {
 		name = {
-			English = "Vendetta"
+			English = "Vendetta",
+			Русский = "Вендетта"
 		},
 		desc = {
-			English = "The Vendetta plays with their life. After being killed, they will respawn with a knife to revenge themselves! They have no active ability."
+			English = "The Vendetta plays with their life. After being killed, they will respawn with a knife to revenge themselves! They have no active ability.",
+			Русский = "Вендетта играет с своей жизнью. После убийства она возродится с ножом, чтобы отомстить! У неё нет активных способностей."
 		}
 	}
 })

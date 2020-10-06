@@ -51,7 +51,8 @@ CLASS.AddClass("BREACH", {
 			English = "Breach"
 		},
 		desc = {
-			English = "The Breach always wears some body armor. Once and only once they can activate their ability, granting them 50 more health and a heavy shotgun to blast himself through the world!"
+			English = "The Breach always wears some body armor. Once and only once they can activate their ability, granting them 50 more health and a heavy shotgun to blast himself through the world!",
+			Русский = "Breach всегда носит бронежилет. Один и только один раз он может активировать свою способность, давая ему на 50 больше здоровья и тяжёлый дробовик, чтобы прорваться через весь мир!"
 		}
 	}
 })
