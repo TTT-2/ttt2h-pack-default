@@ -92,7 +92,7 @@ CLASS.AddClass("MEDITATE", {
 	lang = {
 		name = {
 			English = "Meditate",
-			French = "Le Méditant",	
+			French = "Méditant",	
 			Русский = "Медитант"
 		},
 		desc = {
