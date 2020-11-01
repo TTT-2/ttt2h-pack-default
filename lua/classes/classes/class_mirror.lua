@@ -24,7 +24,7 @@ CLASS.AddClass("MIRROR", {
 		},
 		desc = {
 			English = "The Mirror is able to block and reflect all incoming damage for 3 seconds once every minute. They have no passive ability.",
-			French = "Le Miroir est capable de bloquer et de refléter tous les dégâts pendant 3 secondes une fois par minute. Il n'a pas de capacité passive",	
+			French = "Le Miroir est capable de bloquer et de refléter tous les dégâts pendant 3 secondes une fois par minute. Il n'a pas de capacité passive.",	
 			Русский = "Зеркальный способен блокировать и отражать весь входящий урон в течение 3 секунд каждую минуту. У него нет пассивных способностей."
 		}
 	}
