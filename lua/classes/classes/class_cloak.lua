@@ -44,12 +44,12 @@ CLASS.AddClass("CLOAK", {
 	lang = {
 		name = {
 			English = "Cloak",
-			French = "L'Invisible",	
+			French = "Invisible",	
 			Русский = "Невидимка"
 		},
 		desc = {
 			English = "The Cloak is able to turn fully invisible for five seconds by activating their ability. They have no passive ability.",
-			French = "La cape est capable de vous rendre totalement invisible pendant cinq secondes en activant la capacité. Il n'a pas de capacité passive.",	
+			French = "La cape vous permet de vous rendre totalement invisible pendant cinq secondes en activant la capacité. Il n'a pas de capacité passive.",	
 			Русский = "Невидимка может стать полностью невидимым на пять секунд, активировав свою способность. У него нет пассивных способностей."
 		}
 	}
