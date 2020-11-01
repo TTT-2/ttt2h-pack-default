@@ -48,10 +48,12 @@ CLASS.AddClass("BREACH", {
 	amount = 1,
 	lang = {
 		name = {
-			English = "Breach"
+			English = "Breach",
+			French = "Breach"	
 		},
 		desc = {
 			English = "The Breach always wears some body armor. Once and only once they can activate their ability, granting them 50 more health and a heavy shotgun to blast himself through the world!",
+			French = "The Breach porte toujours un gilet pare-balles. Une fois et seulement une fois, il peut activer sa capacité, ce qui lui donne 50 points de vie supplémentaires et un fusil a pompe  pour  exploser ce beau monde!",	
 			Русский = "Breach всегда носит бронежилет. Один и только один раз он может активировать свою способность, давая ему на 50 больше здоровья и тяжёлый дробовик, чтобы прорваться через весь мир!"
 		}
 	}
