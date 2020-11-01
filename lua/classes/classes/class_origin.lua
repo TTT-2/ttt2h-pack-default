@@ -39,7 +39,7 @@ CLASS.AddClass("ORIGIN", {
 	lang = {
 		name = {
 			English = "Origin",
-			French = "L'origine",	
+			French = "Origine",	
 			Русский = "Ориджин"
 		},
 		desc = {
