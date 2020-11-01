@@ -25,10 +25,12 @@ CLASS.AddClass("FLOAT", {
 	lang = {
 		name = {
 			English = "Float",
+			French = "Flotteur",	
 			Русский = "Поплавок"
 		},
 		desc = {
 			English = "The Float slowly glides to the ground and therefore never receives any falldamage. Activating their ability propulses them into the sky only to slowly glide back to the ground.",
+			French = "Le Flotteur glisse lentement vers le sol et ne subit donc jamais de dégâts de chute. L'activation de sa capacité le propulse dans le ciel pour ensuite retomber lentement au sol",	
 			Русский = "Поплавок медленно скользит к земле и поэтому никогда не получает урона от падения. Активация его способности толкает его в небо только для того, чтобы медленно скользить обратно на землю."
 		}
 	}
