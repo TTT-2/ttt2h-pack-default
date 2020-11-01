@@ -54,10 +54,12 @@ CLASS.AddClass("SWIFT", {
 	lang = {
 		name = {
 			English = "Swift",
+			French = "Agile",	
 			Русский = "Свифт"
 		},
 		desc = {
 			English = "The Swift receives no falldamage and runs slightly faster than normal players. Additionally, they can climb on walls while looking at them. On activation of their ability, they can hold themselves to the wall for 10 seconds.",
+			French = "L'Agile ne subit aucun dégât de chute et court un peu plus vite que les joueurs normaux. De plus, il peut grimper sur les murs pendant qu'il les regarde. Lorsqu'il active sa capacité, il peut se tenir au mur pendant 10 secondes.",	
 			Русский = "Свифт не получает урона от падения и бегает немного быстрее, чем обычные игроки. Кроме того, он может лазить по стенам, глядя на них. При активации способности он может удерживаться у стены в течение 10 секунд."
 		}
 	}
