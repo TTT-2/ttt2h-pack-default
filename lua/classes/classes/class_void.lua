@@ -71,7 +71,7 @@ CLASS.AddClass("VOID", {
 		},
 		desc = {
 			English = "The Void is able to darken the sight of all non-void players for 3 seconds once every 50 seconds. They have no passive ability.",
-			French = "Le néant est capable d'obscurcir la vue de tous les joueurs qui n'ont pas de néant pendant 3 secondes toutes les 50 secondes. Ils n'ont pas de capacité passive.",	
+			French = "Le néant est capable d'obscurcir la vue de tous les joueurs qui n'ont pas de néant pendant 3 secondes toutes les 50 secondes. Il n'a pas de capacité passive.",	
 			Русский = "Пустота способна затемнять взгляд всех игроков, не обладающих пустотой, на 3 секунды каждые 50 секунд. У неё нет пассивных способностей."
 		}
 	}
