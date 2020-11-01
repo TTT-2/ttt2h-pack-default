@@ -73,7 +73,7 @@ CLASS.AddClass("DAZZLE", {
 	lang = {
 		name = {
 			English = "Dazzle",
-			French = "L'Éblouisseur",	
+			French = "Éblouisseur",	
 			Русский = "Даззл"
 		},
 		desc = {
