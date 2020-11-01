@@ -63,10 +63,12 @@ CLASS.AddClass("CHAOS", {
 	lang = {
 		name = {
 			English = "Chaos",
+			French = "Chaos",	
 			Русский = "Хаос"
 		},
 		desc = {
 			English = "The Chaos is able to flip the controls of the other players for five seconds on activation of their ability. They have no passive ability.",
+			French = "Le Chaos est peut inverser les commandes des autres joueurs pendant cinq secondes. Il n'a pas de capacité passive.",	
 			Русский = "Хаос может переключать элементы управления других игроков на пять секунд после активации его способности. У него нет пассивных способностей."
 		}
 	}
