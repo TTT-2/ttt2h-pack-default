@@ -32,14 +32,14 @@ CLASS.AddClass("PREDATOR", {
 	cooldown = 120,
 	lang = {
 		name = {
-			English = "Predator",
-			French = "Prédateur",	
-			Русский = "Хищник"
+			en = "Predator",
+			fr = "Prédateur",
+			ru = "Хищник"
 		},
 		desc = {
-			English = "The Predator is able to track one player through the wall every 2 minutes by using their ability while focusing the player. They have no passive ability.",
-			French = "Le Prédateur peut suivre un joueur à travers les murs toutes les 2 minutes en utilisant sa capacité à le cibler. Il n'a pas de capacité passive.",	
-			Русский = "Хищник может отслеживать одного игрока через стену каждые 2 минуты, используя свои способности при фокусировке игрока. У него нет пассивных способностей."
+			en = "The Predator is able to track one player through the wall every 2 minutes by using their ability while focusing the player. They have no passive ability.",
+			fr = "Le Prédateur peut suivre un joueur à travers les murs toutes les 2 minutes en utilisant sa capacité à le cibler. Il n'a pas de capacité passive.",
+			ru = "Хищник может отслеживать одного игрока через стену каждые 2 минуты, используя свои способности при фокусировке игрока. У него нет пассивных способностей."
 		}
 	}
 })

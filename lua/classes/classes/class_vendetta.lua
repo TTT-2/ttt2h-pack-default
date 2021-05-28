@@ -46,14 +46,14 @@ CLASS.AddClass("VENDETTA", {
 	end,
 	lang = {
 		name = {
-			English = "Vendetta",
-			French = "Vengeance",	
-			Русский = "Вендетта"
+			en = "Vendetta",
+			fr = "Vengeance",
+			ru = "Вендетта"
 		},
 		desc = {
-			English = "The Vendetta plays with their life. After being killed, they will respawn with a knife to revenge themselves! They have no active ability.",
-			French = "La Vengeance se joue avec sa propre vie. Après avoir été tués, il va renaître avec un couteau pour se venger! Il n'a aucune capacité active.",	
-			Русский = "Вендетта играет с своей жизнью. После убийства она возродится с ножом, чтобы отомстить! У неё нет активных способностей."
+			en = "The Vendetta plays with their life. After being killed, they will respawn with a knife to revenge themselves! They have no active ability.",
+			fr = "La Vengeance se joue avec sa propre vie. Après avoir été tués, il va renaître avec un couteau pour se venger! Il n'a aucune capacité active.",
+			ru = "Вендетта играет с своей жизнью. После убийства она возродится с ножом, чтобы отомстить! У неё нет активных способностей."
 		}
 	}
 })

@@ -72,14 +72,14 @@ CLASS.AddClass("DAZZLE", {
 	charging = 2,
 	lang = {
 		name = {
-			English = "Dazzle",
-			French = "Éblouisseur",	
-			Русский = "Даззл"
+			en = "Dazzle",
+			fr = "Éblouisseur",
+			ru = "Даззл"
 		},
 		desc = {
-			English = "The Dazzle can blind their opponents by firing a flashbang. This flashbang affects everyone on the map looking into their broad direction. After firing the flashbang, they receive a short speedboost. They have no passive ability.",
-			French = "L'Éblouisseur peut aveugler les adversaires en tirant une grenade flash. Ce flash affecte tous ceux qui  regardent dans la direction du flash. Après avoir déclenché le flash, il reçoit un petit bonus de vitesse. Il n'a aucune capacité passive.",	
-			Русский = "Даззл может ослепить своих противников, выпустив светошумовую гранату. Эта световая граната поражает всех на карте, смотрящих в их сторону. После запуска светошумовой гранаты он получает кратковременное ускорение. У него нет пассивных способностей."
+			en = "The Dazzle can blind their opponents by firing a flashbang. This flashbang affects everyone on the map looking into their broad direction. After firing the flashbang, they receive a short speedboost. They have no passive ability.",
+			fr = "L'Éblouisseur peut aveugler les adversaires en tirant une grenade flash. Ce flash affecte tous ceux qui  regardent dans la direction du flash. Après avoir déclenché le flash, il reçoit un petit bonus de vitesse. Il n'a aucune capacité passive.",
+			ru = "Даззл может ослепить своих противников, выпустив светошумовую гранату. Эта световая граната поражает всех на карте, смотрящих в их сторону. После запуска светошумовой гранаты он получает кратковременное ускорение. У него нет пассивных способностей."
 		}
 	}
 })

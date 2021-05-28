@@ -47,14 +47,14 @@ CLASS.AddClass("CONCEAL", {
 	cooldown = 60,
 	lang = {
 		name = {
-			English = "Conceal",
-			French = "Dissimulateur",	
-			Русский = "Скрыватель"
+			en = "Conceal",
+			fr = "Dissimulateur",
+			ru = "Скрыватель"
 		},
 		desc = {
-			English = "The Conceal is able to remove corpses from the map. As an Innocent they receive a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yields them 10 HP instead. They have no passive ability.",
-			French = "Le Dissimulateur est capable de retirer les cadavres sur la carte. En retirant le cadavre d'un innocent, il reçoit une tenue de traitre. En retirant le cadavre d'un traitre, il obtient 10 PV. Il n'a aucune capacité passive.",	
-			Русский = "Скрыватель может убирать трупы с карты. За невиновного он получает Т-чемодан, удалив труп зла. Удаление трупов злым игроком вместо этого даёт ему 10 ОЗ. У него нет пассивных способностей."
+			en = "The Conceal is able to remove corpses from the map. As an Innocent they receive a T-Suitcase by removing an evil corpse. Removing corpses as an evil player yields them 10 HP instead. They have no passive ability.",
+			fr = "Le Dissimulateur est capable de retirer les cadavres sur la carte. En retirant le cadavre d'un innocent, il reçoit une tenue de traitre. En retirant le cadavre d'un traitre, il obtient 10 PV. Il n'a aucune capacité passive.",
+			ru = "Скрыватель может убирать трупы с карты. За невиновного он получает Т-чемодан, удалив труп зла. Удаление трупов злым игроком вместо этого даёт ему 10 ОЗ. У него нет пассивных способностей."
 		}
 	}
 })

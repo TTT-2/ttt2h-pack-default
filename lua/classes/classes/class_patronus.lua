@@ -34,14 +34,14 @@ CLASS.AddClass("PATRONUS", {
 	avoidWeaponReset = true,
 	lang = {
 		name = {
-			English = "Patronus",
-			French = "Patronus",	
-			Русский = "Патронус"
+			en = "Patronus",
+			fr = "Patronus",
+			ru = "Патронус"
 		},
 		desc = {
-			English = "The Patronus can spawn a shield for 5 seconds once every minute. They have no passive ability.",
-			French = "Le Patronus peut faire apparaître un bouclier pendant 5 secondes une fois par minute. Il n'a pas de capacité passive.",	
-			Русский = "Патронус может создавать щит на 5 секунд каждую минуту. У него нет пассивных способностей."
+			en = "The Patronus can spawn a shield for 5 seconds once every minute. They have no passive ability.",
+			fr = "Le Patronus peut faire apparaître un bouclier pendant 5 secondes une fois par minute. Il n'a pas de capacité passive.",
+			ru = "Патронус может создавать щит на 5 секунд каждую минуту. У него нет пассивных способностей."
 		}
 	}
 })
