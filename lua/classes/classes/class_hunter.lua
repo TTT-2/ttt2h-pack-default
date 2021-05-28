@@ -24,10 +24,12 @@ CLASS.AddClass("HUNTER", {
 	lang = {
 		name = {
 			English = "Hunter",
+			French = "Chasseur",	
 			Русский = "Охотник"
 		},
 		desc = {
 			English = "The Hunter does not receive any falldamage. By using their ability, they performs a huge jump in their viewing direction.",
+			French = "Le Chasseur ne subit aucun dégât de chute. En utilisant sa capacité, il effectue un énorme saut dans la direction de son regard.",	
 			Русский = "Охотник не получает урона от падения. Используя свои способности, он совершает огромный прыжок в направлении своего взгляда."
 		}
 	}

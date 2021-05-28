@@ -117,10 +117,12 @@ CLASS.AddClass("NEBULA", {
 	lang = {
 		name = {
 			English = "Nebula",
+			French = "Nébuleux",	
 			Русский = "Туманность"
 		},
 		desc = {
 			English = "The Nebula is able to spawn huge clouds. These clouds have the added benefit of creating a slow health regen effect for all players staying inside. They also receive a small speed boost inside their mist. They have no passive ability.",
+			French = "Le Nébuleux est capable de produire d'énormes nuages. Ces nuages ont l'avantage de créer une zone de régénération de santé pour tous les joueurs qui restent à l'intérieur. Ils reçoivent également un petit boost de vitesse à l'intérieur du brouillard. Il n'a aucune capacité passive.",	
 			Русский = "Туманность способна создавать огромные облака. Эти облака имеют дополнительное преимущество, создавая эффект медленного восстановления здоровья для всех игроков, находящихся внутри. Она также получает небольшой прирост скорости в своем тумане. У неё нет пассивных способностей."
 		}
 	}

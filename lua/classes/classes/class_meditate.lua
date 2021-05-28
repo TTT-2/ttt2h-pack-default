@@ -92,10 +92,12 @@ CLASS.AddClass("MEDITATE", {
 	lang = {
 		name = {
 			English = "Meditate",
+			French = "Méditant",	
 			Русский = "Медитант"
 		},
 		desc = {
 			English = "The Meditate can use their ability to heal himself. While they are in the healing process, they can't move. They have no passive ability.",
+			French = "Le Méditant peut utiliser sa capacité pour se soigner. Pendant le processus de guérison, il ne peut pas bouger. Il n'a pas de capacité passive.",	
 			Русский = "Медитант может использовать свои способности, чтобы исцелить себя. Пока он находится в процессе заживления, он не может двигаться. У него нет пассивных способностей."
 		}
 	}

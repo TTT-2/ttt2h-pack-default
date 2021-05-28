@@ -15,10 +15,12 @@ CLASS.AddClass("BULLET", {
 	lang = {
 		name = {
 			English = "Bullet",
+			French = "Bullet",	
 			Русский = "Пуля"
 		},
 		desc = {
 			English = "The Bullet already walks quite a bit faster than other players. But on activation of their ability, they receives a short, but even greater, speedboost.",
+			French = "The Bullet marche un peu plus vite que les autres joueurs. Mais à l'activation de sa capacité, il reçoit pendant une courte durée un gros boost de vitesse.",	
 			Русский = "Пуля уже ходит немного быстрее, чем другие игроки. Но при активации способности она получает короткое, но ещё более сильное усиление скорости."
 		}
 	}
