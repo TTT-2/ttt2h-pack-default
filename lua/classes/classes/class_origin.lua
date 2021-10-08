@@ -1,33 +1,12 @@
-local backup_spawns = {}
-
 local function OriginFunction(ply)
-	if SERVER then
-		local spawns = {}
+	if CLIENT then return end
 
-		spawns = table.Add(spawns, ents.FindByClass("info_player_start"))
-		spawns = table.Add(spawns, ents.FindByClass("info_player_deathmatch"))
-		spawns = table.Add(spawns, ents.FindByClass("info_player_combine"))
-		spawns = table.Add(spawns, ents.FindByClass("info_player_rebel"))
+	local spawnPoint = plyspawn.GetRandomSafePlayerSpawnPoint(ply)
 
-		-- CS Maps
-		spawns = table.Add(spawns, ents.FindByClass("info_player_counterterrorist"))
-		spawns = table.Add(spawns, ents.FindByClass("info_player_terrorist"))
+	if not spawnPoint then return end
 
-		-- DOD Maps
-		spawns = table.Add(spawns, ents.FindByClass("info_player_axis"))
-		spawns = table.Add(spawns, ents.FindByClass("info_player_allies"))
-
-		-- (Old) GMod Maps
-		spawns = table.Add(spawns, ents.FindByClass("gmod_player_start"))
-
-		if spawns and #spawns > 0 then
-			ply:SetPos(spawns[math.random(1, #spawns)]:GetPos())
-		elseif backup_spawns and #backup_spawns > 0 then
-			ply:SetPos(backup_spawns[math.random(1, #backup_spawns)])
-		else
-			ply:ChatPrint("We are sorry, but this map doesn't have any position you could teleport to. :(")
-		end
-	end
+	ply:SetPos(spawnPoint.pos)
+	ply:SetAngles(spawnPoint.ang)
 end
 
 CLASS.AddClass("ORIGIN", {
@@ -49,15 +28,3 @@ CLASS.AddClass("ORIGIN", {
 		}
 	}
 })
-
-if SERVER then
-	hook.Add("TTTPrepareRound", "TTTCOriginFindSpawn", function()
-		table.Empty(backup_spawns)
-
-		local plys = player.GetAll()
-
-		for _, v in ipairs(plys) do
-			table.insert(backup_spawns, v:GetPos())
-		end
-	end)
-end
