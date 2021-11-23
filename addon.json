@@ -1,0 +1,12 @@
+{
+	"title"		:	"ROLE",
+	"type"		:	"ServerContent",
+    "tags"		:	[ "roleplay", "fun" ],
+    "ignore"    : [
+        ".git/*",
+        ".gitignore",
+		".gitattributes",
+		"LICENSE",
+        "README.md"
+    ]
+}

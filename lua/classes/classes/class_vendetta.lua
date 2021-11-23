@@ -4,25 +4,6 @@ if SERVER then
 	util.AddNetworkString("TTTCVendettaTarget")
 end
 
-if CLIENT then
-	hook.Add("Initialize", "tttc_init_vendetta_lang", function()
-		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated", "Vendetta ability enabled! You will be soon revived.")
-		LANG.AddToLanguage("English", "tttc_vendetta_ability_activated_error", "Enabling Vendetta ability failed since you are reviving right now.")
-		LANG.AddToLanguage("English", "tttc_vendetta_revival_nick", "You were killed by {name}. Use your knife to revenge yourself!")
-		LANG.AddToLanguage("English", "tttc_vendetta_revival", "You died. Use your knife to take someone with you!")
-			
-		LANG.AddToLanguage("French", "tttc_vendetta_ability_activated", "Capacité Vengeance activée! Vous serez bientôt réanimés.")
-		LANG.AddToLanguage("French", "tttc_vendetta_ability_activated_error", "L'activation de la capacité Vengeance a échoué puisque vous êtes déjà ressuscité.")
-		LANG.AddToLanguage("French", "tttc_vendetta_revival_nick", "Vous avez été tué par {name}. Utilisez votre couteau pour vous venger!")
-		LANG.AddToLanguage("French", "tttc_vendetta_revival", "Vous êtes mort. Utilisez votre couteau pour emmener quelqu'un avec vous!")
-
-		LANG.AddToLanguage("Русский", "tttc_vendetta_ability_activated", "Способность вендетты активирована! Вы скоро воскреснете.")
-		LANG.AddToLanguage("Русский", "tttc_vendetta_ability_activated_error", "Не удалось активировать способность вендетты, так как вы сейчас возрождаетесь.")
-		LANG.AddToLanguage("Русский", "tttc_vendetta_revival_nick", "Вы были убиты игроком {name}. Используйте свой нож, чтобы отомстить!")
-		LANG.AddToLanguage("Русский", "tttc_vendetta_revival", "Вы умерли. Используйте свой нож, чтобы взять кого-нибудь с собой!")
-	end)
-end
-
 util.PrecacheSound("heroes/vendetta.wav")
 
 sound.Add({

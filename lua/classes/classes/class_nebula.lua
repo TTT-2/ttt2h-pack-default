@@ -69,7 +69,7 @@ local function NebulaFunction(ply)
 
 					if d > v.classes_nebula_r then continue end
 
-					-- only change the health if health is below max	
+					-- only change the health if health is below max
 					if pl:Health() >= pl:GetMaxHealth() then continue end
 
 					pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
