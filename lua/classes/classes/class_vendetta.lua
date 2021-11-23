@@ -107,7 +107,7 @@ if SERVER then
 				end,
 				nil,
 				false, -- doesn't need a corpse
-				true -- does block the round
+				REVIVAL_BLOCK_AS_ALIVE
 			)
 
 			if IsValid(attacker) and attacker ~= victim and isfunction(attacker.Nick) then
