@@ -1,3 +1,6 @@
+local nebulaRadius = 320 -- ca. 5m (64 * 5)
+local nebulaDuration = 20
+
 if SERVER then
 	resource.AddFile("materials/vgui/ttt/heroes/status/hud_icon_heal.png")
 
@@ -14,16 +17,12 @@ if CLIENT then
 	end)
 end
 
-local function DeactivateNebula(ply)
+local function NebulaDeactivateFunction(ply)
 	if SERVER then
 		ply.classes_nebula = nil
 
 		if timer.Exists("tttc_nebula_" .. ply:EntIndex()) then
 			timer.Remove("tttc_nebula_" .. ply:EntIndex())
-		end
-
-		if timer.Exists("ttth_nebula_status_" .. ply:EntIndex()) then
-			timer.Remove("ttth_nebula_status_" .. ply:EntIndex())
 		end
 
 		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
@@ -34,12 +33,27 @@ local function DeactivateNebula(ply)
 		net.WriteEntity(ply)
 		net.WriteBool(false)
 		net.Broadcast()
+
+		local plys = player.GetAll()
+
+		-- clear the status from all (normal) players
+		for i = 1, #plys do
+			local plyNormal = plys[i]
+
+			if not plyNormal.hasNebulaEffect then continue end
+
+			plyNormal.hasNebulaEffect = false
+
+			STATUS:RemoveStatus(plyNormal, "ttt2h_status_nebula")
+		end
 	end
 
 	hook.Remove("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_" .. ply:SteamID64())
 end
 
-local function NebulaFunction(ply)
+local timeNextHeal = 0
+
+local function NebulaActivateFunction(ply)
 	-- shared because it is predicted
 	hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_" .. ply:SteamID64(), function(pl, _, _, refTbl)
 		if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
@@ -52,49 +66,42 @@ local function NebulaFunction(ply)
 		end
 	end)
 
-	if not SERVER then return end
+	if CLIENT then return end
 
 	ply.classes_nebula = true
-	ply.classes_nebula_pos = ply:GetPos()
-	ply.classes_nebula_r = 320
+	ply.classes_nebula_pos = ply:GetPos() + ply:OBBCenter()
+	ply.classes_nebula_r = nebulaRadius
 
-	timer.Create("tttc_nebula_" .. ply:EntIndex(), 1, 0, function()
+	timer.Create("tttc_nebula_" .. ply:EntIndex(), 0.05, 0, function()
 		local plys = player.GetAll()
 
-		for _, v in ipairs(plys) do
-			if v.classes_nebula_pos then
-				for _, pl in ipairs(plys) do
-					local pos = pl:GetPos()
-					local d = pos:Distance(v.classes_nebula_pos)
+		for i = 1, #plys do
+			local plyNebula = plys[i]
 
-					if d > v.classes_nebula_r then continue end
+			-- only continue if a nebula player is in round
+			if not plyNebula.classes_nebula then continue end
 
-					-- only change the health if health is below max
-					if pl:Health() >= pl:GetMaxHealth() then continue end
+			for j = 1, #plys do
+				local plyHealed = plys[j]
 
-					pl:SetHealth(math.min(pl:Health() + 2, pl:GetMaxHealth()))
+				local distance = (plyHealed:GetPos() + plyHealed:OBBCenter()):Distance(plyNebula.classes_nebula_pos)
+				local hadNebulaEffect = plyHealed.hasNebulaEffect
+
+				if not hadNebulaEffect and distance <= plyNebula.classes_nebula_r then
+					plyHealed.hasNebulaEffect = true
+
+					STATUS:AddStatus(plyHealed, "ttt2h_status_nebula")
+				elseif hadNebulaEffect and distance > plyNebula.classes_nebula_r then
+					plyHealed.hasNebulaEffect = false
+
+					STATUS:RemoveStatus(plyHealed, "ttt2h_status_nebula")
 				end
-			end
-		end
-	end)
 
-	timer.Create("ttth_nebula_status_" .. ply:EntIndex(), 0.1, 0, function()
-		local plys = player.GetAll()
+				-- increase health
+				if distance <= plyNebula.classes_nebula_r and CurTime() > timeNextHeal then
+					plyHealed:SetHealth(math.min(plyHealed:Health() + 1, plyHealed:GetMaxHealth()))
 
-		for _, v in ipairs(plys) do
-			if v.classes_nebula_pos then
-				for _, pl in ipairs(plys) do
-					local pos = pl:GetPos()
-
-					local last_selected = pl.ttthnebulaselected
-
-					pl.ttthnebulaselected = pos:Distance(v.classes_nebula_pos) <= v.classes_nebula_r
-
-					if not last_selected and pl.ttthnebulaselected then
-						STATUS:AddStatus(pl, "ttt2h_status_nebula")
-					elseif last_selected and not pl.ttthnebulaselected then
-						STATUS:RemoveStatus(pl, "ttt2h_status_nebula")
-					end
+					timeNextHeal = CurTime() + 0.5
 				end
 			end
 		end
@@ -114,9 +121,10 @@ end
 
 CLASS.AddClass("NEBULA", {
 	color = Color(75, 139, 157, 255),
-	OnAbilityDeactivate = NebulaFunction,
-	time = 0,
-	cooldown = 50,
+	OnAbilityActivate = NebulaActivateFunction,
+	OnAbilityDeactivate = NebulaDeactivateFunction,
+	time = nebulaDuration,
+	cooldown = 40,
 	lang = {
 		name = {
 			en = "Nebula",
@@ -137,7 +145,7 @@ if SERVER then
 
 		for _, v in ipairs(plys) do
 			if v.classes_nebula then
-				DeactivateNebula(v)
+				NebulaDeactivateFunction(v)
 			end
 		end
 	end)
@@ -147,7 +155,7 @@ if SERVER then
 
 		for _, ply in ipairs(plys) do
 			if ply.classes_nebula then
-				DeactivateNebula(ply)
+				NebulaDeactivateFunction(ply)
 			end
 		end
 	end)
@@ -165,7 +173,7 @@ else
 			if bool then
 				local center = ply:GetPos()
 				local em = ParticleEmitter(center)
-				local r = 320 -- ca. 5m (64 * 5)
+				local r = nebulaRadius
 
 				ply.classes_nebula_pos = center
 				ply.classes_nebula_r = r
@@ -184,7 +192,7 @@ else
 						p:SetVelocity(VectorRand() * math.Rand(900, 1300))
 						p:SetLifeTime(0)
 
-						p:SetDieTime(15)
+						p:SetDieTime(nebulaDuration)
 
 						p:SetStartSize(math.random(140, 150))
 						p:SetEndSize(math.random(1, 40))
@@ -213,8 +221,6 @@ else
 					ply.classes_nebula_pos = nil
 					ply.classes_nebula_r = nil
 				end
-
-				STATUS:RemoveStatus("ttt2h_status_nebula")
 			end
 		end
 	end)
