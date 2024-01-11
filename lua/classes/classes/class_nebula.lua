@@ -1,4 +1,4 @@
-local nebulaRadius = 320 -- ca. 5m (64 * 5)
+local nebulaRadius = 350
 local nebulaDuration = 20
 
 if SERVER then
@@ -9,7 +9,7 @@ end
 
 -- register status effect icon
 if CLIENT then
-	hook.Add("Initialize", "ttt2h_status_nebula_init", function()
+	hook.Add("TTT2FinishedLoading", "ttt2h_status_nebula_init", function()
 		STATUS:RegisterStatus("ttt2h_status_nebula", {
 			hud = Material("vgui/ttt/heroes/status/hud_icon_heal.png"),
 			type = "good"
@@ -17,7 +17,31 @@ if CLIENT then
 	end)
 end
 
+local function NebulaResetAll()
+	local plys = player.GetAll()
+
+	-- clear the status from all (normal) players
+	for i = 1, #plys do
+		local ply = plys[i]
+
+		if ply.classes_nebula and SERVER then
+			net.Start("TTTCNebula")
+			net.WriteEntity(ply)
+			net.WriteBool(false)
+			net.Broadcast()
+		end
+
+		if not ply.hasNebulaEffect then continue end
+
+		ply.hasNebulaEffect = false
+
+		STATUS:RemoveStatus(ply, "ttt2h_status_nebula")
+	end
+end
+
 local function NebulaDeactivateFunction(ply)
+	NebulaResetAll()
+
 	if SERVER then
 		ply.classes_nebula = nil
 
@@ -27,24 +51,6 @@ local function NebulaDeactivateFunction(ply)
 
 		if timer.Exists("tttc_neb_end_" .. ply:EntIndex()) then
 			timer.Remove("tttc_neb_end_" .. ply:EntIndex())
-		end
-
-		net.Start("TTTCNebula")
-		net.WriteEntity(ply)
-		net.WriteBool(false)
-		net.Broadcast()
-
-		local plys = player.GetAll()
-
-		-- clear the status from all (normal) players
-		for i = 1, #plys do
-			local plyNormal = plys[i]
-
-			if not plyNormal.hasNebulaEffect then continue end
-
-			plyNormal.hasNebulaEffect = false
-
-			STATUS:RemoveStatus(plyNormal, "ttt2h_status_nebula")
 		end
 	end
 
@@ -58,7 +64,7 @@ local function NebulaActivateFunction(ply)
 	hook.Add("TTTPlayerSpeedModifier", "TTTCNebulaSpeed_" .. ply:SteamID64(), function(pl, _, _, refTbl)
 		if pl ~= ply or not ply.classes_nebula_pos or not ply.classes_nebula_r then return end
 
-		local pos = pl:GetPos()
+		local pos = pl:GetPos() + pl:OBBCenter()
 		local d = pos:Distance(ply.classes_nebula_pos)
 
 		if d <= ply.classes_nebula_r then
@@ -111,12 +117,6 @@ local function NebulaActivateFunction(ply)
 	net.WriteEntity(ply)
 	net.WriteBool(true)
 	net.Broadcast()
-
-	timer.Create("tttc_neb_end_" .. ply:EntIndex(), 15, 1, function()
-		if IsValid(ply) then
-			DeactivateNebula(ply)
-		end
-	end)
 end
 
 CLASS.AddClass("NEBULA", {
@@ -125,6 +125,7 @@ CLASS.AddClass("NEBULA", {
 	OnAbilityDeactivate = NebulaDeactivateFunction,
 	time = nebulaDuration,
 	cooldown = 40,
+	avoidWeaponReset = true,
 	lang = {
 		name = {
 			en = "Nebula",
@@ -140,24 +141,16 @@ CLASS.AddClass("NEBULA", {
 })
 
 if SERVER then
-	hook.Add("TTTPrepareRound", "TTTCDeactivateNebula", function()
-		local plys = player.GetAll()
-
-		for _, v in ipairs(plys) do
-			if v.classes_nebula then
-				NebulaDeactivateFunction(v)
-			end
-		end
+	hook.Add("TTTPrepareRound", "TTTCDeactivateNebulaPrep", function()
+		NebulaResetAll()
 	end)
 
-	hook.Add("TTTEndRound", "TTTCDeactivateNebula", function()
-		local plys = player.GetAll()
+	hook.Add("TTTEndRound", "TTTCDeactivateNebulaEnd", function()
+		NebulaResetAll()
+	end)
 
-		for _, ply in ipairs(plys) do
-			if ply.classes_nebula then
-				NebulaDeactivateFunction(ply)
-			end
-		end
+	hook.Add("TTT2FinishedLoading", "TTTCDeactivateNebulaReload", function()
+		NebulaResetAll()
 	end)
 else
 	local smokeparticles = {
@@ -169,58 +162,58 @@ else
 		local ply = net.ReadEntity()
 		local bool = net.ReadBool()
 
-		if IsValid(ply) then
-			if bool then
-				local center = ply:GetPos()
-				local em = ParticleEmitter(center)
-				local r = nebulaRadius
+		if not IsValid(ply) then return end
 
-				ply.classes_nebula_pos = center
-				ply.classes_nebula_r = r
+		if bool then
+			local center = ply:GetPos() + ply:OBBCenter()
+			local em = ParticleEmitter(center)
+			local r = nebulaRadius - 40 -- make radius a bit smaller due to the particle size
 
-				for i = 1, 200 do
-					local prpos = VectorRand() * r
-					prpos.z = prpos.z + 332
-					prpos.z = math.min(prpos.z, 52)
+			ply.classes_nebula_pos = center
+			ply.classes_nebula_r = r
 
-					local p = em:Add(table.Random(smokeparticles), center + prpos)
-					if p then
-						local gray = math.random(75, 200)
-						p:SetColor(gray, gray, gray)
-						p:SetStartAlpha(255)
-						p:SetEndAlpha(200)
-						p:SetVelocity(VectorRand() * math.Rand(900, 1300))
-						p:SetLifeTime(0)
+			for i = 1, 250 do
+				local prpos = VectorRand() * r
+				prpos.z = prpos.z + 332
+				prpos.z = math.min(prpos.z, 52)
 
-						p:SetDieTime(nebulaDuration)
+				local p = em:Add(table.Random(smokeparticles), center + prpos)
+				if p then
+					local gray = math.random(180, 255)
+					p:SetColor(gray, gray, gray)
+					p:SetStartAlpha(210)
+					p:SetEndAlpha(5)
+					p:SetVelocity(VectorRand() * math.Rand(900, 1300))
+					p:SetLifeTime(0)
 
-						p:SetStartSize(math.random(140, 150))
-						p:SetEndSize(math.random(1, 40))
-						p:SetRoll(math.random(-180, 180))
-						p:SetRollDelta(math.Rand(-0.1, 0.1))
-						p:SetAirResistance(600)
+					p:SetDieTime(nebulaDuration + 5)
 
-						p:SetCollide(true)
-						p:SetBounce(0.4)
+					p:SetStartSize(math.random(140, 150))
+					p:SetEndSize(math.random(15, 30))
+					p:SetRoll(math.random(-180, 180))
+					p:SetRollDelta(math.Rand(-0.1, 0.1))
+					p:SetAirResistance(600)
 
-						p:SetLighting(false)
-					end
+					p:SetCollide(true)
+					p:SetBounce(0.4)
 
-					ply.classes_nebula_p = ply.classes_nebula_p or {}
-					ply.classes_nebula_p[#ply.classes_nebula_p + 1] = p
+					p:SetLighting(false)
 				end
 
-				em:Finish()
-			else
-				if ply.classes_nebula_p then
-					for _, v in ipairs(ply.classes_nebula_p) do
-						v:SetDieTime(-1)
-					end
+				ply.classes_nebula_p = ply.classes_nebula_p or {}
+				ply.classes_nebula_p[#ply.classes_nebula_p + 1] = p
+			end
 
-					ply.classes_nebula_p = nil
-					ply.classes_nebula_pos = nil
-					ply.classes_nebula_r = nil
+			em:Finish()
+		else
+			if ply.classes_nebula_p then
+				for _, v in ipairs(ply.classes_nebula_p) do
+					v:SetDieTime(-1)
 				end
+
+				ply.classes_nebula_p = nil
+				ply.classes_nebula_pos = nil
+				ply.classes_nebula_r = nil
 			end
 		end
 	end)
