@@ -95,6 +95,12 @@ if SERVER then
 					p:StripWeapons()
 					p:Give("weapon_ttt_tigers")
 
+					-- don't allow dropping knife
+					local wep = p:GetWeapon("weapon_ttt_tigers")
+					if IsValid(wep) then
+						wep.AllowDrop = false
+					end
+
 					p.vendettaRevived = CurTime()
 
 					local target = IsValid(attacker) and attacker or victim
