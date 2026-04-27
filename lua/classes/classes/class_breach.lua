@@ -23,6 +23,19 @@ CLASS.AddClass("BREACH", {
 		end
 
 		ply:GiveEquipmentWeapon("weapon_ttt_bulldozer") -- GiveEquipmentWeapon handles giving a weapon like buying it
+
+		-- don't allow dropping bulldozer
+		local wep = ply:GetWeapon("weapon_ttt_bulldozer")
+		if IsValid(wep) then
+			wep.AllowDrop = false
+		end
+
+		-- select bulldozer
+		timer.Simple(0.1, function()
+			if IsValid(ply) then
+				ply:SelectWeapon("weapon_ttt_bulldozer")
+			end
+		end)
 	end,
 	OnAbilityDeactivate = function(ply)
 		if not SERVER then return end
