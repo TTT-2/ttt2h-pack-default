@@ -20,9 +20,9 @@ local function ConcealFunction(ply)
 			local team = target.was_team
 
 			if role ~= ROLE_ZOMBIE then
-				if team ~= TEAM_INNOCENT and ply:HasTeam(TEAM_INNOCENT) then
+				if team ~= TEAM_INNOCENT and ply:GetTeam() == TEAM_INNOCENT then
 					ply:Give("weapon_ttt_traitor_case")
-				elseif team == TEAM_INNOCENT and not ply:HasTeam(TEAM_INNOCENT) then
+				elseif team == TEAM_INNOCENT and ply:GetTeam() ~= TEAM_INNOCENT then
 					local maxHealth = ply:GetMaxHealth() + 10
 					local newHealth = ply:Health() + 10
 
