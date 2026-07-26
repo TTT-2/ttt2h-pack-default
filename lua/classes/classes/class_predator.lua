@@ -49,7 +49,7 @@ if CLIENT then
 		local client = LocalPlayer()
 		local target = client.predatorTarget
 
-		if not IsValid(target) or not target:IsActive() then return end
+		if not IsValid(target) or not target:IsPlayer() or not target.IsActive or not target:IsActive() then return end
 
 		outline.Add(target, Color(255, 50, 50))
 	end)
